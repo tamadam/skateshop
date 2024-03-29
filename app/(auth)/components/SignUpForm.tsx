@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Input from "./Input";
 import { SignUpFormFields, signUpFormSchema } from "@/app/validationSchemas";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
   const {
@@ -14,8 +15,28 @@ const SignUpForm = () => {
     resolver: zodResolver(signUpFormSchema),
   });
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<SignUpFormFields> = async (data) => {
-    console.log(data);
+    const response = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      }),
+    });
+
+    if (response.ok) {
+      router.push("/login");
+    } else {
+      console.error("Registration failed");
+    }
   };
 
   return (
