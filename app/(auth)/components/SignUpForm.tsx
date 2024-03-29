@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Input from "./Input";
 import { SignUpFormFields, signUpFormSchema } from "@/app/validationSchemas";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const SignUpForm = () => {
   const {
@@ -33,7 +34,12 @@ const SignUpForm = () => {
     });
 
     if (response.ok) {
-      router.push("/login");
+      await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: true,
+        callbackUrl: "/",
+      });
     } else {
       console.error("Registration failed");
     }
