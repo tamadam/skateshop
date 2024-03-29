@@ -35,11 +35,13 @@ export const authOptions: NextAuthOptions = {
                 throw new Error("Invalid email or password");
             }
 
+            
             return {
                 id: `${user.id}`,
                 email: user.email,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                role: user.role
             };
           }
         })
@@ -52,6 +54,32 @@ export const authOptions: NextAuthOptions = {
         signIn: "/login",
     },
     secret: process.env.NEXTAUTH_SECRET,
+    callbacks: {
+        async session({ session, user, token }) {
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    firstName: token.firstName,
+                    lastName: token.lastName,
+                    role: token.role
+                }
+            }
+        },
+
+        async jwt({ token, user}) {
+
+            if (user) {
+                return {
+                    ...token,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    role: user.role
+                };
+            }
+            return token;
+        }
+    }
   }
   
 
