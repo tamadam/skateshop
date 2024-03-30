@@ -1,0 +1,82 @@
+:root {
+    --screen-max-width: 1600px;
+    --dft-bg-clr: #000000;
+    --arrow-btn-bg-clr: #EA0174;
+  
+    /* FONT SIZES */
+    --fs-xl: clamp(2rem, 4vw + 1rem, 3.4rem);
+    --fs-l: clamp(1.8rem, 2vw + 1rem, 2.2rem);
+    --fs-m: 1.4rem;
+    --fs-s: 1.25rem;
+    --fs-xs: 1rem;
+
+    /* FONT WEIGHTS */
+    --fw-xl: 900;
+    --fw-m: 600;
+    --fw-s: 400;
+
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  
+    background-color: var(--dft-bg-clr);
+    color-scheme: light dark;
+    color: #ffffff;
+  
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;    
+}
+
+/* BASIC CSS RESET */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font: inherit;
+}
+
+body {
+    min-height: 100svh;
+}
+
+img, picture, svg, video {
+    display: block;
+    max-width: 100%;
+}
+
+input, textarea, button, select {
+    font: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :has(:target) {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (min-width: 640px) {
+    :root {
+      --fs-s: 1.4rem;
+      --fs-m: 1.6rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    :root {
+        --fs-xs: 1.125rem;
+    }
+}
+  
