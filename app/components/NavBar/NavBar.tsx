@@ -1,19 +1,21 @@
-import "./NavBar.css";
 import { Libre_Franklin } from "next/font/google";
+import styles from "./NavBar.module.css";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
 const NavBar = () => {
   return (
-    <nav className="navbar-outer-wrapper">
-      <div className="navbar-inner-wrapper">
-        <div className="navbar-title-container">
-          <h1 className={`${libre.className} navbar-title`}>Skate Shop</h1>
-          <h3 className={`${libre.className} navbar-subtitle`}>
+    <nav className={styles.navbarOuterWrapper}>
+      <div className={styles.navbarInnerWrapper}>
+        <div className={styles.navbarTitleContainer}>
+          <h1 className={`${libre.className} ${styles.navbarTitle}`}>
+            Skate Shop
+          </h1>
+          <h3 className={`${libre.className} ${styles.navbarSubtitle}`}>
             Your skateboard supplier
           </h3>
         </div>
-        <ul className={`${libre.className} navbar-items-container`}>
+        <ul className={`${libre.className} ${styles.navbarItemsContainer}`}>
           <li>Streetwear</li>
           <li>Shoes</li>
           <li>Skate</li>

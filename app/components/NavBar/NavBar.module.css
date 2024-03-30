@@ -1,4 +1,4 @@
-.navbar-outer-wrapper {
+.navbarOuterWrapper {
     --navbar-height: 5em;
     --navbar-padding-inline: 1.2rem;
     --navbar-dft-bg: rgba(0, 0, 0, .9);
@@ -15,7 +15,7 @@
     background: var(--navbar-lin-bg);
 }
 
-.navbar-inner-wrapper {
+.navbarInnerWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,7 +25,7 @@
     padding-inline: var(--navbar-padding-inline);
 }
 
-.navbar-title {
+.navbarTitle {
     background: var(--navbar-dft-fnt-clr);
     background: var(--navbar-lin-fnt-clr);
     background-clip: text;
@@ -36,14 +36,14 @@
     font-size: var(--fs-l);
 }
 
-.navbar-subtitle {
+.navbarSubtitle {
     text-transform: uppercase;
     word-spacing: 1px;
     font-weight: var(--fw-m);
     font-size: var(--fs-xs);
 }
 
-.navbar-items-container {
+.navbarItemsContainer {
     display: flex;
     gap: 1em;
     text-transform: uppercase;
@@ -52,15 +52,15 @@
 }
 
 @media (max-width: 860px) {
-    .navbar-inner-wrapper {
+    .navbarInnerWrapper{
         justify-content: center;
     }
 
-    .navbar-title {
+    .navbarTitle {
         margin-inline: auto;
     }
 
-    .navbar-items-container {
+    .navbarItemsContainer {
         display: none;
     }
 }
