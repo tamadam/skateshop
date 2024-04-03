@@ -1,9 +1,15 @@
 import { Libre_Franklin } from "next/font/google";
 import styles from "./NavBar.module.css";
+import Link from "next/link";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import SignOut from "@/app/(auth)/components/SignOut";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
-const NavBar = () => {
+const NavBar = async () => {
+  const session = await getServerSession(authOptions);
+
   return (
     <nav className={styles.navbarOuterWrapper}>
       <div className={styles.navbarInnerWrapper}>
@@ -16,11 +22,16 @@ const NavBar = () => {
           </h3>
         </div>
         <ul className={`${libre.className} ${styles.navbarItemsContainer}`}>
-          <li>Streetwear</li>
-          <li>Shoes</li>
-          <li>Skate</li>
+          <li>Skateboards</li>
+          <li>Clothes</li>
           <li>Accessories</li>
-          <li>CART</li>
+          {/* tmp */}
+          <li>
+            <Link href="/admin">ADMIN</Link>
+          </li>
+          <li>{session ? <SignOut /> : <Link href="/login">Login</Link>}</li>
+
+          {/* <li>CART</li> */}
           <li>ACC</li>
         </ul>
       </div>

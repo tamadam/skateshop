@@ -33,6 +33,7 @@ const SignInForm = () => {
       }
 
       router.push("/");
+      router.refresh();
     } catch (error) {
       console.log("Something went wrong");
     }
