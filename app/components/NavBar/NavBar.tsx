@@ -4,6 +4,7 @@ import Link from "next/link";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import SignOut from "@/app/(auth)/components/SignOut";
+import { ROLES } from "@prisma/client";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
@@ -27,7 +28,9 @@ const NavBar = async () => {
           <li>Accessories</li>
           {/* tmp */}
           <li>
-            <Link href="/admin">ADMIN</Link>
+            {session && session.user.role === ROLES.ADMIN ? (
+              <Link href="/admin">ADMIN</Link>
+            ) : null}
           </li>
           <li>{session ? <SignOut /> : <Link href="/login">Login</Link>}</li>
 

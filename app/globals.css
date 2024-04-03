@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --screen-max-width: 1600px;
     --dft-bg-clr: #000000;
