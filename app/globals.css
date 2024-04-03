@@ -6,7 +6,16 @@
     --screen-max-width: 1600px;
     --dft-bg-clr: #000000;
     --arrow-btn-bg-clr: #EA0174;
-  
+
+    /* NAVBAR */
+    --navbar-height: 5em;
+    --navbar-padding-inline: 1.2rem;
+    --navbar-dft-bg: rgba(0, 0, 0, .9);
+    --navbar-lin-bg: linear-gradient(180deg, rgba(0,0,0,.9) 95%, rgba(255,255,255,0) 100%);
+
+    --navbar-dft-fnt-clr: rgb(0,194,255);
+    --navbar-lin-fnt-clr: linear-gradient(90deg, rgba(0,194,255,1) 1%, rgba(0,194,255,1) 42%, rgba(248,21,253,1) 60%);
+
     /* FONT SIZES */
     --fs-xl: clamp(2rem, 4vw + 1rem, 3.4rem);
     --fs-l: clamp(1.8rem, 2vw + 1rem, 2.2rem);

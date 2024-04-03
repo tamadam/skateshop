@@ -1,12 +1,4 @@
 .navbarOuterWrapper {
-    --navbar-height: 5em;
-    --navbar-padding-inline: 1.2rem;
-    --navbar-dft-bg: rgba(0, 0, 0, .9);
-    --navbar-lin-bg: linear-gradient(180deg, rgba(0,0,0,.9) 95%, rgba(255,255,255,0) 100%);
-
-    --navbar-dft-fnt-clr: rgb(0,194,255);
-    --navbar-lin-fnt-clr: linear-gradient(90deg, rgba(0,194,255,1) 1%, rgba(0,194,255,1) 42%, rgba(248,21,253,1) 60%);
-
     position: absolute;
     z-index: 2;
     width: 100%;
