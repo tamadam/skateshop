@@ -17,6 +17,14 @@
     padding-inline: var(--navbar-padding-inline);
 }
 
+.navbarTitleContainer {
+    overflow: hidden;
+}
+
+.navbarTitleContainer > * {
+    white-space: nowrap;
+}
+
 .navbarTitle {
     background: var(--navbar-dft-fnt-clr);
     background: var(--navbar-lin-fnt-clr);

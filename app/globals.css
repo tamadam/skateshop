@@ -18,7 +18,7 @@
 
     /* FONT SIZES */
     --fs-xl: clamp(2rem, 4vw + 1rem, 3.4rem);
-    --fs-l: clamp(1.8rem, 2vw + 1rem, 2.2rem);
+    --fs-l: clamp(1.8rem, 2vw + 1rem, 2rem);
     --fs-m: 1.4rem;
     --fs-s: 1.25rem;
     --fs-xs: 1rem;
@@ -84,12 +84,6 @@ ul, ol {
     :root {
       --fs-s: 1.4rem;
       --fs-m: 1.6rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    :root {
-        --fs-xs: 1.125rem;
     }
 }
   

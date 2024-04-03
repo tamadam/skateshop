@@ -57,7 +57,8 @@ const AdminNav = () => {
       <Link
         href="/admin"
         className="
-            text-xl 
+            text-[length:--fs-s]
+            text-center
             text-white
             font-bold 
             bg-red-600 
