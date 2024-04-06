@@ -32,6 +32,11 @@ const AdminNav = () => {
       active: pathname === "/admin/colors",
     },
     {
+      label: "Brands",
+      href: "/admin/brands",
+      active: pathname === "/admin/brands",
+    },
+    {
       label: "Products",
       href: "/admin/products",
       active: pathname === "/admin/products",
