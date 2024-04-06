@@ -32,3 +32,12 @@ export const signUpFormSchema = z
   });
 
 export type SignUpFormFields = z.infer<typeof signUpFormSchema>;
+
+// SCHEMA FOR BILLBOARDS
+
+export const billboardFormSchema = z.object({
+  label: z.string().min(1, "Label is required"),
+  imageUrl: z.string().min(1, "Image URL is required")
+});
+
+export type BillboardFormFields = z.infer<typeof billboardFormSchema>;
