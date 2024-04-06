@@ -24,7 +24,90 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Billboard {
+  id         String     @id @default(uuid())
+  label      String
+  imageUrl   String
+  categories Category[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Category {
+  id          String     @id @default(uuid())
+  parentId    String?    @map("categoryId")
+  parent      Category?  @relation("subCategory", fields: [parentId], references: [id])
+  subCategory Category[] @relation("subCategory")
+  billboardId String
+  billboard   Billboard  @relation(fields: [billboardId], references: [id])
+  products    Product[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Product {
+  id         String   @id @default(uuid())
+  name       String
+  price      Decimal
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  brandId    String
+  brand      Brand    @relation(fields: [brandId], references: [id])
+  sizeId     String
+  size       Size     @relation(fields: [sizeId], references: [id])
+  colorId    String?
+  color      Color?   @relation(fields: [colorId], references: [id])
+  images     Image[]
+  gender     GENDERS
+  isFeatured Boolean
+  isArchived Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  url       String
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Color {
+  id        String    @id @default(uuid())
+  name      String
+  value     String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Size {
+  id        String    @id @default(uuid())
+  name      String
+  value     String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Brand {
+  id        String    @id @default(uuid())
+  name      String
+  imageUrl  String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
 enum ROLES {
   USER
   ADMIN
+}
+
+enum GENDERS {
+  MALE
+  FEMALE
+  UNISEX
 }
