@@ -1,7 +1,13 @@
-import React from "react";
+import BillboardClient from "./BillboardClient";
 
 const BillboardsPage = () => {
-  return <div>BillboardsPage</div>;
+  // retrieve existing billboards and pass to BillboardClient
+
+  return (
+    <div>
+      <BillboardClient />
+    </div>
+  );
 };
 
 export default BillboardsPage;
