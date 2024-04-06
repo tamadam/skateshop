@@ -42,22 +42,28 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ user: newUserWithoutPassword, message: "User successfully created"}, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+        console.log("USERS_POST: ", error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }
 
 
 export async function GET(request: NextRequest) {
-    const session = await getServerSession(authOptions);
-    if (session?.user.role !== ROLES.ADMIN) {
-        return NextResponse.json({}, { status: 401 });
+    try {
+        const session = await getServerSession(authOptions);
+        if (session?.user.role !== ROLES.ADMIN) {
+            return NextResponse.json({}, { status: 401 });
+        }
+        
+        const users = await prisma.user.findMany({
+            orderBy: {
+                firstName: "asc",
+            },
+        });
+    
+        return NextResponse.json(users); 
+    } catch (error) {
+        console.log("USERS_GET: ", error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
-
-    const users = await prisma.user.findMany({
-        orderBy: {
-            firstName: "asc",
-        },
-    });
-
-    return NextResponse.json(users);
 }
