@@ -35,9 +35,24 @@ export type SignUpFormFields = z.infer<typeof signUpFormSchema>;
 
 // SCHEMA FOR BILLBOARDS
 
+const MEGABYTE_SIZE = 2;
+const MAX_UPLOAD_SIZE = 1024 * 1024 * MEGABYTE_SIZE;
+const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+
 export const billboardFormSchema = z.object({
   label: z.string().min(1, "Label is required"),
-  imageUrl: z.string().min(1, "Image URL is required")
+  imageUrl: typeof window === "undefined"
+    ? z.string().min(1, "Image URL is required")
+    : z.instanceof(FileList)
+        .refine((file) => file?.length !== 0, "Image is required")
+        .refine((file) => {
+          const fileType = file.item?.(0)?.type || "";
+          return ACCEPTED_FILE_TYPES.includes(fileType);
+        }, "File must be .jpg, .jpeg, .png or .webp format")
+        .refine((file) => {
+          const fileSize = file.item?.(0)?.size || 0;
+          return fileSize < MAX_UPLOAD_SIZE;
+        }, `File size must be less than ${MEGABYTE_SIZE}MB`)
 });
 
 export type BillboardFormFields = z.infer<typeof billboardFormSchema>;

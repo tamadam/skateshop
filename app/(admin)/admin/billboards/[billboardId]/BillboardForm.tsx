@@ -1,10 +1,15 @@
 "use client";
 
 import {
+  CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME,
+  CLOUDINARY_UPLOAD_API,
+} from "@/app/constants";
+import {
   BillboardFormFields,
   billboardFormSchema,
 } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 const BillboardForm = () => {
@@ -16,8 +21,45 @@ const BillboardForm = () => {
     resolver: zodResolver(billboardFormSchema),
   });
 
-  const onSubmit: SubmitHandler<BillboardFormFields> = (data) => {
-    console.log(data);
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<BillboardFormFields> = async (data) => {
+    const rawImage = data.imageUrl[0];
+
+    const formData = new FormData();
+    formData.append("file", rawImage);
+    formData.append("upload_preset", CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME);
+
+    try {
+      // Upload the image to Cloudinary
+      const uploadResponse = await fetch(CLOUDINARY_UPLOAD_API, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error("Image upload failed");
+      }
+
+      const imageData = await uploadResponse.json();
+      const imageUrl = imageData.secure_url;
+
+      const billboardData = { ...data, imageUrl };
+
+      // send the data to the API
+      const response = await fetch("/api/billboards", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(billboardData),
+      });
+      if (response.ok) {
+        router.push("/admin/billboards");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -32,13 +74,13 @@ const BillboardForm = () => {
       />
       <p>{errors.label?.message}</p>
 
-      <label htmlFor="imageUrl">Image URL</label>
+      <label htmlFor="imageUrl">Image</label>
       <input
-        autoComplete="off"
-        type="text"
         id="imageUrl"
         disabled={isSubmitting}
         {...register("imageUrl")}
+        accept="image/*"
+        type="file"
       />
       <p>{errors.imageUrl?.message}</p>
 
