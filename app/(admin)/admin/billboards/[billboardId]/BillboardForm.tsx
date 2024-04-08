@@ -9,16 +9,25 @@ import {
   billboardFormSchema,
 } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Billboard } from "@prisma/client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-const BillboardForm = () => {
+interface BillboardFormProps {
+  billboard: Billboard | null;
+}
+
+const BillboardForm = ({ billboard }: BillboardFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<BillboardFormFields>({
     resolver: zodResolver(billboardFormSchema),
+    defaultValues: billboard
+      ? { label: billboard.label, imageUrl: billboard.imageUrl }
+      : { label: "", imageUrl: "" },
   });
 
   const router = useRouter();
@@ -56,6 +65,7 @@ const BillboardForm = () => {
       });
       if (response.ok) {
         router.push("/admin/billboards");
+        router.refresh();
       }
     } catch (error) {
       console.log(error);
@@ -82,6 +92,17 @@ const BillboardForm = () => {
         accept="image/*"
         type="file"
       />
+      <div className="max-w-[100px] max-h-[100px] relative">
+        {billboard && (
+          <Image
+            src={billboard.imageUrl}
+            alt="billboard"
+            width={0}
+            height={0}
+            style={{ width: "100%", height: "100%" }}
+          />
+        )}
+      </div>
       <p>{errors.imageUrl?.message}</p>
 
       <button type="submit" disabled={isSubmitting}>
