@@ -1,68 +1,115 @@
 "use client";
 
 import {
-  CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME,
-  CLOUDINARY_UPLOAD_API,
-} from "@/app/constants";
-import {
   BillboardFormFields,
   billboardFormSchema,
 } from "@/app/validationSchemas";
+import {
+  CldOptionsType,
+  deleteCldImage,
+  uploadCldImage,
+} from "@/lib/cloudinaryUtils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Billboard } from "@prisma/client";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { ChangeEvent, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { AiOutlineUpload } from "react-icons/ai";
+import { LiaTrashAlt } from "react-icons/lia";
 
 interface BillboardFormProps {
   billboard: Billboard | null;
+  cldOptions?: CldOptionsType;
 }
 
-const BillboardForm = ({ billboard }: BillboardFormProps) => {
+const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
   const {
     register,
     handleSubmit,
+    resetField,
     formState: { errors, isSubmitting },
   } = useForm<BillboardFormFields>({
     resolver: zodResolver(billboardFormSchema),
-    defaultValues: billboard
-      ? { label: billboard.label, imageUrl: billboard.imageUrl }
-      : { label: "", imageUrl: "" },
+    defaultValues: { label: billboard ? billboard.label : "" },
   });
 
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    billboard?.imageUrl || null
+  );
+
+  const [originalImage, setOriginalImage] = useState<string | null>(
+    billboard?.imageUrl || null
+  );
+
+  const params = useParams();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<BillboardFormFields> = async (data) => {
-    const rawImage = data.imageUrl[0];
+  const handleImageInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    let url = null;
+    if (files && files.length > 0) {
+      url = URL.createObjectURL(files[0]);
+      setSelectedImage(url);
+    }
+  };
 
-    const formData = new FormData();
-    formData.append("file", rawImage);
-    formData.append("upload_preset", CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME);
+  const prepareImageRemoval = () => {
+    setOriginalImage(null);
+    setSelectedImage(null);
+    resetField("imageUrl");
+  };
+
+  const onSubmit: SubmitHandler<BillboardFormFields> = async (data) => {
+    console.log(data);
+    console.log("selectedImage: ");
+    console.log(selectedImage);
+
+    console.log("originalImage: ");
+    console.log(originalImage);
+
+    const rawImageInput = data.imageUrl?.[0];
+
+    // DELETE IMAGE FROM CLOUDINARY - IF NEEDED
+    if (rawImageInput) {
+      if (billboard?.imageUrl) {
+        // reason: image replaced by a new one
+        deleteCldImage(cldOptions);
+      }
+    } else if (billboard?.imageUrl && !originalImage) {
+      // reason: delete button clicked
+      deleteCldImage(cldOptions);
+    }
+
+    // UPLOAD IMAGE TO CLOUDINARY - IF NEEDED
+    // PREPARE BILLBOARD DATA TO SAVE IN THE DATABASE
+
+    let billboardData = { ...data, imageUrl: null };
+
+    if (rawImageInput) {
+      const imageUrl = await uploadCldImage(rawImageInput);
+      if (imageUrl) {
+        billboardData = { ...data, imageUrl }; // update imageUrl
+      }
+    } else if (billboard?.imageUrl && !originalImage) {
+      billboardData = { ...data, imageUrl: null }; // remove imageUrl
+    }
+
+    // SAVE DATA IN DATABASE
+    const requestUrl = billboard
+      ? `/api/billboards/${params.billboardId}`
+      : "/api/billboards";
+
+    const requestOptions = {
+      method: billboard ? "PATCH" : "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(billboardData),
+    };
 
     try {
-      // Upload the image to Cloudinary
-      const uploadResponse = await fetch(CLOUDINARY_UPLOAD_API, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(requestUrl, requestOptions);
 
-      if (!uploadResponse.ok) {
-        throw new Error("Image upload failed");
-      }
-
-      const imageData = await uploadResponse.json();
-      const imageUrl = imageData.secure_url;
-
-      const billboardData = { ...data, imageUrl };
-
-      // send the data to the API
-      const response = await fetch("/api/billboards", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(billboardData),
-      });
       if (response.ok) {
         router.push("/admin/billboards");
         router.refresh();
@@ -73,42 +120,78 @@ const BillboardForm = ({ billboard }: BillboardFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="label">Label</label>
-      <input
-        autoComplete="off"
-        type="text"
-        id="label"
-        disabled={isSubmitting}
-        {...register("label")}
-      />
-      <p>{errors.label?.message}</p>
-
-      <label htmlFor="imageUrl">Image</label>
-      <input
-        id="imageUrl"
-        disabled={isSubmitting}
-        {...register("imageUrl")}
-        accept="image/*"
-        type="file"
-      />
-      <div className="max-w-[100px] max-h-[100px] relative">
-        {billboard && (
-          <Image
-            src={billboard.imageUrl}
-            alt="billboard"
-            width={0}
-            height={0}
-            style={{ width: "100%", height: "100%" }}
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col w-[75%] max-w-[500px] my-4">
+          <label htmlFor="label" className="font-bold pb-1">
+            Label
+          </label>
+          <input
+            autoComplete="off"
+            type="text"
+            id="label"
+            disabled={isSubmitting}
+            {...register("label")}
+            className="peer
+        py-2
+        px-4
+        
+        "
           />
-        )}
-      </div>
-      <p>{errors.imageUrl?.message}</p>
+          <p>{errors.label?.message}</p>
+        </div>
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Please wait..." : "Submit"}
-      </button>
-    </form>
+        <h3>Billboard image</h3>
+
+        <div className="flex flex-col w-[75%] max-w-[500px] my-4">
+          <label
+            htmlFor="imageUrl"
+            className="font-bold pb-1 relative w-[400px] h-[300px] bg-red-50 flex flex-col items-center justify-center text-center bg-cover hover:cursor-pointer"
+            style={{
+              border: "1px solid red",
+              backgroundImage: `${
+                selectedImage || originalImage
+                  ? `url(${selectedImage || originalImage})`
+                  : "unset"
+              }`,
+            }}
+          >
+            <input
+              id="imageUrl"
+              disabled={isSubmitting}
+              {...register("imageUrl")}
+              accept="image/*"
+              type="file"
+              onChange={handleImageInputChange}
+              className="file-input-field opacity-0 w-0 h-0"
+            />
+
+            {selectedImage || originalImage ? (
+              <div
+                className="absolute top-[0.4em] right-[0.4em] bg-red-600 p-2 rounded-md hover:bg-red-500"
+                onClick={(event) => {
+                  event.preventDefault();
+                  prepareImageRemoval();
+                }}
+              >
+                <LiaTrashAlt size="2em" color="white" />
+              </div>
+            ) : (
+              <>
+                <AiOutlineUpload size="4em" />
+                <h3>Drag and drop or click here to upload image</h3>
+              </>
+            )}
+          </label>
+
+          <p>{errors.imageUrl?.message}</p>
+        </div>
+
+        <button type="submit" disabled={isSubmitting} className="mt-4">
+          {isSubmitting ? "Please wait..." : "Submit"}
+        </button>
+      </form>
+    </>
   );
 };
 

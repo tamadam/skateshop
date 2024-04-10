@@ -27,7 +27,7 @@ model User {
 model Billboard {
   id         String     @id @default(uuid())
   label      String
-  imageUrl   String
+  imageUrl   String?
   categories Category[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt

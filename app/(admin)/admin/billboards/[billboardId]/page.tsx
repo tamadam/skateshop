@@ -1,6 +1,7 @@
 import React from "react";
 import BillboardForm from "./BillboardForm";
 import prisma from "@/prisma/client";
+import { getCldOptions } from "@/lib/cloudinaryUtils";
 
 interface BillboardPageProps {
   params: { billboardId: string };
@@ -16,9 +17,12 @@ const BillboardPage = async ({ params }: BillboardPageProps) => {
     },
   });
 
+  const regex = /billboards\/\w+/; // 'billboards/public_id'
+  const cldOptions = getCldOptions(billboard?.imageUrl, regex);
+
   return (
     <div>
-      <BillboardForm billboard={billboard} />
+      <BillboardForm billboard={billboard} cldOptions={cldOptions} />
     </div>
   );
 };

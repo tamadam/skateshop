@@ -42,6 +42,19 @@ const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp
 export const billboardFormSchema = z.object({
   label: z.string().min(1, "Label is required"),
   imageUrl: typeof window === "undefined"
+  ? z.string().optional().nullable()
+  : z.instanceof(FileList).optional()
+      .refine((file) => {
+        if (file?.item?.(0)?.type === undefined) return true;
+        const fileType = file.item?.(0)?.type || "";
+        return ACCEPTED_FILE_TYPES.includes(fileType);
+      }, "File must be .jpg, .jpeg, .png or .webp format")
+      .refine((file) => {
+        if (file?.item?.(0)?.type === undefined) return true;
+        const fileSize = file.item?.(0)?.size || 0;
+        return fileSize < MAX_UPLOAD_SIZE;
+      }, `File size must be less than ${MEGABYTE_SIZE}MB`)
+/*   imageUrl: typeof window === "undefined"
     ? z.string().min(1, "Image URL is required")
     : z.instanceof(FileList)
         .refine((file) => file?.length !== 0, "Image is required")
@@ -52,7 +65,7 @@ export const billboardFormSchema = z.object({
         .refine((file) => {
           const fileSize = file.item?.(0)?.size || 0;
           return fileSize < MAX_UPLOAD_SIZE;
-        }, `File size must be less than ${MEGABYTE_SIZE}MB`)
+        }, `File size must be less than ${MEGABYTE_SIZE}MB`) */
 });
 
 export type BillboardFormFields = z.infer<typeof billboardFormSchema>;
