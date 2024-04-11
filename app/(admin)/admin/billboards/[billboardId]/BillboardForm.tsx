@@ -12,10 +12,9 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { AiOutlineUpload } from "react-icons/ai";
-import { LiaTrashAlt } from "react-icons/lia";
+import ImageUpload from "./ImageUpload";
 
 interface BillboardFormProps {
   billboard: Billboard | null;
@@ -33,36 +32,19 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
     defaultValues: { label: billboard ? billboard.label : "" },
   });
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(
-    billboard?.imageUrl || null
-  );
-
   const [originalImage, setOriginalImage] = useState<string | null>(
     billboard?.imageUrl || null
   );
 
+  const handleOriginalImageChange = () => {
+    setOriginalImage(null);
+  };
+
   const params = useParams();
   const router = useRouter();
 
-  const handleImageInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    let url = null;
-    if (files && files.length > 0) {
-      url = URL.createObjectURL(files[0]);
-      setSelectedImage(url);
-    }
-  };
-
-  const prepareImageRemoval = () => {
-    setOriginalImage(null);
-    setSelectedImage(null);
-    resetField("imageUrl");
-  };
-
   const onSubmit: SubmitHandler<BillboardFormFields> = async (data) => {
     console.log(data);
-    console.log("selectedImage: ");
-    console.log(selectedImage);
 
     console.log("originalImage: ");
     console.log(originalImage);
@@ -83,7 +65,7 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
     // UPLOAD IMAGE TO CLOUDINARY - IF NEEDED
     // PREPARE BILLBOARD DATA TO SAVE IN THE DATABASE
 
-    let billboardData = { ...data, imageUrl: null };
+    let billboardData;
 
     if (rawImageInput) {
       const imageUrl = await uploadCldImage(rawImageInput);
@@ -92,6 +74,11 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
       }
     } else if (billboard?.imageUrl && !originalImage) {
       billboardData = { ...data, imageUrl: null }; // remove imageUrl
+    } else if (billboard?.label !== data.label) {
+      billboardData = { label: data.label }; // only change the image
+    } else {
+      router.push("/admin/billboards"); // nothing has changed redirect to billboards page
+      return;
     }
 
     // SAVE DATA IN DATABASE
@@ -144,47 +131,16 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
         <h3>Billboard image</h3>
 
         <div className="flex flex-col w-[75%] max-w-[500px] my-4">
-          <label
-            htmlFor="imageUrl"
-            className="font-bold pb-1 relative w-[400px] h-[300px] bg-red-50 flex flex-col items-center justify-center text-center bg-cover hover:cursor-pointer"
-            style={{
-              border: "1px solid red",
-              backgroundImage: `${
-                selectedImage || originalImage
-                  ? `url(${selectedImage || originalImage})`
-                  : "unset"
-              }`,
-            }}
-          >
-            <input
-              id="imageUrl"
-              disabled={isSubmitting}
-              {...register("imageUrl")}
-              accept="image/*"
-              type="file"
-              onChange={handleImageInputChange}
-              className="file-input-field opacity-0 w-0 h-0"
-            />
-
-            {selectedImage || originalImage ? (
-              <div
-                className="absolute top-[0.4em] right-[0.4em] bg-red-600 p-2 rounded-md hover:bg-red-500"
-                onClick={(event) => {
-                  event.preventDefault();
-                  prepareImageRemoval();
-                }}
-              >
-                <LiaTrashAlt size="2em" color="white" />
-              </div>
-            ) : (
-              <>
-                <AiOutlineUpload size="4em" />
-                <h3>Drag and drop or click here to upload image</h3>
-              </>
-            )}
-          </label>
-
-          <p>{errors.imageUrl?.message}</p>
+          <ImageUpload
+            id="imageUrl"
+            imageUrl={billboard?.imageUrl}
+            resetField={resetField}
+            register={register}
+            errorMessage={errors.imageUrl?.message}
+            disabled={isSubmitting}
+            originalImage={originalImage}
+            onOriginalImageChange={handleOriginalImageChange}
+          />
         </div>
 
         <button type="submit" disabled={isSubmitting} className="mt-4">
