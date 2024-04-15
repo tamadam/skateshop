@@ -1,5 +1,6 @@
 import prisma from "@/prisma/client";
 import BillboardClient from "./BillboardClient";
+import Heading from "../../components/Heading";
 
 const BillboardsPage = async () => {
   // retrieve existing billboards and pass to BillboardClient
@@ -11,6 +12,7 @@ const BillboardsPage = async () => {
 
   return (
     <div>
+      <Heading title="Billboards" description="Billboards description" />
       <BillboardClient billboards={billboards} />
     </div>
   );

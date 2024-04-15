@@ -15,6 +15,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import ImageUpload from "./ImageUpload";
+import Heading from "@/app/(admin)/components/Heading";
 
 interface BillboardFormProps {
   billboard: Billboard | null;
@@ -75,7 +76,7 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
     } else if (billboard?.imageUrl && !originalImage) {
       billboardData = { ...data, imageUrl: null }; // remove imageUrl
     } else if (billboard?.label !== data.label) {
-      billboardData = { label: data.label }; // only change the image
+      billboardData = { label: data.label }; // only change the label
     } else {
       router.push("/admin/billboards"); // nothing has changed redirect to billboards page
       return;
@@ -108,8 +109,9 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col w-[75%] max-w-[500px] my-4">
+      <Heading title="Create Billboard" description="Add a new billboard" />
+      <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+        <div>
           <label htmlFor="label" className="font-bold pb-1">
             Label
           </label>
@@ -119,18 +121,13 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
             id="label"
             disabled={isSubmitting}
             {...register("label")}
-            className="peer
-        py-2
-        px-4
-        
-        "
           />
           <p>{errors.label?.message}</p>
         </div>
 
         <h3>Billboard image</h3>
 
-        <div className="flex flex-col w-[75%] max-w-[500px] my-4">
+        <div>
           <ImageUpload
             id="imageUrl"
             imageUrl={billboard?.imageUrl}

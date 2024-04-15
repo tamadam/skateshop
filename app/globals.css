@@ -8,7 +8,7 @@
     --arrow-btn-bg-clr: #EA0174;
 
     /* NAVBAR */
-    --navbar-height: 5em;
+    --navbar-height: 5rem;
     --navbar-padding-inline: 1.2rem;
     --navbar-dft-bg: rgba(0, 0, 0, .9);
     --navbar-lin-bg: linear-gradient(180deg, rgba(0,0,0,.9) 95%, rgba(255,255,255,0) 100%);
@@ -20,13 +20,18 @@
     --fs-xl: clamp(2rem, 4vw + 1rem, 3.4rem);
     --fs-l: clamp(1.8rem, 2vw + 1rem, 2rem);
     --fs-m: 1.4rem;
-    --fs-s: 1.25rem;
+    --fs-s: 1.125rem;
     --fs-xs: 1rem;
 
     /* FONT WEIGHTS */
     --fw-xl: 900;
+    --fw-l: 800;
     --fw-m: 600;
     --fw-s: 400;
+
+    /* TRANSITIONS */
+    --overlay-trans-duration: 0.4s;
+    --overlay-trans-type: linear;
 
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -62,7 +67,7 @@ img, picture, svg, video {
     max-width: 100%;
 }
 
-input, textarea, button, select {
+input, textarea, select {
     font: inherit;
 }
 
@@ -74,6 +79,13 @@ ul, ol {
     list-style: none;
 }
 
+button {
+    all: unset;
+    font: inherit;
+    cursor: pointer;
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
     :has(:target) {
         scroll-behavior: smooth;
@@ -82,8 +94,15 @@ ul, ol {
 
 @media (min-width: 640px) {
     :root {
-      --fs-s: 1.4rem;
+
       --fs-m: 1.6rem;
     }
 }
+
+@media (min-width: 861px) {
+    .desktop--hide {
+        display: none;
+    }
+}
+
   

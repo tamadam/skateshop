@@ -1,0 +1,56 @@
+.adminSidebarTitleContainer {
+    padding: 1em;
+}
+
+.adminSidebarTitle {
+    padding: 0.2em 0.6em;
+    color: white;
+    font-weight: var(--fw-m);
+    background: red;
+    border-radius: 0.675em;
+    display: inline-block;
+}
+
+.adminNavItem {
+    border-top: 1px solid rgba(84, 84, 84, 0.503);
+}
+
+.adminNavItem a {
+    text-decoration: none;
+    color: unset;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.adminNavItem.active {
+    color: #fff;
+    background: rgba(0,194,255,1);
+    font-weight: var(--fw-l);
+    background: linear-gradient(90deg, rgba(0,194,255,1) 0%, rgba(248,21,253,1) 100%);
+}
+
+@media (min-width: 861px) {
+    .adminSidebarWrapper {
+        padding-inline-end: 2em;
+    }
+}
+
+@media (max-width: 860px) {
+    .adminSidebarWrapper {
+        position: fixed;
+        visibility: hidden;
+        background: #fff;
+        z-index: 200;
+        height: 100%;
+        width: 16rem;
+        left: -16rem;
+        top: 0;
+        transition: visibility var(--overlay-trans-duration), left var(--overlay-trans-duration) ease-out;
+    }
+
+    .adminSidebarWrapper.open {
+        visibility: visible;
+        left: 0;
+    }
+}

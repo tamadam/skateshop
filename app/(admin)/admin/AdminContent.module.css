@@ -1,0 +1,20 @@
+.adminContentWrapper {
+    max-width: var(--screen-max-width);
+    padding-block-start: var(--navbar-height);
+    margin: 0 auto;
+    min-height: 100svh;
+    display: grid;
+    background: #fff;
+    color: #000;
+    font-size: var(--fs-s);
+}
+
+.adminContent {
+    padding: 1em;
+}
+
+@media (min-width: 861px) {
+    .adminContentWrapper {
+        grid-template-columns: 25% 75%;
+    }
+}

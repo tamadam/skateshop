@@ -21,7 +21,7 @@ const BillboardPage = async ({ params }: BillboardPageProps) => {
   const cldOptions = getCldOptions(billboard?.imageUrl, regex);
 
   return (
-    <div>
+    <div className="my-6">
       <BillboardForm billboard={billboard} cldOptions={cldOptions} />
     </div>
   );

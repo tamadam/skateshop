@@ -1,7 +1,14 @@
-import AdminOverview from "./AdminOverview";
+import Heading from "../components/Heading";
 
 const AdminPage = async () => {
-  return <AdminOverview />;
+  return (
+    <div>
+      <Heading
+        title="Admin overview"
+        description="Overview page for Admin dashboard"
+      />
+    </div>
+  );
 };
 
 export default AdminPage;
