@@ -15,7 +15,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import ImageUpload from "./ImageUpload";
-import Heading from "@/app/(admin)/components/Heading";
+import Heading from "@/app/(admin)/components/Heading/Heading";
 
 interface BillboardFormProps {
   billboard: Billboard | null;

@@ -1,0 +1,18 @@
+.headingWrapper {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1em;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.503)
+}
+
+.headingTitle {
+    font-weight: var(--fw-l);
+}
+
+.headingDescription {
+    font-size: var(--fs-s);
+}
+
+.headingProps {
+    font-size: var(--fs-m);
+}
