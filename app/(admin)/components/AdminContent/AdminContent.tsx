@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import AdminNav from "../components/AdminNav/AdminNav";
+import AdminNav from "../AdminNav/AdminNav";
 import Overlay from "@/app/components/Overlay/Overlay";
 import styles from "./AdminContent.module.css";
 
