@@ -5,7 +5,7 @@ import { LiaTrashAlt } from "react-icons/lia";
 
 interface ImageUploadProps {
   id: string;
-  imageUrl: string | undefined;
+  imageUrl: string | null | undefined;
   disabled: boolean;
   resetField: UseFormResetField<any>;
   register: UseFormRegister<any>;

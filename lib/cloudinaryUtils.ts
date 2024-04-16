@@ -21,7 +21,7 @@ const generateSignature = (
     return `public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
 };
 
-export const getCldOptions = (url: string | undefined, regex: RegExp) => {
+export const getCldOptions = (url: string | null | undefined, regex: RegExp) => {
     const cldOptions: CldOptionsType = {
         publicId: "",
         signature: "",
