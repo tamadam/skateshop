@@ -101,7 +101,7 @@ button {
 
 @media (min-width: 861px) {
     .desktop--hide {
-        display: none;
+        display: none !important;
     }
 }
 

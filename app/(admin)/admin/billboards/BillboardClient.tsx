@@ -3,11 +3,12 @@
 import { Billboard } from "@prisma/client";
 import styles from "./BillboardClient.module.css";
 import Heading from "../../components/Heading/Heading";
-import AdminAssetButton from "../../components/AdminAssetButton";
 import { formatDate } from "@/lib/formatDate";
 import { useRouter } from "next/navigation";
 import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
 import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
+import Button from "@/app/components/Button/Button";
+import { HiOutlinePlus } from "react-icons/hi";
 
 interface BillboardClientProps {
   billboards: Billboard[];
@@ -53,11 +54,14 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
         description="Manage your billboards for your shop"
       />
       <div className={styles.newAssetButtonContainer}>
-        <AdminAssetButton
-          type="new"
-          label="Add New"
+        <Button
+          variant="primary"
           onClick={() => router.push("/admin/billboards/new")}
-        />
+          Icon={HiOutlinePlus}
+          iconFirst
+        >
+          Add New
+        </Button>
       </div>
 
       <div className={styles.assetsTableOuterWrapper}>
@@ -79,7 +83,11 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
             className={styles.assetsTableContent}
             style={{ gridColumn: `span ${headerLength}` }}
           >
-            {billboards.length === 0 && <div>No billboards available</div>}
+            {billboards.length === 0 && (
+              <div className={styles.assetsNoTableContent}>
+                No billboards available
+              </div>
+            )}
             {billboards.map((billboard) => {
               return (
                 <div
@@ -90,18 +98,20 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
                   <div>{billboard.label}</div>
                   <div>{formatDate(billboard.createdAt, "en-US")}</div>
                   <div className={styles.assetActionButtonContainer}>
-                    <AdminAssetButton
-                      type="update"
-                      label="Update"
+                    <Button
+                      variant="update"
                       onClick={() =>
                         router.push(`/admin/billboards/${billboard.id}`)
                       }
-                    />
-                    <AdminAssetButton
-                      type="delete"
-                      label="Delete"
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      variant="delete"
                       onClick={() => handleDelete(billboard)}
-                    />
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </div>
               );

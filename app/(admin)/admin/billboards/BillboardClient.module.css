@@ -41,13 +41,17 @@
     border-bottom: 1px solid rgba(84, 84, 84, 0.503);
 }
 
+.assetsNoTableContent {
+    padding: 1em;
+}
+
 
 .assetItem:last-child{
     border: none;
 }
 
 .assetsTableHeader {
-    background: #eaeaea;
+    background: rgb(247 247 247);
     border-radius: 0.4em 0.4em 0 0;
     font-weight: var(--fw-m);
 }

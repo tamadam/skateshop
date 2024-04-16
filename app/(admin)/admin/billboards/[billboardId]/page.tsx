@@ -25,9 +25,9 @@ const BillboardPage = async ({ params }: BillboardPageProps) => {
   );
 
   return (
-    <div className="my-6">
+    <>
       <BillboardForm billboard={billboard} cldOptions={cldOptions} />
-    </div>
+    </>
   );
 };
 

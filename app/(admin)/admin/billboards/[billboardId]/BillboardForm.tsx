@@ -16,6 +16,8 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import ImageUpload from "./ImageUpload";
 import Heading from "@/app/(admin)/components/Heading/Heading";
+import styles from "./BillboardForm.module.css";
+import Button from "@/app/components/Button/Button";
 
 interface BillboardFormProps {
   billboard: Billboard | null;
@@ -107,12 +109,17 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
     }
   };
 
+  const headingTitle = billboard ? "Edit billboard" : "Create billboard";
+  const headingDescription = billboard
+    ? "Edit a Billboard"
+    : "Add a new billboard";
+
   return (
     <>
-      <Heading title="Create Billboard" description="Add a new billboard" />
-      <form onSubmit={handleSubmit(onSubmit)} className="form-container">
-        <div>
-          <label htmlFor="label" className="font-bold pb-1">
+      <Heading title={headingTitle} description={headingDescription} />
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formWrapper}>
+        <div className={styles.inputField}>
+          <label htmlFor="label" className={styles.inputFieldLabel}>
             Label
           </label>
           <input
@@ -120,29 +127,43 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
             type="text"
             id="label"
             disabled={isSubmitting}
+            className={styles.inputFieldInput}
             {...register("label")}
           />
           <p>{errors.label?.message}</p>
         </div>
 
-        <h3>Billboard image</h3>
-
-        <div>
-          <ImageUpload
-            id="imageUrl"
-            imageUrl={billboard?.imageUrl}
-            resetField={resetField}
-            register={register}
-            errorMessage={errors.imageUrl?.message}
-            disabled={isSubmitting}
-            originalImage={originalImage}
-            onOriginalImageChange={handleOriginalImageChange}
-          />
+        <div className={styles.inputField}>
+          <div className={styles.inputFieldLabel}>Billboard Image</div>
+          <div>
+            <ImageUpload
+              id="imageUrl"
+              imageUrl={billboard?.imageUrl}
+              resetField={resetField}
+              register={register}
+              errorMessage={errors.imageUrl?.message}
+              disabled={isSubmitting}
+              originalImage={originalImage}
+              onOriginalImageChange={handleOriginalImageChange}
+            />
+          </div>
         </div>
 
-        <button type="submit" disabled={isSubmitting} className="mt-4">
-          {isSubmitting ? "Please wait..." : "Submit"}
-        </button>
+        <div className={styles.formActionButtons}>
+          <Button type="submit" variant="primary" disabled={isSubmitting}>
+            {isSubmitting ? "Please wait..." : "Submit"}
+          </Button>
+          <Button
+            type="button"
+            variant="cancel"
+            disabled={isSubmitting}
+            onClick={() => {
+              router.push("/admin/billboards");
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
     </>
   );

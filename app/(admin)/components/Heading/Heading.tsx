@@ -1,6 +1,9 @@
-import React from "react";
-import AdminActionButton from "../AdminActionButton";
+"use client";
+
+import Button from "@/app/components/Button/Button";
 import styles from "./Heading.module.css";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { useAdminNav } from "../AdminNav/AdminNavContext";
 
 interface HeadingProps {
   title: string;
@@ -8,6 +11,8 @@ interface HeadingProps {
 }
 
 const Heading = ({ title, description }: HeadingProps) => {
+  const { toggleOpen } = useAdminNav();
+
   return (
     <div className={`${styles.headingWrapper} ${styles.headingProps}`}>
       <div className={styles.headingTitleContainer}>
@@ -15,7 +20,11 @@ const Heading = ({ title, description }: HeadingProps) => {
         <span className={styles.headingDescription}>{description}</span>
       </div>
       <div className={`${styles.headingProps}`}>
-        <AdminActionButton />
+        <Button
+          Icon={GiHamburgerMenu}
+          onClick={toggleOpen}
+          className="desktop--hide"
+        />
       </div>
     </div>
   );

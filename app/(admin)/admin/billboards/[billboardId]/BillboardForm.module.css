@@ -1,0 +1,61 @@
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-block-start: 1em;
+    max-width: 400px;
+}
+
+.inputField {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+}
+
+.inputFieldLabel {
+    font-weight: var(--fw-m);
+}
+
+.inputFieldInput {
+    padding: 0.4em;
+}
+
+.imageUploadWrapper {
+    position: relative;
+
+    border: 1px dashed black;
+    height: 300px;
+    background-color: rgb(247 247 247);
+    background-size: cover;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageUploadFileInput {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.imageDeleteButton {
+
+    position: absolute;
+    top: 0.4em;
+    right: 0.4em;
+    background: rgb(255, 19, 19);
+    border-radius: 0.4em;
+    padding: 0.2em;
+    cursor: pointer
+}
+
+.imageDeleteButton:hover {
+    background: rgb(210, 9, 9);
+}
+
+.formActionButtons {
+    display: flex;
+    gap: 0.4em;
+}

@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { UseFormRegister, UseFormResetField } from "react-hook-form";
 import { AiOutlineUpload } from "react-icons/ai";
 import { LiaTrashAlt } from "react-icons/lia";
+import styles from "./BillboardForm.module.css";
 
 interface ImageUploadProps {
   id: string;
@@ -47,9 +48,8 @@ const ImageUpload = ({
     <>
       <label
         htmlFor={id}
-        className="font-bold pb-1 relative w-[400px] h-[300px] bg-red-50 flex flex-col items-center justify-center text-center bg-cover hover:cursor-pointer"
+        className={styles.imageUploadWrapper}
         style={{
-          border: "1px solid red",
           backgroundImage: `${
             selectedImage || originalImage
               ? `url(${selectedImage || originalImage})`
@@ -64,12 +64,12 @@ const ImageUpload = ({
           accept="image/*"
           type="file"
           onChange={handleImageInputChange}
-          className="file-input-field opacity-0 w-0 h-0"
+          className={styles.imageUploadFileInput}
         />
 
         {selectedImage || originalImage ? (
           <div
-            className="absolute top-[0.4em] right-[0.4em] bg-red-600 p-2 rounded-md hover:bg-red-500"
+            className={styles.imageDeleteButton}
             onClick={(event) => {
               event.preventDefault();
               prepareImageRemoval();
@@ -79,8 +79,8 @@ const ImageUpload = ({
           </div>
         ) : (
           <>
-            <AiOutlineUpload size="4em" />
-            <h3>Drag and drop or click here to upload image</h3>
+            <AiOutlineUpload size="3em" />
+            <h3>Click here to upload an image</h3>
           </>
         )}
       </label>
