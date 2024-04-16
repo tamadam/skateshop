@@ -6,6 +6,8 @@ import Heading from "../../components/Heading/Heading";
 import AdminAssetButton from "../../components/AdminAssetButton";
 import { formatDate } from "@/lib/formatDate";
 import { useRouter } from "next/navigation";
+import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
+import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
 
 interface BillboardClientProps {
   billboards: Billboard[];
@@ -17,6 +19,33 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
   const tableHeaders = ["Label", "Date"];
   const headerLength = tableHeaders.length + 1;
 
+  const handleDelete = async (billboard: Billboard) => {
+    try {
+      // delete billboard image from Cloudinary if exists
+      if (billboard.imageUrl) {
+        const cldOptions = getCldOptions(
+          billboard?.imageUrl,
+          CLOUDINARY_BILLBOARDS_REGEX
+        );
+
+        deleteCldImage(cldOptions);
+      }
+
+      const response = await fetch(`/api/billboards/${billboard.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        router.refresh();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.billboardWrapper}>
       <Heading
@@ -27,7 +56,7 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
         <AdminAssetButton
           type="new"
           label="Add New"
-          route="/admin/billboards/new"
+          onClick={() => router.push("/admin/billboards/new")}
         />
       </div>
 
@@ -57,9 +86,6 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
                   key={billboard.id}
                   className={styles.assetItem}
                   style={{ gridColumn: `span ${headerLength}` }}
-                  onClick={() =>
-                    router.push(`/admin/billboards/${billboard.id}`)
-                  }
                 >
                   <div>{billboard.label}</div>
                   <div>{formatDate(billboard.createdAt, "en-US")}</div>
@@ -67,12 +93,14 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
                     <AdminAssetButton
                       type="update"
                       label="Update"
-                      route={`/admin/billboards/${billboard.id}`}
+                      onClick={() =>
+                        router.push(`/admin/billboards/${billboard.id}`)
+                      }
                     />
                     <AdminAssetButton
                       type="delete"
                       label="Delete"
-                      route={`#`}
+                      onClick={() => handleDelete(billboard)}
                     />
                   </div>
                 </div>

@@ -41,9 +41,6 @@
     border-bottom: 1px solid rgba(84, 84, 84, 0.503);
 }
 
-.assetItem {
-    cursor: pointer;
-}
 
 .assetItem:last-child{
     border: none;

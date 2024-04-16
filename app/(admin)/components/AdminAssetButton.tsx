@@ -6,15 +6,15 @@ import styles from "./AdminAssetButton.module.css";
 interface AdminAssetButtonProps {
   type: "new" | "update" | "delete";
   label: string;
-  route: string;
+  onClick: () => void;
 }
 
-const AdminAssetButton = ({ type, label, route }: AdminAssetButtonProps) => {
+const AdminAssetButton = ({ type, label, onClick }: AdminAssetButtonProps) => {
   const router = useRouter();
 
   return (
     <button
-      onClick={() => router.push(route)}
+      onClick={onClick}
       className={`${styles.assetButton} ${styles[type]}`}
     >
       {label}
