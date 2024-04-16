@@ -1,21 +1,23 @@
 .adminContentWrapper {
     max-width: var(--screen-max-width);
-    padding-block-start: var(--navbar-height);
+    padding-block-start: calc(var(--navbar-height) + 1.6em);
     margin: 0 auto;
     min-height: 100svh;
     display: grid;
     background: #fff;
     color: #000;
     font-size: var(--fs-s);
+    padding-inline: 1em;
 }
 
 .adminContent {
-    padding: 1em 2em;
     overflow-x: auto;
 }
 
 @media (min-width: 861px) {
     .adminContentWrapper {
-        grid-template-columns: 25% 75%;
+        grid-template-columns: 25% 70%;
+        gap: 5%;
+        padding-inline-start: 0;
     }
 }

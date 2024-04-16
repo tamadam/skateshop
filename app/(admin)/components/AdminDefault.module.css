@@ -1,3 +1,6 @@
 .adminContentMainWrapper {
-    --default-border-clr: #b9b9b9
+    --admin-default-border-clr: #b9b9b9;
+
+    width: 100%;
+    background: #fff;
 }

@@ -74,7 +74,7 @@ const AdminNav = () => {
       <div className={styles.adminSidebarTitleContainer}>
         <span className={styles.adminSidebarTitle}>Admin</span>
       </div>
-      <ul className={styles.adminNavItems}>
+      <ul>
         {routes.map((route) => {
           return (
             <li
