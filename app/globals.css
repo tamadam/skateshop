@@ -30,17 +30,19 @@
     --fw-s: 400;
 
     /* BUTTONS */
+    --bg-clr-transition: background-color 0.2s ease-out;
+
     --default-btn-clr: #000;
     --default-btn-bg: #fff;
     --primary-btn-clr: #fff;
     --primary-btn-bg: #f815fd;
-    --primary-btn-bg-hover: #ae10b0;
+    --primary-btn-bg-hover: #9d199f;
     --update-btn-clr: #fff;
     --update-btn-bg: #37af59;
-    --update-btn-bg-hover: #077324;
+    --update-btn-bg-hover: #0d7128;
     --delete-btn-clr: #fff;
-    --delete-btn-bg: #c7130c;
-    --delete-btn-bg-hover: #a10e09;
+    --delete-btn-bg: #d5231c;
+    --delete-btn-bg-hover: #971915;
     --cancel-btn-clr: #000;
     --cancel-btn-bg: transparent;
     
