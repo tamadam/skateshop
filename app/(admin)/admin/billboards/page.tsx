@@ -11,10 +11,9 @@ const BillboardsPage = async () => {
   });
 
   return (
-    <div>
-      <Heading title="Billboards" description="Billboards description" />
+    <>
       <BillboardClient billboards={billboards} />
-    </div>
+    </>
   );
 };
 

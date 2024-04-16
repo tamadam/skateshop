@@ -10,7 +10,8 @@
 }
 
 .adminContent {
-    padding: 1em;
+    padding: 1em 2em;
+    overflow-x: auto;
 }
 
 @media (min-width: 861px) {

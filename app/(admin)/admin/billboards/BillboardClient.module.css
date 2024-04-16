@@ -1,0 +1,57 @@
+.newAssetButtonContainer {
+    margin-block: 1em;
+}
+
+.assetActionButtonContainer {
+    justify-self: center;
+    display: flex;
+    gap: 0.6em;
+}
+
+
+
+.assetsTableOuterWrapper {
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.assetsTableInnerWrapper {
+    border: 1px solid rgba(84, 84, 84, 0.503);
+    border-radius: 0.4em;
+
+    display: grid;
+    min-width: 30rem;
+    column-gap: 2em;
+    font-size: var(--fs-xs);
+}
+
+.assetsTableHeader,
+.assetsTableContent,
+.assetItem {
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.assetItem,
+.assetsTableHeader {
+    padding: 1em;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.503);
+}
+
+.assetItem {
+    cursor: pointer;
+}
+
+.assetItem:last-child{
+    border: none;
+}
+
+.assetsTableHeader {
+    background: #eaeaea;
+    border-radius: 0.4em 0.4em 0 0;
+    font-weight: var(--fw-m);
+}
+

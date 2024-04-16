@@ -1,0 +1,31 @@
+.assetButton {
+    width: fit-content;
+    padding: 0.6em 0.8em;
+    font-weight: var(--fw-m);
+    border-radius: 0.2em;
+    color: #fff;
+}
+
+.assetButton.new {
+    background: #f815fd;
+}
+
+.assetButton.new:hover {
+    background: #ae10b0;
+}
+
+.assetButton.update {
+    background: #19983d;
+}
+
+.assetButton.update:hover {
+    background: #077324;
+}
+
+.assetButton.delete {
+    background: #c7130c;
+}
+
+.assetButton.delete:hover {
+    background: #a10e09;
+}
