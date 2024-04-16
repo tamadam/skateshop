@@ -1,8 +1,8 @@
 "use client";
 
 import { IconType } from "react-icons";
-import styles from "./Button.module.css";
 import { ReactNode } from "react";
+import styles from "./Button.module.css";
 
 interface ButtonProps {
   type?: "submit" | "reset" | "button" | undefined;

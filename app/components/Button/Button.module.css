@@ -1,13 +1,12 @@
 .generalButton {
-    width: fit-content;
-    padding: 0.6em 0.8em;
-    font-weight: var(--fw-m);
-    border-radius: 0.4em;
-    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.2em;
+    width: fit-content;
+    padding: 0.6em 0.8em;
+    border-radius: 0.4em;
+    font-weight: var(--fw-m);
 }
 
 .generalButton.normal {
@@ -19,35 +18,38 @@
 }
 
 .generalButton.default {
-    background: #fff;
-    color: #000;
+    color: var(--default-btn-clr);
+    background: var(--default-btn-bg);
 }
 
 .generalButton.primary {
-    background: #f815fd;
+    color: var(--primary-btn-clr);
+    background: var(--primary-btn-bg);
 }
 
 .generalButton.primary:hover {
-    background: #ae10b0;
+    background: var(--primary-btn-bg-hover);
 }
 
 .generalButton.update {
-    background: #19983d;
+    color: var(--update-btn-clr);
+    background: var(--update-btn-bg);
 }
 
 .generalButton.update:hover {
-    background: #077324;
+    background: var(--update-btn-bg-hover);
 }
 
 .generalButton.delete {
-    background: #c7130c;
+    color: var(--delete-btn-clr);
+    background: var(--delete-btn-bg);
 }
 
 .generalButton.delete:hover {
-    background: #a10e09;
+    background: var(--delete-btn-bg-hover);
 }
 
 .generalButton.cancel {
-    background: transparent;
-    color: black;
+    color: var(--cancel-btn-clr);
+    background: var(--cancel-btn-bg);
 }

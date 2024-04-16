@@ -29,6 +29,22 @@
     --fw-m: 600;
     --fw-s: 400;
 
+    /* BUTTONS */
+    --default-btn-clr: #000;
+    --default-btn-bg: #fff;
+    --primary-btn-clr: #fff;
+    --primary-btn-bg: #f815fd;
+    --primary-btn-bg-hover: #ae10b0;
+    --update-btn-clr: #fff;
+    --update-btn-bg: #37af59;
+    --update-btn-bg-hover: #077324;
+    --delete-btn-clr: #fff;
+    --delete-btn-bg: #c7130c;
+    --delete-btn-bg-hover: #a10e09;
+    --cancel-btn-clr: #000;
+    --cancel-btn-bg: transparent;
+    
+    
     /* TRANSITIONS */
     --overlay-trans-duration: 0.4s;
     --overlay-trans-type: linear;
