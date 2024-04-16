@@ -9,6 +9,7 @@ import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
 import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
 import Button from "@/app/components/Button/Button";
 import { HiOutlinePlus } from "react-icons/hi";
+import ApiList from "../../components/ApiInfo/ApiList";
 
 interface BillboardClientProps {
   billboards: Billboard[];
@@ -119,6 +120,8 @@ const BillboardClient = ({ billboards }: BillboardClientProps) => {
           </div>
         </div>
       </div>
+
+      <ApiList entityName="billboards" entityIdName="billboardId" />
     </div>
   );
 };

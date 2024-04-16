@@ -16,7 +16,7 @@
 }
 
 .assetsTableInnerWrapper {
-    border: 1px solid rgba(84, 84, 84, 0.503);
+    border: 1px solid var(--admin-default-border-clr);
     border-radius: 0.4em;
 
     display: grid;
@@ -38,7 +38,7 @@
 .assetItem,
 .assetsTableHeader {
     padding: 1em;
-    border-bottom: 1px solid rgba(84, 84, 84, 0.503);
+    border-bottom: 1px solid var(--admin-default-border-clr);
 }
 
 .assetsNoTableContent {

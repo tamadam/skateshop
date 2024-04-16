@@ -1,0 +1,78 @@
+.apiInfoWrapper {
+    padding: 1em;
+    border: 1px solid var(--admin-default-border-clr);
+    border-radius: 0.4em;
+    overflow-x: auto;
+    scrollbar-width: thin;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.apiInfoContent {
+    display: flex;
+    gap: 0.6em;
+}
+
+.apiInfoTitleWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.apiInfoTitleWrapper .Admin {
+    background: red;
+    border-radius: 0.6em;
+    color: #fff;
+    padding-inline: 0.4em;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-s);
+    margin-inline-start: 0.4em;
+
+}
+
+.apiInfoTitleWrapper .Public {
+    background: #e3e3e3;
+    border-radius: 0.6em;
+    color: #000;
+    padding-inline: 0.4em;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-s);
+    margin-inline-start: 0.4em;
+}
+
+.apiInfoTitle {
+    font-weight: var(--fw-m);
+}
+
+
+.apiInfoDescription {
+    background: #ebebeb;
+    color: #000;
+    font-weight: var(--fw-l);
+    font-size: var(--fs-xs);
+    padding-inline: 0.2em;
+} 
+
+/* 
+.apiInfoTitleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4em;
+}
+
+.apiInfoTitle {
+    display: flex;
+    gap: 0.4em;
+}
+
+.apiInfoDescription {
+    margin-block-start: 1em;
+    background: #dbdbdb;
+    color: #000;
+    font-weight: var(--fw-l);
+    font-size: var(--fs-xs);
+    width: fit-content;
+    padding-inline: 0.2em;
+} */

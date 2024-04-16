@@ -1,6 +1,6 @@
 .adminContentWrapper {
     max-width: var(--screen-max-width);
-    padding-block-start: calc(var(--navbar-height) + 1.6em);
+    padding-block: calc(var(--navbar-height) + 1.6em);
     margin: 0 auto;
     min-height: 100svh;
     display: grid;

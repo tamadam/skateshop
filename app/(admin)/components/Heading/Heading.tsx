@@ -8,9 +8,14 @@ import { useAdminNav } from "../AdminNav/AdminNavContext";
 interface HeadingProps {
   title: string;
   description: string;
+  showSidebarButton?: boolean;
 }
 
-const Heading = ({ title, description }: HeadingProps) => {
+const Heading = ({
+  title,
+  description,
+  showSidebarButton = true,
+}: HeadingProps) => {
   const { toggleOpen } = useAdminNav();
 
   return (
@@ -19,13 +24,15 @@ const Heading = ({ title, description }: HeadingProps) => {
         <h1 className={styles.headingTitle}>{title}</h1>
         <span className={styles.headingDescription}>{description}</span>
       </div>
-      <div>
-        <Button
-          Icon={GiHamburgerMenu}
-          onClick={toggleOpen}
-          className="desktop--hide"
-        />
-      </div>
+      {showSidebarButton && (
+        <div>
+          <Button
+            Icon={GiHamburgerMenu}
+            onClick={toggleOpen}
+            className="desktop--hide"
+          />
+        </div>
+      )}
     </div>
   );
 };
