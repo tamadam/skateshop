@@ -3,18 +3,15 @@
 import { useAdminNav } from "@/app/(admin)/components/AdminNav/AdminNavContext";
 import styles from "./Overlay.module.css";
 
-interface OverlayProps {
-  open: boolean;
-  onClick: () => void;
-}
+const Overlay = () => {
+  const { isOpen, setOpen } = useAdminNav();
 
-const Overlay = ({ open, onClick }: OverlayProps) => {
   return (
     <div
       className={`${styles.generalOverlay} ${
-        open ? styles.open : ""
+        isOpen ? styles.open : ""
       } desktop--hide`}
-      onClick={onClick}
+      onClick={() => setOpen(false)}
     ></div>
   );
 };
