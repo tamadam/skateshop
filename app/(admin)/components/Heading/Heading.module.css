@@ -3,7 +3,8 @@
     justify-content: space-between;
     gap: 1em;
     line-height: 1em;
-    border-bottom: 1px solid rgba(84, 84, 84, 0.503);
+    border-bottom: 1px solid var(--default-border-clr);
+    font-size: var(--fs-m);
     overflow: hidden;
 }
 
@@ -13,8 +14,4 @@
 
 .headingDescription {
     font-size: var(--fs-s);
-}
-
-.headingProps {
-    font-size: var(--fs-m);
 }

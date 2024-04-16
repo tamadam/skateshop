@@ -14,12 +14,12 @@ const Heading = ({ title, description }: HeadingProps) => {
   const { toggleOpen } = useAdminNav();
 
   return (
-    <div className={`${styles.headingWrapper} ${styles.headingProps}`}>
-      <div className={styles.headingTitleContainer}>
+    <div className={`${styles.headingWrapper} ${styles.headingFontSize}`}>
+      <div>
         <h1 className={styles.headingTitle}>{title}</h1>
         <span className={styles.headingDescription}>{description}</span>
       </div>
-      <div className={`${styles.headingProps}`}>
+      <div>
         <Button
           Icon={GiHamburgerMenu}
           onClick={toggleOpen}
