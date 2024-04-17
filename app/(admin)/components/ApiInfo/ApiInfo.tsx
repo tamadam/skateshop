@@ -23,24 +23,24 @@ const ApiInfo = ({ title, description, variant }: ApiInfoProps) => {
 
   return (
     <div className={styles.apiInfoWrapper}>
-      <div className={styles.apiInfoContent}>
+      <div className={styles.apiIcon}>
         <FiServer />
+      </div>
+      <div className={styles.apiInfoContent}>
         <div className={styles.apiInfoTitleWrapper}>
-          <div>
-            <span className={styles.apiInfoTitle}>{title}</span>
-            <span className={`${styles.badge} ${styles[variant]}`}>
-              {variant}
-            </span>
-          </div>
-
-          <p className={`${styles.apiInfoDescription} ${robotoSlab.className}`}>
-            {description}
-          </p>
+          <span className={styles.apiInfoTitle}>{title}</span>
+          <span className={`${styles.badge} ${styles[variant]}`}>
+            {variant}
+          </span>
+        </div>
+        <div className={styles.apiInfoCopy}>
+          <Button Icon={MdContentCopy} onClick={copyLink} />
         </div>
       </div>
-
-      <div className={styles.apiInfoCopy}>
-        <Button Icon={MdContentCopy} onClick={copyLink} />
+      <div className={styles.apiInfoDescription}>
+        <p className={`${styles.apiInfoDescription} ${robotoSlab.className}`}>
+          {description}
+        </p>
       </div>
     </div>
   );
