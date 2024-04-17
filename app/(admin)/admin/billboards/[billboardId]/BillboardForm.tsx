@@ -151,7 +151,7 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
 
         <div className={styles.formActionButtons}>
           <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? "Please wait..." : "Submit"}
+            <span>{isSubmitting ? "Please wait..." : "Submit"}</span>
           </Button>
           <Button
             type="button"
@@ -161,7 +161,7 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
               router.push("/admin/billboards");
             }}
           >
-            Cancel
+            <span>Cancel</span>
           </Button>
         </div>
       </form>

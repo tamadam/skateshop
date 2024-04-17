@@ -1,0 +1,39 @@
+.modalWrapper {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    border: none;
+    border-radius: 0.675em;
+}
+
+.modalWrapper::backdrop {
+    --backdrop-bg-clr: rgb(40 40 40 / 30%);
+    background: var(--backdrop-bg-clr);
+}
+
+.modalContent {
+    padding-block: 1.8em;
+    padding-inline: 1.8em;
+    background: #fff;
+    font-size: var(--fs-s);
+}
+
+.modalContent h1 {
+    font-weight: var(--fw-m);
+    font-size: var(--fs-m);
+    margin-block-end: 0.2em;
+    max-width: 30rem;
+}
+
+.modalAction {
+    margin-block-start: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2em;
+}
+
+.modalActionLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+}

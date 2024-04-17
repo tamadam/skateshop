@@ -4,9 +4,16 @@ import { IconType } from "react-icons";
 import { ReactNode } from "react";
 import styles from "./Button.module.css";
 
+export type ButtonVariant =
+  | "primary"
+  | "update"
+  | "delete"
+  | "cancel"
+  | "default";
+
 interface ButtonProps {
   type?: "submit" | "reset" | "button" | undefined;
-  variant?: "primary" | "update" | "delete" | "cancel" | "default";
+  variant?: ButtonVariant;
   disabled?: boolean;
   iconFirst?: boolean;
   iconSize?: string;
@@ -36,7 +43,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
     >
-      <span>{children}</span>
+      {children}
       {Icon && <Icon size={iconSize} />}
     </button>
   );
