@@ -4,6 +4,7 @@ import useOrigin from "@/app/hooks/useOrigin";
 import ApiInfo from "./ApiInfo";
 import Heading from "../Heading/Heading";
 import { capitalize } from "@/lib/capitalize";
+import styles from "./ApiInfo.module.css";
 
 interface ApiListProps {
   entityName: string;
@@ -15,13 +16,13 @@ const ApiList = ({ entityName, entityIdName }: ApiListProps) => {
   const baseUrl = `${origin}/api`;
 
   return (
-    <div className="mt-10">
+    <div className={styles.apiListWrapper}>
       <Heading
         title="API"
         description={`API calls for ${capitalize(entityName)}`}
         showSidebarButton={false}
       />
-      <div className="mt-6 flex flex-col gap-4">
+      <div className={styles.apiList}>
         <ApiInfo
           title="GET"
           description={`${baseUrl}/${entityName}`}

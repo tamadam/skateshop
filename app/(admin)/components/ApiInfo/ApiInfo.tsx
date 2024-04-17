@@ -5,6 +5,9 @@ import styles from "./ApiInfo.module.css";
 import { FiServer } from "react-icons/fi";
 import { MdContentCopy } from "react-icons/md";
 import toast from "react-hot-toast";
+import { Roboto_Slab } from "next/font/google";
+
+const robotoSlab = Roboto_Slab({ subsets: ["latin"] });
 
 interface ApiInfoProps {
   title: string;
@@ -25,10 +28,14 @@ const ApiInfo = ({ title, description, variant }: ApiInfoProps) => {
         <div className={styles.apiInfoTitleWrapper}>
           <div>
             <span className={styles.apiInfoTitle}>{title}</span>
-            <span className={styles[variant]}>{variant}</span>
+            <span className={`${styles.badge} ${styles[variant]}`}>
+              {variant}
+            </span>
           </div>
 
-          <p className={styles.apiInfoDescription}>{description}</p>
+          <p className={`${styles.apiInfoDescription} ${robotoSlab.className}`}>
+            {description}
+          </p>
         </div>
       </div>
 

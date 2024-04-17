@@ -7,7 +7,7 @@
 }
 
 .modalWrapper::backdrop {
-    --backdrop-bg-clr: rgb(40 40 40 / 30%);
+    --backdrop-bg-clr: rgb(40 40 40 / 50%);
     background: var(--backdrop-bg-clr);
 }
 

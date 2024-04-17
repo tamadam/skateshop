@@ -20,59 +20,48 @@
     gap: 1em;
 }
 
-.apiInfoTitleWrapper .Admin {
-    background: red;
+.apiInfoTitleWrapper .badge {
+    --public-badge-bg: #37af59;
+    --public-badge-clr: #fff;
+    --admin-badge-bg: #ff0000;
+    --admin-badge-clr: #fff;
     border-radius: 0.6em;
-    color: #fff;
-    padding-inline: 0.4em;
-    font-size: var(--fs-xs);
-    font-weight: var(--fw-s);
+    padding-inline: 0.6em;
     margin-inline-start: 0.4em;
-
+    font-size: var(--fs-xs);
 }
 
-.apiInfoTitleWrapper .Public {
-    background: #e3e3e3;
-    border-radius: 0.6em;
-    color: #000;
-    padding-inline: 0.4em;
-    font-size: var(--fs-xs);
-    font-weight: var(--fw-s);
-    margin-inline-start: 0.4em;
+.apiInfoTitleWrapper .badge.Admin {
+    background: var(--admin-badge-bg);
+    color: var(--admin-badge-clr);
+}
+
+.apiInfoTitleWrapper .badge.Public {
+    background: var(--public-badge-bg);
+    color: var(--public-badge-clr);  
 }
 
 .apiInfoTitle {
     font-weight: var(--fw-m);
 }
 
-
 .apiInfoDescription {
     background: #ebebeb;
-    color: #000;
+    color: #232323;
     font-weight: var(--fw-l);
     font-size: var(--fs-xs);
-    padding-inline: 0.2em;
+    padding-inline: 0.4em;
 } 
 
-/* 
-.apiInfoTitleWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.4em;
+/* ApiList component */
+
+.apiListWrapper {
+    margin-block-start: 4em;
 }
 
-.apiInfoTitle {
+.apiList {
+    margin-block-start: 2em;
     display: flex;
-    gap: 0.4em;
+    flex-direction: column;
+    gap: 1em;
 }
-
-.apiInfoDescription {
-    margin-block-start: 1em;
-    background: #dbdbdb;
-    color: #000;
-    font-weight: var(--fw-l);
-    font-size: var(--fs-xs);
-    width: fit-content;
-    padding-inline: 0.2em;
-} */
