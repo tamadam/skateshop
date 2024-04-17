@@ -12,6 +12,7 @@ import { IoColorPaletteOutline } from "react-icons/io5";
 import { TbBrandDatabricks } from "react-icons/tb";
 
 import { useAdminNav } from "./AdminNavContext";
+import Overlay from "@/app/components/Overlay/Overlay";
 
 const AdminNav = () => {
   const pathname = usePathname();
@@ -68,30 +69,33 @@ const AdminNav = () => {
   ];
 
   return (
-    <div
-      className={`${styles.adminSidebarWrapper} ${isOpen ? styles.open : ""}`}
-    >
-      <div className={styles.adminSidebarTitleContainer}>
-        <span className={styles.adminSidebarTitle}>Admin</span>
+    <>
+      <Overlay open={isOpen} onClick={() => setOpen(false)} hideOnDesktop />
+      <div
+        className={`${styles.adminSidebarWrapper} ${isOpen ? styles.open : ""}`}
+      >
+        <div className={styles.adminSidebarTitleContainer}>
+          <span className={styles.adminSidebarTitle}>Admin</span>
+        </div>
+        <ul>
+          {routes.map((route) => {
+            return (
+              <li
+                key={route.href}
+                className={`${styles.adminNavItem}${
+                  route.active ? ` ${styles.active}` : ""
+                }`}
+              >
+                <Link href={route.href}>
+                  <span className={styles.adminNavLabel}>{route.label}</span>
+                  <span>{<route.icon />}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-      <ul>
-        {routes.map((route) => {
-          return (
-            <li
-              key={route.href}
-              className={`${styles.adminNavItem}${
-                route.active ? ` ${styles.active}` : ""
-              }`}
-            >
-              <Link href={route.href}>
-                <span className={styles.adminNavLabel}>{route.label}</span>
-                <span>{<route.icon />}</span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    </>
   );
 };
 

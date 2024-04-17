@@ -7,7 +7,6 @@ const AdminContent = ({ children }: PropsWithChildren) => {
   return (
     <div className={styles.adminContentWrapper}>
       <AdminNav />
-      <Overlay />
       <div className={styles.adminContent}>{children}</div>
     </div>
   );
