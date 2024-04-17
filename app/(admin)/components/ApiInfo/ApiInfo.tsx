@@ -4,6 +4,7 @@ import Button from "@/app/components/Button/Button";
 import styles from "./ApiInfo.module.css";
 import { FiServer } from "react-icons/fi";
 import { MdContentCopy } from "react-icons/md";
+import toast from "react-hot-toast";
 
 interface ApiInfoProps {
   title: string;
@@ -14,6 +15,7 @@ interface ApiInfoProps {
 const ApiInfo = ({ title, description, variant }: ApiInfoProps) => {
   const copyLink = () => {
     navigator.clipboard.writeText(description);
+    toast.success("API route copied to the clipboard!");
   };
 
   return (
