@@ -23,6 +23,15 @@
     flex-direction: row-reverse;
 }
 
+.generalButton.square {
+    padding: 0.4em;
+}
+
+.generalButton.circle {
+    padding: 0.4em;
+    border-radius: 50%;
+}
+
 .generalButton.default {
     color: var(--default-btn-clr);
     background: var(--default-btn-bg);

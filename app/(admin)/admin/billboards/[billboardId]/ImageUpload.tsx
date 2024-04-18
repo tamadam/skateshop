@@ -3,6 +3,7 @@ import { UseFormRegister, UseFormResetField } from "react-hook-form";
 import { AiOutlineUpload } from "react-icons/ai";
 import { LiaTrashAlt } from "react-icons/lia";
 import styles from "./BillboardForm.module.css";
+import Button from "@/app/components/Button/Button";
 
 interface ImageUploadProps {
   id: string;
@@ -68,14 +69,17 @@ const ImageUpload = ({
         />
 
         {selectedImage || originalImage ? (
-          <div
-            className={styles.imageDeleteButton}
-            onClick={(event) => {
-              event.preventDefault();
-              prepareImageRemoval();
-            }}
-          >
-            <LiaTrashAlt size="2em" color="white" />
+          <div className={styles.imageDeleteButton}>
+            <Button
+              variant="delete"
+              onClick={(event) => {
+                event.preventDefault();
+                prepareImageRemoval();
+              }}
+              iconSize="2em"
+              Icon={LiaTrashAlt}
+              square
+            />
           </div>
         ) : (
           <>

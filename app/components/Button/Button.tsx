@@ -19,8 +19,10 @@ interface ButtonProps {
   iconSize?: string;
   children?: ReactNode;
   className?: string;
+  square?: boolean;
+  circle?: boolean;
   Icon?: IconType;
-  onClick?: () => void;
+  onClick?: (event?: any) => void;
 }
 
 const Button = ({
@@ -29,6 +31,8 @@ const Button = ({
   disabled = false,
   iconFirst = false,
   iconSize = "1em",
+  square,
+  circle,
   className,
   children,
   Icon,
@@ -39,7 +43,9 @@ const Button = ({
       type={type}
       className={`${styles.generalButton} ${styles[variant]} ${
         iconFirst ? styles.reverse : styles.normal
-      } ${className}`}
+      } ${className ? className : ""} ${square ? styles.square : ""} ${
+        circle ? styles.circle : ""
+      }`}
       onClick={onClick}
       disabled={disabled}
     >

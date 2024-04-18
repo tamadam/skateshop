@@ -41,18 +41,9 @@
 }
 
 .imageDeleteButton {
-
     position: absolute;
     top: 0.4em;
     right: 0.4em;
-    background: rgb(255, 19, 19);
-    border-radius: 0.4em;
-    padding: 0.2em;
-    cursor: pointer
-}
-
-.imageDeleteButton:hover {
-    background: rgb(210, 9, 9);
 }
 
 .formActionButtons {
