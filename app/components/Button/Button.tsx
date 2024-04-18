@@ -38,14 +38,21 @@ const Button = ({
   Icon,
   onClick,
 }: ButtonProps) => {
+  const buttonStyles = [
+    styles.generalButton,
+    styles[variant],
+    iconFirst && styles.reverse,
+    className && className,
+    square && styles.square,
+    circle && styles.circle,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <button
       type={type}
-      className={`${styles.generalButton} ${styles[variant]} ${
-        iconFirst ? styles.reverse : styles.normal
-      } ${className ? className : ""} ${square ? styles.square : ""} ${
-        circle ? styles.circle : ""
-      }`}
+      className={buttonStyles}
       onClick={onClick}
       disabled={disabled}
     >
