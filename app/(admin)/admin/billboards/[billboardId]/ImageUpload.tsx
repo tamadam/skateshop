@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { UseFormRegister, UseFormResetField } from "react-hook-form";
 import { AiOutlineUpload } from "react-icons/ai";
 import { LiaTrashAlt } from "react-icons/lia";
-import styles from "./BillboardForm.module.css";
+import styles from "./ImageUpload.module.css";
 import Button from "@/app/components/Button/Button";
 
 interface ImageUploadProps {

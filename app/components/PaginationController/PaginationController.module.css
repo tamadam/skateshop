@@ -9,8 +9,11 @@
 }
 
 .paginationPages {
-    display: flex;
-    gap: 0.4em;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    justify-items: center;
+    gap: 0.2em;
 }
 
 .paginationButtons {
@@ -18,7 +21,8 @@
 }
 
 .pageItem {
-    padding: 0.2em;
+    padding: 6px 12px;
+    line-height: 1.4;
     font-size: var(--fs-s);
     cursor: pointer;
     font-weight: var(--fw-s);
