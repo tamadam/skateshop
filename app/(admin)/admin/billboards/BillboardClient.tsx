@@ -7,17 +7,23 @@ import ApiList from "../../components/ApiInfo/ApiList";
 
 interface BillboardClientProps {
   billboards: Billboard[];
+  totalBillboards: number;
 }
 
-const BillboardClient = ({ billboards }: BillboardClientProps) => {
+const BillboardClient = ({
+  billboards,
+  totalBillboards,
+}: BillboardClientProps) => {
   return (
     <div>
       <Heading
-        title={`Billboards (${billboards.length})`}
+        title={`Billboards (${totalBillboards})`}
         description="Manage your billboards for your shop"
       />
-
-      <BillboardTable billboards={billboards} />
+      <BillboardTable
+        billboards={billboards}
+        totalBillboards={totalBillboards}
+      />
       <ApiList entityName="billboards" entityIdName="billboardId" />
     </div>
   );

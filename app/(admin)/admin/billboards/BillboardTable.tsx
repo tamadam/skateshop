@@ -1,5 +1,5 @@
 import { Billboard } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
 import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
@@ -9,18 +9,27 @@ import toast from "react-hot-toast";
 import { formatDate } from "@/lib/formatDate";
 import { HiOutlinePlus } from "react-icons/hi";
 import styles from "./BillboardTable.module.css";
+import PaginationController from "@/app/components/PaginationController/PaginationController";
+import { getTotalPages } from "@/lib/getTotalPages";
 
 interface BillboardTableProps {
   billboards: Billboard[];
+  totalBillboards: number;
 }
 
-const BillboardTable = ({ billboards }: BillboardTableProps) => {
+const BillboardTable = ({
+  billboards,
+  totalBillboards,
+}: BillboardTableProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedBillboard, setSelectedBillboard] = useState<Billboard | null>(
     null
   );
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get("page") ?? 1);
+  const totalPages = getTotalPages(totalBillboards);
 
   const columns = ["Label", "Date"];
   const columnsLength = columns.length + 1;
@@ -59,6 +68,12 @@ const BillboardTable = ({ billboards }: BillboardTableProps) => {
       });
 
       if (response.ok) {
+        const newTotalPages = getTotalPages(totalBillboards - 1);
+        if (newTotalPages != totalPages && currentPage === totalPages) {
+          if (currentPage > 1) {
+            router.push(`?page=${currentPage - 1}`);
+          }
+        }
         router.refresh();
         toast.success("Billboard deleted successfully!");
       }
@@ -138,6 +153,8 @@ const BillboardTable = ({ billboards }: BillboardTableProps) => {
           </div>
         </div>
       </div>
+      <PaginationController totalPages={totalPages} currentPage={currentPage} />
+
       <Modal
         title="Are you sure you want to delete this billboard?"
         description="This action is permanent and cannot be undone."

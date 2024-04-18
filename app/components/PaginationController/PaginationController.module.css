@@ -1,0 +1,31 @@
+.paginationControllerWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-m);
+    margin-block-start: 1em;
+    gap: 0.4em;
+}
+
+.paginationPages {
+    display: flex;
+    gap: 0.4em;
+}
+
+.paginationButtons {
+    display: flex;
+}
+
+.pageItem {
+    padding: 0.2em;
+    font-size: var(--fs-s);
+    cursor: pointer;
+    font-weight: var(--fw-s);
+}
+
+.pageItem.currentPage {
+    background: var(--primary-btn-bg);
+    color: #fff;
+    border-radius: 0.2em;
+}
