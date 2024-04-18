@@ -2,9 +2,6 @@
     --admin-sidebar-font-clr: #000;
     --admin-sidebar-bg: #fff;
 
-    --admin-sidebar-title-clr: #fff;
-    --admin-sidebar-title-bg: #f00;
-
     --admin-nav-item-active-clr: #fff;
     --admin-nav-item-active-bg: rgba(0,194,255,1);  
     --admin-nav-item-active-bg-linear: linear-gradient(90deg, rgba(0,194,255,1) 0%, rgba(248,21,253,1) 100%);
@@ -17,15 +14,6 @@
 .adminSidebarTitleContainer {
     padding-inline: 1em;
     padding-block-end: 1em;
-}
-
-.adminSidebarTitle {
-    background: var(--admin-sidebar-title-bg);
-    color: var(--admin-sidebar-title-clr);
-    font-weight: var(--fw-m);
-    padding: 0.2em 0.6em;
-    border-radius: 0.675em;
-    display: inline-block;
 }
 
 .adminNavItem {

@@ -6,16 +6,23 @@ import { FiServer } from "react-icons/fi";
 import { MdContentCopy } from "react-icons/md";
 import toast from "react-hot-toast";
 import { Roboto_Slab } from "next/font/google";
+import Badge, { BadgeVariantType } from "@/app/components/Badge/Badge";
 
 const robotoSlab = Roboto_Slab({ subsets: ["latin"] });
 
 interface ApiInfoProps {
   title: string;
   description: string;
-  variant: "Public" | "Admin";
+  badgeVariant: BadgeVariantType;
+  badgeLabel: string;
 }
 
-const ApiInfo = ({ title, description, variant }: ApiInfoProps) => {
+const ApiInfo = ({
+  title,
+  description,
+  badgeVariant,
+  badgeLabel,
+}: ApiInfoProps) => {
   const copyLink = () => {
     navigator.clipboard.writeText(description);
     toast.success("API route copied to the clipboard!");
@@ -29,9 +36,7 @@ const ApiInfo = ({ title, description, variant }: ApiInfoProps) => {
       <div className={styles.apiInfoContent}>
         <div className={styles.apiInfoTitleWrapper}>
           <span className={styles.apiInfoTitle}>{title}</span>
-          <span className={`${styles.badge} ${styles[variant]}`}>
-            {variant}
-          </span>
+          <Badge variant={badgeVariant} label={badgeLabel} size="small" />
         </div>
         <div className={styles.apiInfoCopy}>
           <Button Icon={MdContentCopy} onClick={copyLink} shape="square" />

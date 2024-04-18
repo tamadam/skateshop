@@ -13,6 +13,7 @@ import { TbBrandDatabricks } from "react-icons/tb";
 
 import { useAdminNav } from "./AdminNavContext";
 import Overlay from "@/app/components/Overlay/Overlay";
+import Badge from "@/app/components/Badge/Badge";
 
 const AdminNav = () => {
   const pathname = usePathname();
@@ -75,7 +76,12 @@ const AdminNav = () => {
         className={`${styles.adminSidebarWrapper} ${isOpen ? styles.open : ""}`}
       >
         <div className={styles.adminSidebarTitleContainer}>
-          <span className={styles.adminSidebarTitle}>Admin</span>
+          <Badge
+            variant="admin"
+            label="admin"
+            size="medium"
+            weight="semibold"
+          />
         </div>
         <ul>
           {routes.map((route) => {

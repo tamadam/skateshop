@@ -26,27 +26,32 @@ const ApiList = ({ entityName, entityIdName }: ApiListProps) => {
         <ApiInfo
           title="GET"
           description={`${baseUrl}/${entityName}`}
-          variant="Public"
+          badgeVariant="public"
+          badgeLabel="public"
         />
         <ApiInfo
           title="GET"
           description={`${baseUrl}/${entityName}/{${entityIdName}}`}
-          variant="Public"
+          badgeVariant="public"
+          badgeLabel="public"
         />
         <ApiInfo
           title="POST"
           description={`${baseUrl}/${entityName}`}
-          variant="Admin"
+          badgeVariant="admin"
+          badgeLabel="admin"
         />
         <ApiInfo
           title="PATCH"
           description={`${baseUrl}/${entityName}/{${entityIdName}}`}
-          variant="Admin"
+          badgeVariant="admin"
+          badgeLabel="admin"
         />
         <ApiInfo
           title="DELETE"
           description={`${baseUrl}/${entityName}/{${entityIdName}}`}
-          variant="Admin"
+          badgeVariant="admin"
+          badgeLabel="admin"
         />
       </div>
     </div>

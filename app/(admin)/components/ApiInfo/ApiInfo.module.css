@@ -5,8 +5,8 @@
     overflow: hidden;
 
     display: grid;
-    grid-template-areas: "server title title"
-    ". description description";
+    grid-template-areas: "server title"
+    ". description";
     grid-template-columns: min-content 1fr;
     align-items: center;
     gap: 0.4em;
@@ -30,29 +30,11 @@
     align-items: center;
 }
 
-.apiInfoTitleWrapper .badge {
-    --public-badge-bg: #37af59;
-    --public-badge-clr: #fff;
-    --admin-badge-bg: #ff0000;
-    --admin-badge-clr: #fff;
-    border-radius: 0.6em;
-    padding-inline: 0.6em;
-    margin-inline-start: 0.4em;
-    font-size: var(--fs-xs);
-}
 
-.apiInfoTitleWrapper .badge.Admin {
-    background: var(--admin-badge-bg);
-    color: var(--admin-badge-clr);
-}
-
-.apiInfoTitleWrapper .badge.Public {
-    background: var(--public-badge-bg);
-    color: var(--public-badge-clr);  
-}
 
 .apiInfoTitle {
     font-weight: var(--fw-m);
+    margin-inline-end: 0.4em;
 }
 
 .apiInfoDescription {

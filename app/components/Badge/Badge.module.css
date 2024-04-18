@@ -1,0 +1,42 @@
+.badge {
+
+    --public-badge-bg: #37af59;
+    --public-badge-clr: #fff;
+    --admin-badge-bg: #ff0000;
+    --admin-badge-clr: #fff;
+    border-radius: 0.6em;
+    padding-inline: 0.6em;
+    display: inline-block;
+}
+
+.badge.admin {
+    background: var(--admin-badge-bg);
+    color: var(--admin-badge-clr);
+}
+
+.badge.public {
+    background: var(--public-badge-bg);
+    color: var(--public-badge-clr);  
+}
+
+.badge.small {
+    font-size: var(--fs-xs);
+}
+
+.badge.medium {
+    font-size: var(--fs-s);
+    padding-block: 0.2em;
+}
+
+.badge.large {
+    font-size: var(--fs-m);
+    padding-block: 0.2em;
+}
+
+.badge.semibold {
+    font-weight: var(--fw-m);
+}
+
+.badge.bold {
+    font-weight: var(--fw-l);
+}
