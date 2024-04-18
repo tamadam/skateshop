@@ -78,7 +78,7 @@ const ImageUpload = ({
               }}
               iconSize="2em"
               Icon={LiaTrashAlt}
-              square
+              shape="square"
             />
           </div>
         ) : (

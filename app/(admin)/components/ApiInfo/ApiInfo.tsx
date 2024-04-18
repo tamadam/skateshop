@@ -34,7 +34,7 @@ const ApiInfo = ({ title, description, variant }: ApiInfoProps) => {
           </span>
         </div>
         <div className={styles.apiInfoCopy}>
-          <Button Icon={MdContentCopy} onClick={copyLink} square />
+          <Button Icon={MdContentCopy} onClick={copyLink} shape="square" />
         </div>
       </div>
       <div className={styles.apiInfoDescription}>

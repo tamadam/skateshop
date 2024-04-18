@@ -19,7 +19,7 @@ interface ButtonProps {
   iconSize?: string;
   children?: ReactNode;
   className?: string;
-  square?: boolean;
+  shape?: "square" | "circle" | "normal";
   circle?: boolean;
   Icon?: IconType;
   onClick?: (event?: any) => void;
@@ -31,8 +31,7 @@ const Button = ({
   disabled = false,
   iconFirst = false,
   iconSize = "1em",
-  square,
-  circle,
+  shape = "normal",
   className,
   children,
   Icon,
@@ -43,8 +42,8 @@ const Button = ({
     styles[variant],
     iconFirst && styles.reverse,
     className && className,
-    square && styles.square,
-    circle && styles.circle,
+    shape === "square" && styles.square,
+    shape === "circle" && styles.circle,
   ]
     .filter(Boolean)
     .join(" ");
