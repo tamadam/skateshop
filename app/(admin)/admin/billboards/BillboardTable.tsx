@@ -1,41 +1,43 @@
-import { Billboard } from "@prisma/client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
-import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
-import Button from "@/app/components/Button/Button";
-import Modal from "@/app/components/Modal/Modal";
-import toast from "react-hot-toast";
-import { formatDate } from "@/lib/formatDate";
-import { HiOutlinePlus } from "react-icons/hi";
+import React, { useState } from "react";
+import { ColumnDefinition, FormattedBillboard } from "./columns";
 import styles from "./BillboardTable.module.css";
-import PaginationController from "@/app/components/PaginationController/PaginationController";
-import { getTotalPages, getValidatedPageNumber } from "@/lib/paginationUtils";
+import { HiOutlinePlus } from "react-icons/hi";
 import Search from "@/app/components/Search/Search";
+import Button from "@/app/components/Button/Button";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getValidatedPageNumber, getTotalPages } from "@/lib/paginationUtils";
+import PaginationController from "@/app/components/PaginationController/PaginationController";
+import { LiaTrashAlt } from "react-icons/lia";
+import toast from "react-hot-toast";
+import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
+import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
+import Modal from "@/app/components/Modal/Modal";
 
-interface BillboardTableProps {
-  billboards: Billboard[];
+type BillboardTableProps = {
+  data: FormattedBillboard[];
+  columns: ColumnDefinition<FormattedBillboard>[];
   totalBillboards: number;
-}
+};
 
 const BillboardTable = ({
-  billboards,
+  data,
+  columns,
   totalBillboards,
 }: BillboardTableProps) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedBillboard, setSelectedBillboard] = useState<Billboard | null>(
-    null
-  );
   const searchParams = useSearchParams();
+
   const currentPage = getValidatedPageNumber(searchParams.get("page"));
   const totalPages = getTotalPages(totalBillboards);
 
-  const columns = ["Label", "Date"];
-  const columnsLength = columns.length + 1;
+  const columnsCount = columns.length + 1;
 
-  const handleDeleteModalOpen = (billboard: Billboard) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBillboard, setSelectedBillboard] =
+    useState<FormattedBillboard | null>(null);
+
+  const handleDeleteModalOpen = (billboard: FormattedBillboard) => {
     setSelectedBillboard(billboard);
     setShowModal(true);
   };
@@ -45,7 +47,7 @@ const BillboardTable = ({
     setShowModal(false);
   };
 
-  const handleDelete = async (billboard: Billboard | null) => {
+  const handleDelete = async (billboard: FormattedBillboard | null) => {
     try {
       setIsLoading(true);
 
@@ -88,8 +90,8 @@ const BillboardTable = ({
   };
 
   return (
-    <>
-      <div className={styles.newAssetButtonContainer}>
+    <div className={styles.assetsTable}>
+      <div className={styles.assetsTableHeading}>
         <Button
           variant="primary"
           onClick={() => router.push("/admin/billboards/new")}
@@ -98,65 +100,75 @@ const BillboardTable = ({
         >
           <span>Add New</span>
         </Button>
+        <Search />
       </div>
-      <Search />
-      <div className={styles.assetsTableOuterWrapper}>
+      <div
+        className={styles.assetsTableWrapper}
+        style={{
+          gridTemplateColumns: `repeat(${columnsCount}, 1fr)`,
+        }}
+      >
         <div
-          className={styles.assetsTableInnerWrapper}
-          style={{
-            gridTemplateColumns: `repeat(${columnsLength}, 1fr)`,
-          }}
+          className={styles.assetsTableHeader}
+          style={{ gridColumn: `span ${columnsCount}` }}
         >
-          <div
-            className={styles.assetsTableHeader}
-            style={{ gridColumn: `span ${columnsLength}` }}
-          >
-            {columns.map((header) => (
-              <div key={header}>{header}</div>
-            ))}
-          </div>
-          <div
-            className={styles.assetsTableContent}
-            style={{ gridColumn: `span ${columnsLength}` }}
-          >
-            {billboards.length === 0 && (
-              <div className={styles.assetsNoTableContent}>
-                No billboards available
-              </div>
-            )}
-            {billboards.map((billboard) => {
-              return (
-                <div
-                  key={billboard.id}
-                  className={styles.assetItem}
-                  style={{ gridColumn: `span ${columnsLength}` }}
-                >
-                  <div>{billboard.label}</div>
-                  <div>{formatDate(billboard.createdAt, "en-US")}</div>
-                  <div className={styles.assetActionButtonContainer}>
-                    <Button
-                      variant="update"
-                      onClick={() =>
-                        router.push(`/admin/billboards/${billboard.id}`)
-                      }
-                    >
-                      <span>Update</span>
-                    </Button>
-                    <Button
-                      variant="delete"
-                      onClick={() => handleDeleteModalOpen(billboard)}
-                    >
-                      <span>Delete</span>
-                    </Button>
+          {columns.map((column) => {
+            return <div key={column.header}>{column.header}</div>;
+          })}
+        </div>
+        <div
+          className={styles.assetsTableContent}
+          style={{ gridColumn: `span ${columnsCount}` }}
+        >
+          {data.length === 0 && (
+            <div className={styles.assetsNoTableContent}>
+              No billboards available
+            </div>
+          )}
+          {data.map((item, index) => (
+            <div
+              key={index}
+              className={styles.assetsTableItem}
+              style={{ gridColumn: `span ${columnsCount}` }}
+            >
+              {columns.map((column, index2) => {
+                const asset = item[column.field as keyof typeof item];
+                return (
+                  <div
+                    className={styles.assetItem}
+                    data-label={column.header}
+                    key={index2}
+                  >
+                    {asset}
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+              <div className={styles.assetsTableActions}>
+                <Button
+                  variant="update"
+                  onClick={() => router.push(`/admin/billboards/${item.id}`)}
+                >
+                  <span>Update</span>
+                </Button>
+                <Button
+                  variant="delete"
+                  className={styles.deleteAction}
+                  onClick={() => handleDeleteModalOpen(item)}
+                >
+                  <span>Delete</span>
+                </Button>
+                <Button
+                  variant="delete"
+                  className={styles.deleteActionMobile}
+                  Icon={LiaTrashAlt}
+                  shape="square"
+                  onClick={() => handleDeleteModalOpen(item)}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <PaginationController totalPages={totalPages} currentPage={currentPage} />
-
       <Modal
         title="Are you sure you want to delete this billboard?"
         description="This action is permanent and cannot be undone."
@@ -167,7 +179,8 @@ const BillboardTable = ({
         actionVariant="delete"
         isActionLoading={isLoading}
       />
-    </>
+      <PaginationController totalPages={totalPages} currentPage={currentPage} />
+    </div>
   );
 };
 

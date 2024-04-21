@@ -1,54 +1,48 @@
-.newAssetButtonContainer {
-    margin-block: 1em;
-}
-
-.assetActionButtonContainer {
-    justify-self: center;
+.assetsTable {
     display: flex;
-    gap: 0.6em;
-}
-
-
-
-.assetsTableOuterWrapper {
-    overflow-x: auto;
-    scrollbar-width: thin;
+    flex-direction: column;
+    gap: 1em;
     margin-block: 1em;
 }
 
-.assetsTableInnerWrapper {
+.assetsTableHeading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 0.6em;
+    column-gap: 1em;
+}
+
+.assetsTableWrapper {
     border: 1px solid var(--admin-default-border-clr);
     border-radius: 0.4em;
 
     display: grid;
-    min-width: 30rem;
     column-gap: 2em;
     font-size: var(--fs-xs);
 }
 
 .assetsTableHeader,
 .assetsTableContent,
-.assetItem {
+.assetsTableItem {
     display: grid;
     grid-template-columns: subgrid;
     align-items: center;
     justify-content: center;
-
 }
 
-.assetItem,
+.assetsTableItem,
 .assetsTableHeader {
     padding: 1em;
     border-bottom: 1px solid var(--admin-default-border-clr);
 }
 
-.assetsNoTableContent {
-    padding: 1em;
+.assetsTableItem:last-child{
+    border: none;
 }
 
-
-.assetItem:last-child{
-    border: none;
+.assetsTableItem {
+    position: relative;
 }
 
 .assetsTableHeader {
@@ -57,3 +51,55 @@
     font-weight: var(--fw-m);
 }
 
+.assetsNoTableContent {
+    padding: 1em;
+}
+
+.assetsTableActions {
+    display: flex;
+    gap: 0.6em;
+}
+
+.deleteActionMobile {
+    display: none;
+}
+
+@media (max-width: 860px) {
+    .assetsTableHeader {
+        display: none;
+    }
+
+
+    .assetsTableItem > .assetItem[data-label]:before {
+        content: attr(data-label) ': ';
+        font-weight: var(--fw-m);
+    }
+
+    .assetItem {
+        width: 75%;
+    }
+    
+    .deleteAction {
+        display: none;
+    }
+
+    .deleteActionMobile {
+        display: block;
+        position: absolute;
+        top: 0.4rem;
+        right: 0.4rem;
+        font-size: var(--fs-m);
+    }
+
+    .assetsTableWrapper {
+        grid-template-columns: 1fr !important;
+    }
+
+    .assetsTableWrapper * {
+        grid-column: unset !important;
+    }
+
+    .assetsTableActions {
+        margin-block-start: 1em;
+    }
+}
