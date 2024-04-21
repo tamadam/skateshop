@@ -50,6 +50,18 @@
     background: var(--primary-btn-bg-hover);
 }
 
+.generalButton.primary.invert {
+    color: var(--primary-btn-bg);
+    background: var(--primary-btn-clr);
+    border: 1px solid;
+}
+
+
+.generalButton.primary.invert:hover {
+    background: var(--primary-btn-bg-hover);
+    color: var(--primary-btn-clr);
+}
+
 .generalButton.secondary {
     color: var(--secondary-btn-clr);
     background: var(--secondary-btn-bg);
@@ -57,6 +69,17 @@
 
 .generalButton.secondary:hover {
     background: var(--secondary-btn-bg-hover);
+}
+
+.generalButton.secondary.invert {
+    color: var(--secondary-btn-bg);
+    background: var(--secondary-btn-clr);
+    border: 1px solid;
+}
+
+.generalButton.secondary.invert:hover {
+    background: var(--secondary-btn-bg-hover);
+    color: var(--secondary-btn-clr);
 }
 
 .generalButton.update {
@@ -68,6 +91,17 @@
     background: var(--update-btn-bg-hover);
 }
 
+.generalButton.update.invert {
+    color: var(--update-btn-bg);
+    background: var(--update-btn-clr);
+    border: 1px solid;
+}
+
+.generalButton.update.invert:hover {
+    background: var(--update-btn-bg-hover);
+    color: var(--update-btn-clr);
+}
+
 .generalButton.delete {
     color: var(--delete-btn-clr);
     background: var(--delete-btn-bg);
@@ -75,6 +109,17 @@
 
 .generalButton.delete:hover {
     background: var(--delete-btn-bg-hover);
+}
+
+.generalButton.delete.invert {
+    color: var(--delete-btn-bg);
+    background: var(--delete-btn-clr);
+    border: 1px solid;
+}
+
+.generalButton.delete.invert:hover {
+    background: var(--delete-btn-bg-hover);
+    color: var(--delete-btn-clr);
 }
 
 .generalButton.cancel {

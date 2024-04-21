@@ -22,6 +22,7 @@ interface ButtonProps {
   className?: string;
   shape?: "square" | "circle" | "normal" | "original";
   circle?: boolean;
+  colorInvert?: boolean;
   Icon?: IconType;
   onClick?: (event?: any) => void;
 }
@@ -33,6 +34,7 @@ const Button = ({
   iconFirst = false,
   iconSize = "1em",
   shape = "normal",
+  colorInvert = false,
   className,
   children,
   Icon,
@@ -44,6 +46,7 @@ const Button = ({
     iconFirst && styles.reverse,
     className && className,
     styles[shape],
+    colorInvert && styles.invert,
   ]
     .filter(Boolean)
     .join(" ");

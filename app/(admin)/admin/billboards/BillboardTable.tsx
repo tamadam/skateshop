@@ -152,6 +152,7 @@ const BillboardTable = ({
                 </Button>
                 <Button
                   variant="delete"
+                  colorInvert
                   className={styles.deleteAction}
                   onClick={() => handleDeleteModalOpen(item)}
                 >
