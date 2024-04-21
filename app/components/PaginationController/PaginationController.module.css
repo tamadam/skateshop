@@ -9,10 +9,7 @@
 }
 
 .paginationPages {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    justify-items: center;
+    display: flex;
     gap: 0.2em;
 }
 
@@ -21,7 +18,12 @@
 }
 
 .pageItem {
-    padding: 6px 12px;
+
+    display: inline-flex;
+    width: 2em;
+    height: 2em;
+    align-items: center;
+    justify-content: center;
     line-height: 1.4;
     font-size: var(--fs-s);
     cursor: pointer;

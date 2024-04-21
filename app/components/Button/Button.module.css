@@ -50,6 +50,15 @@
     background: var(--primary-btn-bg-hover);
 }
 
+.generalButton.secondary {
+    color: var(--secondary-btn-clr);
+    background: var(--secondary-btn-bg);
+}
+
+.generalButton.secondary:hover {
+    background: var(--secondary-btn-bg-hover);
+}
+
 .generalButton.update {
     color: var(--update-btn-clr);
     background: var(--update-btn-bg);

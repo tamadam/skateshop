@@ -13,6 +13,7 @@
 .assetsTableOuterWrapper {
     overflow-x: auto;
     scrollbar-width: thin;
+    margin-block: 1em;
 }
 
 .assetsTableInnerWrapper {

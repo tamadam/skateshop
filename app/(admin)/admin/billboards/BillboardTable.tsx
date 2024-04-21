@@ -10,7 +10,8 @@ import { formatDate } from "@/lib/formatDate";
 import { HiOutlinePlus } from "react-icons/hi";
 import styles from "./BillboardTable.module.css";
 import PaginationController from "@/app/components/PaginationController/PaginationController";
-import { getTotalPages } from "@/lib/getTotalPages";
+import { getTotalPages, getValidatedPageNumber } from "@/lib/paginationUtils";
+import Search from "@/app/components/Search/Search";
 
 interface BillboardTableProps {
   billboards: Billboard[];
@@ -28,7 +29,7 @@ const BillboardTable = ({
     null
   );
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page") ?? 1);
+  const currentPage = getValidatedPageNumber(searchParams.get("page"));
   const totalPages = getTotalPages(totalBillboards);
 
   const columns = ["Label", "Date"];
@@ -98,6 +99,7 @@ const BillboardTable = ({
           <span>Add New</span>
         </Button>
       </div>
+      <Search />
       <div className={styles.assetsTableOuterWrapper}>
         <div
           className={styles.assetsTableInnerWrapper}

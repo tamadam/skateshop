@@ -1,16 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Button from "../Button/Button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { RiArrowLeftDoubleLine, RiArrowRightDoubleLine } from "react-icons/ri";
 
 import styles from "./PaginationController.module.css";
-
-interface PaginationControllerProps {
-  totalPages: number;
-  currentPage: number;
-}
+import { updateSearchParams } from "@/lib/updateSearchParams";
 
 const generatePageNumbers = (totalPages: number, currentPage: number) => {
   const pageNumbers = [];
@@ -62,12 +58,17 @@ const generatePageNumbers = (totalPages: number, currentPage: number) => {
   return finalPageNumbers;
 };
 
+interface PaginationControllerProps {
+  totalPages: number;
+  currentPage: number;
+}
+
 const PaginationController = ({
   totalPages,
   currentPage,
 }: PaginationControllerProps) => {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const pageNumbers = generatePageNumbers(totalPages, currentPage);
 
   return (
@@ -75,14 +76,24 @@ const PaginationController = ({
       <div className={styles.paginationButtons}>
         <Button
           disabled={currentPage === 1}
-          onClick={() => router.push(`?page=${1}`)}
+          onClick={() => {
+            const newSearchParams = updateSearchParams(searchParams, [
+              { key: "page", value: "1" },
+            ]);
+            router.push(newSearchParams);
+          }}
           Icon={RiArrowLeftDoubleLine}
           iconFirst
           shape="original"
         />
         <Button
           disabled={currentPage === 1}
-          onClick={() => router.push(`?page=${currentPage - 1}`)}
+          onClick={() => {
+            const newSearchParams = updateSearchParams(searchParams, [
+              { key: "page", value: `${currentPage - 1}` },
+            ]);
+            router.push(newSearchParams);
+          }}
           Icon={IoIosArrowBack}
           iconFirst
           shape="original"
@@ -93,7 +104,7 @@ const PaginationController = ({
           if (page === -1) {
             return (
               <li key={index} className={styles.pageItem}>
-                ...
+                <span>...</span>
               </li>
             );
           } else {
@@ -103,9 +114,14 @@ const PaginationController = ({
                 className={`${styles.pageItem} ${
                   page === currentPage ? styles.currentPage : ""
                 }`}
-                onClick={() => router.push(`?page=${page}`)}
+                onClick={() => {
+                  const newSearchParams = updateSearchParams(searchParams, [
+                    { key: "page", value: `${page}` },
+                  ]);
+                  router.push(newSearchParams);
+                }}
               >
-                {page}
+                <span>{page}</span>
               </li>
             );
           }
@@ -114,13 +130,23 @@ const PaginationController = ({
       <div className={styles.paginationButtons}>
         <Button
           disabled={currentPage === totalPages}
-          onClick={() => router.push(`?page=${currentPage + 1}`)}
+          onClick={() => {
+            const newSearchParams = updateSearchParams(searchParams, [
+              { key: "page", value: `${currentPage + 1}` },
+            ]);
+            router.push(newSearchParams);
+          }}
           Icon={IoIosArrowForward}
           shape="original"
         />
         <Button
           disabled={currentPage === totalPages}
-          onClick={() => router.push(`?page=${totalPages}`)}
+          onClick={() => {
+            const newSearchParams = updateSearchParams(searchParams, [
+              { key: "page", value: `${totalPages}` },
+            ]);
+            router.push(newSearchParams);
+          }}
           Icon={RiArrowRightDoubleLine}
           shape="original"
         />
