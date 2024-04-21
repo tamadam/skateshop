@@ -24,6 +24,11 @@
     grid-area: description;
 }
 
+.apiInfoDescription > p {
+    word-break: break-all;
+    white-space: normal;
+}
+
 .apiInfoContent {
     display: flex;
     justify-content: space-between;
@@ -43,7 +48,7 @@
     font-weight: var(--fw-l);
     font-size: var(--fs-xs);
     padding-inline: 0.2em;
-    overflow-wrap: break-word;
+
     max-width: fit-content;
 } 
 

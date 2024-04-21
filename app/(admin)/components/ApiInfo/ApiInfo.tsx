@@ -43,9 +43,7 @@ const ApiInfo = ({
         </div>
       </div>
       <div className={styles.apiInfoDescription}>
-        <p className={`${styles.apiInfoDescription} ${robotoSlab.className}`}>
-          {description}
-        </p>
+        <p className={robotoSlab.className}>{description}</p>
       </div>
     </div>
   );
