@@ -34,16 +34,16 @@ model Billboard {
 }
 
 model Category {
-  id          String     @id @default(uuid())
-  name        String
-  parentId    String?    @map("parentCategoryId")
-  parent      Category?  @relation("subCategory", fields: [parentId], references: [id])
-  subCategory Category[] @relation("subCategory")
-  billboardId String
-  billboard   Billboard  @relation(fields: [billboardId], references: [id])
-  products    Product[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id               String     @id @default(uuid())
+  name             String
+  parentCategoryId String?
+  parentCategory   Category?  @relation("subCategory", fields: [parentCategoryId], references: [id])
+  subCategory      Category[] @relation("subCategory")
+  billboardId      String
+  billboard        Billboard  @relation(fields: [billboardId], references: [id])
+  products         Product[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 }
 
 model Product {

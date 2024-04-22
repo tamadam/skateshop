@@ -63,7 +63,7 @@ export async function PATCH(
             data: {
                 name: body.name,
                 billboardId: body.billboardId,
-                parentId: body.parentCategoryId
+                parentCategoryId: body.parentCategoryId
             },
         });
 

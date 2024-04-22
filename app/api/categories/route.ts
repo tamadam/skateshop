@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
             data: {
                 name: body.name,
                 billboardId: body.billboardId,
-                parentId: body.parentCategoryId
+                parentCategoryId: body.parentCategoryId
             },
         });
 
