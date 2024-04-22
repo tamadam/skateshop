@@ -2,10 +2,27 @@ import prisma from "@/prisma/client";
 import CategoryClient from "./CategoryClient";
 import { FormattedCategory } from "./columns";
 import { formatDate } from "@/lib/formatDate";
+import { getValidatedPageNumber } from "@/lib/paginationUtils";
+import { PAGINATION_ITEMS_PER_PAGE } from "@/app/constants";
 
-const CategoriesPage = async () => {
+interface CategoriesPageProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+const CategoriesPage = async ({ searchParams }: CategoriesPageProps) => {
+  const currentPage = getValidatedPageNumber(searchParams["page"]);
+  const itemsPerPage = PAGINATION_ITEMS_PER_PAGE;
+
+  const searchQuery = searchParams["search_query"]?.[0] ?? "";
+
   const [categories, totalCategories] = await prisma.$transaction([
     prisma.category.findMany({
+      where: {
+        name: {
+          contains: searchQuery,
+          mode: "insensitive",
+        },
+      },
       include: {
         billboard: true,
         subCategory: true,
@@ -14,8 +31,17 @@ const CategoriesPage = async () => {
       orderBy: {
         createdAt: "asc",
       },
+      skip: itemsPerPage * (currentPage - 1),
+      take: itemsPerPage,
     }),
-    prisma.category.count(),
+    prisma.category.count({
+      where: {
+        name: {
+          contains: searchQuery,
+          mode: "insensitive",
+        },
+      },
+    }),
   ]);
 
   const formattedCategories: FormattedCategory[] = categories.map(

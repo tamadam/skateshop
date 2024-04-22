@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { ColumnDefinition, FormattedCategory } from "./columns";
 import styles from "./CategoryTable.module.css";
 import { HiOutlinePlus } from "react-icons/hi";
@@ -38,13 +38,6 @@ const CategoryTable = ({
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] =
     useState<FormattedCategory | null>(null);
-  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(
-    null
-  );
-
-  const toggleDropdown = (index: number) => {
-    setOpenDropdownIndex(openDropdownIndex === index ? null : index);
-  };
 
   const handleDeleteModalOpen = (category: FormattedCategory) => {
     setSelectedCategory(category);
