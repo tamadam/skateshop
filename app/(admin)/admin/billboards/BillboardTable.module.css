@@ -45,6 +45,10 @@
     position: relative;
 }
 
+.assetItem {
+    word-break: break-word;
+}
+
 .assetsTableHeader {
     background: rgb(247 247 247);
     border-radius: 0.4em 0.4em 0 0;
@@ -61,12 +65,12 @@
 }
 
 .deleteActionMobile {
-    display: none;
+    display: none !important;
 }
 
 @media (max-width: 860px) {
     .assetsTableHeader {
-        display: none;
+        display: none !important;
     }
 
 
@@ -80,11 +84,11 @@
     }
     
     .deleteAction {
-        display: none;
+        display: none !important;
     }
 
     .deleteActionMobile {
-        display: block;
+        display: block !important;
         position: absolute;
         top: 0.4rem;
         right: 0.4rem;
