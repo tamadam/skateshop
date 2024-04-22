@@ -65,6 +65,14 @@
     justify-self: end;
 }
 
+.assetActions {
+    position: relative;
+}
+
+.dropDownContent {
+    position: absolute;
+}
+
 .actionButton {
     width: 2.2em;
     height: 2.2em;

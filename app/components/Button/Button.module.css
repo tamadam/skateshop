@@ -4,15 +4,32 @@
     align-items: center;
     justify-content: center;
     gap: 0.2em;
-    width: fit-content;
     border-radius: 0.4em;
     font-weight: var(--fw-m);
     transition: var(--bg-clr-transition);
+    position: relative;
 }
 
 .generalButton[disabled] {
     opacity: 0.6;
     pointer-events: none;
+}
+
+.generalButtonTooltip {
+    position: absolute;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    text-align: center;
+    visibility: hidden;
+    background: #fff;
+    color: #414141;
+    bottom: 110%;
+    padding: 0.2em;
+    border-radius: 0.2em;
+}
+
+.generalButton:hover .generalButtonTooltip {
+    visibility: visible;
 }
 
 .generalButton.reverse {

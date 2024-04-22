@@ -21,8 +21,8 @@ interface ButtonProps {
   children?: ReactNode;
   className?: string;
   shape?: "square" | "circle" | "normal" | "original";
-  circle?: boolean;
   colorInvert?: boolean;
+  tooltip?: string;
   Icon?: IconType;
   onClick?: (event?: any) => void;
 }
@@ -35,6 +35,7 @@ const Button = ({
   iconSize = "1em",
   shape = "normal",
   colorInvert = false,
+  tooltip = "",
   className,
   children,
   Icon,
@@ -60,6 +61,9 @@ const Button = ({
     >
       {children}
       {Icon && <Icon size={iconSize} />}
+      {tooltip && (
+        <span className={styles.generalButtonTooltip}>{tooltip}</span>
+      )}
     </button>
   );
 };

@@ -11,7 +11,7 @@ export type ColumnDefinition<T> = {
 };
 
 export const columns: ColumnDefinition<FormattedBillboard>[] = [
-    { field: "label", header: "Label"},
-    { field: "createdAt", header: "Date"},
+    { field: "label", header: "Label" },
+    { field: "createdAt", header: "Date" },
 ];
 

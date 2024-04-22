@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { ColumnDefinition, FormattedBillboard } from "./columns";
-import styles from "./BillboardTable.module.css";
+import React, { useEffect, useRef, useState } from "react";
+import { ColumnDefinition, FormattedCategory } from "./columns";
+import styles from "./CategoryTable.module.css";
 import { HiOutlinePlus } from "react-icons/hi";
 import Search from "@/app/components/Search/Search";
 import Button from "@/app/components/Button/Button";
@@ -8,64 +8,61 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { getValidatedPageNumber, getTotalPages } from "@/lib/paginationUtils";
 import PaginationController from "@/app/components/PaginationController/PaginationController";
 import { LiaTrashAlt } from "react-icons/lia";
-import toast from "react-hot-toast";
-import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
-import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
-import Modal from "@/app/components/Modal/Modal";
 import { MdModeEdit } from "react-icons/md";
 import { RiFileCopyFill } from "react-icons/ri";
 
-type BillboardTableProps = {
-  data: FormattedBillboard[];
-  columns: ColumnDefinition<FormattedBillboard>[];
-  totalBillboards: number;
+import toast from "react-hot-toast";
+
+import Modal from "@/app/components/Modal/Modal";
+
+type CategoryTableProps = {
+  data: FormattedCategory[];
+  columns: ColumnDefinition<FormattedCategory>[];
+  totalCategories: number;
 };
 
-const BillboardTable = ({
+const CategoryTable = ({
   data,
   columns,
-  totalBillboards,
-}: BillboardTableProps) => {
+  totalCategories,
+}: CategoryTableProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const currentPage = getValidatedPageNumber(searchParams.get("page"));
-  const totalPages = getTotalPages(totalBillboards);
+  const totalPages = getTotalPages(totalCategories);
 
   const columnsCount = columns.length + 1;
 
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectedBillboard, setSelectedBillboard] =
-    useState<FormattedBillboard | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<FormattedCategory | null>(null);
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(
+    null
+  );
 
-  const handleDeleteModalOpen = (billboard: FormattedBillboard) => {
-    setSelectedBillboard(billboard);
+  const toggleDropdown = (index: number) => {
+    setOpenDropdownIndex(openDropdownIndex === index ? null : index);
+  };
+
+  const handleDeleteModalOpen = (category: FormattedCategory) => {
+    setSelectedCategory(category);
     setShowModal(true);
   };
 
   const handleDeleteModalClose = () => {
-    setSelectedBillboard(null);
+    setSelectedCategory(null);
     setShowModal(false);
   };
 
-  const handleDelete = async (billboard: FormattedBillboard | null) => {
+  const handleDelete = async (category: FormattedCategory | null) => {
     try {
       setIsLoading(true);
 
-      if (!billboard) throw new Error("No billboard available");
+      if (!category) throw new Error("No category available");
 
-      // delete billboard image from Cloudinary if exists
-      if (billboard.imageUrl) {
-        const cldOptions = getCldOptions(
-          billboard?.imageUrl,
-          CLOUDINARY_BILLBOARDS_REGEX
-        );
-
-        deleteCldImage(cldOptions);
-      }
-
-      const response = await fetch(`/api/billboards/${billboard.id}`, {
+      const response = await fetch(`/api/categories/${category.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -73,14 +70,14 @@ const BillboardTable = ({
       });
 
       if (response.ok) {
-        const newTotalPages = getTotalPages(totalBillboards - 1);
+        const newTotalPages = getTotalPages(totalCategories - 1);
         if (newTotalPages != totalPages && currentPage === totalPages) {
           if (currentPage > 1) {
             router.push(`?page=${currentPage - 1}`);
           }
         }
         router.refresh();
-        toast.success("Billboard deleted successfully!");
+        toast.success("Category deleted successfully!");
       }
     } catch (error) {
       console.log(error);
@@ -93,7 +90,7 @@ const BillboardTable = ({
 
   const copyId = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to the clipboard!");
+    toast.success("Category ID copied to the clipboard!");
   };
 
   return (
@@ -101,7 +98,7 @@ const BillboardTable = ({
       <div className={styles.assetsTableHeading}>
         <Button
           variant="primary"
-          onClick={() => router.push("/admin/billboards/new")}
+          onClick={() => router.push("/admin/categories/new")}
           Icon={HiOutlinePlus}
           iconFirst
         >
@@ -129,7 +126,7 @@ const BillboardTable = ({
         >
           {data.length === 0 && (
             <div className={styles.assetsNoTableContent}>
-              No billboards available
+              No categories available
             </div>
           )}
           {data.map((item, index) => (
@@ -150,23 +147,24 @@ const BillboardTable = ({
                   </div>
                 );
               })}
+
               <div className={styles.assetsTableActions}>
                 <Button
                   variant="update"
                   className={styles.actionButton}
-                  onClick={() => router.push(`/admin/billboards/${item.id}`)}
-                  Icon={MdModeEdit}
                   shape="original"
+                  onClick={() => router.push(`/admin/categories/${item.id}`)}
+                  Icon={MdModeEdit}
                   tooltip="Update"
                 />
                 <Button
                   variant="cancel"
                   className={styles.actionButton}
+                  shape="original"
                   onClick={() => {
                     copyId(item.id);
                   }}
                   Icon={RiFileCopyFill}
-                  shape="original"
                   tooltip="Copy ID"
                 />
                 <Button
@@ -183,11 +181,11 @@ const BillboardTable = ({
         </div>
       </div>
       <Modal
-        title="Are you sure you want to delete this billboard?"
+        title="Are you sure you want to delete this category?"
         description="This action is permanent and cannot be undone."
         open={showModal}
         onCancel={handleDeleteModalClose}
-        onAction={() => handleDelete(selectedBillboard)}
+        onAction={() => handleDelete(selectedCategory)}
         actionLabel="Delete"
         actionVariant="delete"
         isActionLoading={isLoading}
@@ -197,4 +195,4 @@ const BillboardTable = ({
   );
 };
 
-export default BillboardTable;
+export default CategoryTable;
