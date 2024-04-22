@@ -7,7 +7,7 @@ import { ROLES } from "@prisma/client";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { billboardId: string }}
+    { params }: { params: { billboardId: string } }
 ) {
     try {
         // find billboard

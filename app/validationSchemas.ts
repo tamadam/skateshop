@@ -69,3 +69,13 @@ export const billboardFormSchema = z.object({
 });
 
 export type BillboardFormFields = z.infer<typeof billboardFormSchema>;
+
+// SCHEMA FOR CATEGORIES
+
+export const categoriesFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  billboardId: z.string().min(1, "Billboard is required"),
+  parentCategoryId: z.string().optional(),
+});
+
+export type CategoryFormFields = z.infer<typeof categoriesFormSchema>;

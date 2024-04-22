@@ -35,7 +35,8 @@ model Billboard {
 
 model Category {
   id          String     @id @default(uuid())
-  parentId    String?    @map("categoryId")
+  name        String
+  parentId    String?    @map("parentCategoryId")
   parent      Category?  @relation("subCategory", fields: [parentId], references: [id])
   subCategory Category[] @relation("subCategory")
   billboardId String

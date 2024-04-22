@@ -1,9 +1,9 @@
+import { categoriesFormSchema } from "@/app/validationSchemas";
 import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { ROLES } from "@prisma/client";
-import { billboardFormSchema } from "@/app/validationSchemas";
 
 export async function POST(request: NextRequest) {
     try {
@@ -15,38 +15,39 @@ export async function POST(request: NextRequest) {
 
         // validate request
         const body = await request.json();
-        const validation = billboardFormSchema.safeParse(body);
+        const validation = categoriesFormSchema.safeParse(body);
 
         if (!validation.success) {
             return NextResponse.json(validation.error.format(), { status: 400 });
         }
 
-        // create new billboard
-        const newBillboard = await prisma.billboard.create({
+        // create new category
+        const newCategory = await prisma.category.create({
             data: {
-                label: body.label,
-                imageUrl: body.imageUrl
+                name: body.name,
+                billboardId: body.billboardId,
+                parentId: body.parentCategoryId
             },
         });
 
-        return NextResponse.json(newBillboard, { status: 201 });
+        return NextResponse.json(newCategory, { status: 201 });
     } catch (error) {
-        console.log("BILLBOARDS_POST: ", error);
+        console.log("CATEGORIES_POST: ", error);
         return NextResponse.json("Internal server error", { status: 500 });
     }
 }
 
 export async function GET(request: NextRequest) {
     try {
-        const billboards = await prisma.billboard.findMany({
+        const categories = await prisma.category.findMany({
             orderBy: {
-                createdAt: "desc"
+                createdAt: "desc",
             },
         });
-    
-        return NextResponse.json(billboards, { status: 200 });
+
+        return NextResponse.json(categories, { status: 200 });
     } catch (error) {
-        console.log("BILLBOARDS_GET: ", error);
+        console.log("CATEGORIES_GET: ", error);
         return NextResponse.json("Internal server error", { status: 500 });
     }
 }
