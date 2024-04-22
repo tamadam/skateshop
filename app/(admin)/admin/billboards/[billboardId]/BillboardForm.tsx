@@ -14,7 +14,7 @@ import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../../../components/ImageUpload/ImageUpload";
 import Heading from "@/app/(admin)/components/Heading/Heading";
 import styles from "./BillboardForm.module.css";
 import Button from "@/app/components/Button/Button";

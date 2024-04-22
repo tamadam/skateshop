@@ -9,26 +9,18 @@ interface BillboardPageProps {
 }
 
 const BillboardPage = async ({ params }: BillboardPageProps) => {
-  // retrieve billboard using parameters if exists
-  // and pass to BillboardForm to autopopulate the form
-
   const billboard = await prisma.billboard.findUnique({
     where: {
       id: params.billboardId,
     },
   });
 
-  //const regex = /billboards\/\w+/; // 'billboards/public_id'
   const cldOptions = getCldOptions(
     billboard?.imageUrl,
     CLOUDINARY_BILLBOARDS_REGEX
   );
 
-  return (
-    <>
-      <BillboardForm billboard={billboard} cldOptions={cldOptions} />
-    </>
-  );
+  return <BillboardForm billboard={billboard} cldOptions={cldOptions} />;
 };
 
 export default BillboardPage;
