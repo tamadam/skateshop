@@ -115,6 +115,7 @@ const PaginationController = ({
                   page === currentPage ? styles.currentPage : ""
                 }`}
                 onClick={() => {
+                  if (page === currentPage) return;
                   const newSearchParams = updateSearchParams(searchParams, [
                     { key: "page", value: `${page}` },
                   ]);
