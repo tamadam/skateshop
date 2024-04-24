@@ -50,6 +50,7 @@ const CategoriesPage = async ({ searchParams }: CategoriesPageProps) => {
         id: category.id,
         name: category.name,
         parentCategory: category.parentCategory?.name || "",
+        billboard: category.billboard.label,
         createdAt: formatDate(category.createdAt, "en-US"),
       };
     }
