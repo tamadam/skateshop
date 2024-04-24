@@ -14,10 +14,12 @@ import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import ImageUpload from "../../../components/ImageUpload/ImageUpload";
 import Heading from "@/app/(admin)/components/Heading/Heading";
-import styles from "./BillboardForm.module.css";
-import Button from "@/app/components/Button/Button";
+import AdminFormInput from "@/app/(admin)/components/AdminForm/AdminFormInput/AdminFormInput";
+import AdminFormImageInput from "@/app/(admin)/components/AdminForm/AdminFormInput/AdminFormImageInput";
+import AdminFormSubmit from "@/app/(admin)/components/AdminForm/AdminFormSubmit/AdminFormSubmit";
+import AdminForm from "@/app/(admin)/components/AdminForm/AdminForm";
+import AdminFormInputsWrapper from "@/app/(admin)/components/AdminForm/AdminFormInputsWrapper";
 
 interface BillboardFormProps {
   billboard: Billboard | null;
@@ -117,54 +119,37 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
   return (
     <>
       <Heading title={headingTitle} description={headingDescription} />
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.formWrapper}>
-        <div className={styles.inputField}>
-          <label htmlFor="label" className={styles.inputFieldLabel}>
-            Label
-          </label>
-          <input
-            autoComplete="off"
+      <AdminForm onSubmit={handleSubmit(onSubmit)}>
+        <AdminFormInputsWrapper singleColumn>
+          <AdminFormInput
             type="text"
             id="label"
+            label="Label"
+            required
+            register={register}
             disabled={isSubmitting}
-            className={styles.inputFieldInput}
-            {...register("label")}
+            errorMessage={errors.label?.message}
           />
-          <p>{errors.label?.message}</p>
-        </div>
 
-        <div className={styles.inputField}>
-          <div className={styles.inputFieldLabel}>Billboard Image</div>
-          <div>
-            <ImageUpload
-              id="imageUrl"
-              imageUrl={billboard?.imageUrl}
-              resetField={resetField}
-              register={register}
-              errorMessage={errors.imageUrl?.message}
-              disabled={isSubmitting}
-              originalImage={originalImage}
-              onOriginalImageChange={handleOriginalImageChange}
-            />
-          </div>
-        </div>
-
-        <div className={styles.formActionButtons}>
-          <Button type="submit" variant="primary" disabled={isSubmitting}>
-            <span>{isSubmitting ? "Please wait..." : "Submit"}</span>
-          </Button>
-          <Button
-            type="button"
-            variant="cancel"
+          <AdminFormImageInput
+            id="imageUrl"
+            label="Billboard Image"
+            imageUrl={billboard?.imageUrl}
+            originalImage={originalImage}
+            onOriginalImageChange={handleOriginalImageChange}
             disabled={isSubmitting}
-            onClick={() => {
-              router.push("/admin/billboards");
-            }}
-          >
-            <span>Cancel</span>
-          </Button>
-        </div>
-      </form>
+            register={register}
+            resetField={resetField}
+            errorMessage={errors.imageUrl?.message}
+          />
+        </AdminFormInputsWrapper>
+        <AdminFormSubmit
+          submitLabel="Submit"
+          cancelLabel="Cancel"
+          isSubmitting={isSubmitting}
+          onCancel={() => router.push("/admin/billboards")}
+        />
+      </AdminForm>
     </>
   );
 };

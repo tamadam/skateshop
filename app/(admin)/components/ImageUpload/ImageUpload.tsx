@@ -11,7 +11,6 @@ interface ImageUploadProps {
   disabled: boolean;
   resetField: UseFormResetField<any>;
   register: UseFormRegister<any>;
-  errorMessage?: string;
   originalImage: string | null;
   onOriginalImageChange: () => void;
 }
@@ -22,7 +21,6 @@ const ImageUpload = ({
   disabled,
   resetField,
   register,
-  errorMessage,
   originalImage,
   onOriginalImageChange,
 }: ImageUploadProps) => {
@@ -58,38 +56,38 @@ const ImageUpload = ({
           }`,
         }}
       >
-        <input
-          id={id}
-          disabled={disabled}
-          {...register(id)}
-          accept="image/*"
-          type="file"
-          onChange={handleImageInputChange}
-          className={styles.imageUploadFileInput}
-        />
+        <div>
+          <input
+            id={id}
+            disabled={disabled}
+            {...register(id)}
+            accept="image/*"
+            type="file"
+            onChange={handleImageInputChange}
+            className={styles.imageUploadFileInput}
+          />
 
-        {selectedImage || originalImage ? (
-          <div className={styles.imageDeleteButton}>
-            <Button
-              variant="delete"
-              onClick={(event) => {
-                event.preventDefault();
-                prepareImageRemoval();
-              }}
-              iconSize="2em"
-              Icon={LiaTrashAlt}
-              shape="square"
-            />
-          </div>
-        ) : (
-          <>
-            <AiOutlineUpload size="3em" />
-            <h3>Click here to upload an image</h3>
-          </>
-        )}
+          {selectedImage || originalImage ? (
+            <div className={styles.imageDeleteButton}>
+              <Button
+                variant="delete"
+                onClick={(event) => {
+                  event.preventDefault();
+                  prepareImageRemoval();
+                }}
+                iconSize="2em"
+                Icon={LiaTrashAlt}
+                shape="square"
+              />
+            </div>
+          ) : (
+            <div className={styles.imageUploadIcon}>
+              <AiOutlineUpload />
+              <h3>Click here to upload an image</h3>
+            </div>
+          )}
+        </div>
       </label>
-
-      <p>{errorMessage}</p>
     </>
   );
 };

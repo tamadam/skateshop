@@ -1,0 +1,16 @@
+.formWrapper {
+    margin-block: 1em;
+}
+
+.inputFieldsWrapper {
+    display: grid;
+    gap: 1em;
+}
+
+.inputFieldsWrapper.singleColumn {
+    max-width: 30rem;
+}
+
+.inputFieldsWrapper.multiplieColumn {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 25ch), 1fr));
+} 

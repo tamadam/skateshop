@@ -1,15 +1,13 @@
 .imageUploadWrapper {
+    display: grid;
+    place-items: center;
+    text-align: center;
     position: relative;
-
     border: 1px dashed black;
-    height: 300px;
     background-color: rgb(247 247 247);
     background-size: cover;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    aspect-ratio: 4/3;
 }
 
 .imageUploadFileInput {
@@ -18,8 +16,13 @@
     height: 0;
 }
 
+.imageUploadIcon svg {
+    font-size: min(14vw, 2.4rem);
+}
+
 .imageDeleteButton {
     position: absolute;
     top: 0.4em;
     right: 0.4em;
+    font-size: min(var(--fs-s), 6vw);
 }

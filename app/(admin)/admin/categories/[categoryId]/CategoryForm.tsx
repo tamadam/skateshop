@@ -1,7 +1,6 @@
 "use client";
 
 import { Billboard, Category } from "@prisma/client";
-import styles from "./CategoryForm.module.css";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   categoriesFormSchema,
@@ -10,7 +9,10 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import Heading from "@/app/(admin)/components/Heading/Heading";
-import Button from "@/app/components/Button/Button";
+import AdminFormInput from "@/app/(admin)/components/AdminForm/AdminFormInput/AdminFormInput";
+import AdminFormSubmit from "@/app/(admin)/components/AdminForm/AdminFormSubmit/AdminFormSubmit";
+import AdminForm from "@/app/(admin)/components/AdminForm/AdminForm";
+import AdminFormInputsWrapper from "@/app/(admin)/components/AdminForm/AdminFormInputsWrapper";
 
 interface CategoryFormProps {
   categories: Category[];
@@ -92,78 +94,56 @@ const CategoryForm = ({
   return (
     <>
       <Heading title={headingTitle} description={headingDescription} />
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.formWrapper}>
-        <div className={styles.inputField}>
-          <label htmlFor="name" className={styles.inputFieldLabel}>
-            Name
-          </label>
-          <input
-            autoComplete="off"
-            type="text"
+      <AdminForm onSubmit={handleSubmit(onSubmit)}>
+        <AdminFormInputsWrapper multiplieColumn>
+          <AdminFormInput
             id="name"
+            label="Name"
+            type="text"
+            required
+            register={register}
             disabled={isSubmitting}
-            className={styles.inputFieldInput}
-            {...register("name")}
+            errorMessage={errors.name?.message}
           />
-          <p>{errors.name?.message}</p>
-        </div>
 
-        <div className={styles.inputField}>
-          <label htmlFor="billboardId" className={styles.inputFieldLabel}>
-            Billboard
-          </label>
-          <select
+          <AdminFormInput
             id="billboardId"
+            label="Billboard"
+            type="select"
+            required
+            options={[
+              { value: "", label: "Select a billboard" },
+              ...billboards.map((billboard) => {
+                return { value: billboard.id, label: billboard.label };
+              }),
+            ]}
+            register={register}
             disabled={isSubmitting}
-            className={styles.inputFieldInput}
-            {...register("billboardId")}
-          >
-            <option value="">Select a billboard</option>
-            {billboards.map((billboard) => (
-              <option key={billboard.id} value={billboard.id}>
-                {billboard.label}
-              </option>
-            ))}
-          </select>
-          <p>{errors.billboardId?.message}</p>
-        </div>
+            errorMessage={errors.billboardId?.message}
+          />
 
-        <div className={styles.inputField}>
-          <label htmlFor="parentCategoryId" className={styles.inputFieldLabel}>
-            Parent Category
-          </label>
-          <select
+          <AdminFormInput
             id="parentCategoryId"
+            label="Parent Category"
+            type="select"
+            options={[
+              { value: "", label: "None" },
+              ...categories.map((category) => {
+                return { value: category.id, label: category.name };
+              }),
+            ]}
+            register={register}
             disabled={isSubmitting}
-            className={styles.inputFieldInput}
-            {...register("parentCategoryId")}
-          >
-            <option value="">Select a parent category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          <p>{errors.parentCategoryId?.message}</p>
-        </div>
-
-        <div className={styles.formActionButtons}>
-          <Button type="submit" variant="primary" disabled={isSubmitting}>
-            <span>{isSubmitting ? "Please wait..." : "Submit"}</span>
-          </Button>
-          <Button
-            type="button"
-            variant="cancel"
-            disabled={isSubmitting}
-            onClick={() => {
-              router.push("/admin/categories");
-            }}
-          >
-            <span>Cancel</span>
-          </Button>
-        </div>
-      </form>
+            errorMessage={errors.parentCategoryId?.message}
+          />
+        </AdminFormInputsWrapper>
+        <AdminFormSubmit
+          submitLabel="Submit"
+          cancelLabel="Cancel"
+          isSubmitting={isSubmitting}
+          onCancel={() => router.push("/admin/categories")}
+        />
+      </AdminForm>
     </>
   );
 };

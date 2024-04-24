@@ -1,0 +1,23 @@
+.inputFieldLabel {
+    font-weight: var(--fw-m);
+    white-space: normal;
+}
+
+.labelRequired::after {
+    content: "*";
+    color: red;
+}
+
+.inputFieldInput,
+.inputFieldImageInput {
+    margin-block: 0.4em;
+}
+
+.inputFieldInput {
+    padding: 0.4em;
+    width: 100%;
+}
+
+.validationErrorMessage {
+    color: red;
+}
