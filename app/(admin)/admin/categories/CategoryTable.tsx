@@ -71,10 +71,11 @@ const CategoryTable = ({
         }
         router.refresh();
         toast.success("Category deleted successfully!");
+      } else {
+        throw new Error();
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong.");
+      toast.error("Delete failed.");
     } finally {
       setIsLoading(false);
       handleDeleteModalClose();

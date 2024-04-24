@@ -55,16 +55,6 @@ const BillboardTable = ({
 
       if (!billboard) throw new Error("No billboard available");
 
-      // delete billboard image from Cloudinary if exists
-      if (billboard.imageUrl) {
-        const cldOptions = getCldOptions(
-          billboard?.imageUrl,
-          CLOUDINARY_BILLBOARDS_REGEX
-        );
-
-        deleteCldImage(cldOptions);
-      }
-
       const response = await fetch(`/api/billboards/${billboard.id}`, {
         method: "DELETE",
         headers: {
@@ -73,6 +63,16 @@ const BillboardTable = ({
       });
 
       if (response.ok) {
+        // delete billboard image from Cloudinary if exists
+        if (billboard.imageUrl) {
+          const cldOptions = getCldOptions(
+            billboard?.imageUrl,
+            CLOUDINARY_BILLBOARDS_REGEX
+          );
+
+          deleteCldImage(cldOptions);
+        }
+
         const newTotalPages = getTotalPages(totalBillboards - 1);
         if (newTotalPages != totalPages && currentPage === totalPages) {
           if (currentPage > 1) {
@@ -81,10 +81,13 @@ const BillboardTable = ({
         }
         router.refresh();
         toast.success("Billboard deleted successfully!");
+      } else {
+        throw new Error();
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong.");
+      toast.error(
+        "Delete failed. Make sure you removed all categories using this billboard first."
+      );
     } finally {
       setIsLoading(false);
       handleDeleteModalClose();

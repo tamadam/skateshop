@@ -66,7 +66,7 @@ export const deleteCldImage = async (cldOptions: CldOptionsType | undefined) => 
         }
 
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
       } catch (error) {
         console.error("Something went wrong", error);
       }
@@ -93,7 +93,7 @@ export const uploadCldImage = async (rawImageInput: string | File) => {
         }
     
         const imageData = await uploadResponse.json();
-        console.log(imageData);
+        //console.log(imageData);
         const imageUrl = imageData.secure_url;
     
         return imageUrl;

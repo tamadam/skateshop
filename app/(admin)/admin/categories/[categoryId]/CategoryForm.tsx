@@ -13,6 +13,7 @@ import AdminFormInput from "@/app/(admin)/components/AdminForm/AdminFormInput/Ad
 import AdminFormSubmit from "@/app/(admin)/components/AdminForm/AdminFormSubmit/AdminFormSubmit";
 import AdminForm from "@/app/(admin)/components/AdminForm/AdminForm";
 import AdminFormInputsWrapper from "@/app/(admin)/components/AdminForm/AdminFormInputsWrapper";
+import toast from "react-hot-toast";
 
 interface CategoryFormProps {
   categories: Category[];
@@ -41,55 +42,62 @@ const CategoryForm = ({
   const params = useParams();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<CategoryFormFields> = async (data) => {
-    let categoryData = {
-      ...data,
-      parentCategoryId: data.parentCategoryId || null,
-    };
+  const headingTitle = currentCategory ? "Edit category" : "Create category";
+  const headingDescription = currentCategory
+    ? "Edit a category"
+    : "Add a new category";
+  const toastSuccessMessage = currentCategory
+    ? "Category saved."
+    : "Category created.";
+  const submitFormLabel = currentCategory ? "Save" : "Create";
 
-    if (currentCategory) {
-      const initialData = {
-        name: currentCategory.name,
-        billboardId: currentCategory.billboardId,
-        parentCategoryId: currentCategory.parentCategoryId,
+  const onSubmit: SubmitHandler<CategoryFormFields> = async (data) => {
+    try {
+      let categoryData = {
+        ...data,
+        parentCategoryId: data.parentCategoryId || null,
       };
 
-      // check if something has changed or not
-      if (JSON.stringify(categoryData) === JSON.stringify(initialData)) {
-        router.push("/admin/categories");
-        return;
+      if (currentCategory) {
+        const initialData = {
+          name: currentCategory.name,
+          billboardId: currentCategory.billboardId,
+          parentCategoryId: currentCategory.parentCategoryId,
+        };
+
+        // check if something has changed or not
+        if (JSON.stringify(categoryData) === JSON.stringify(initialData)) {
+          router.push("/admin/categories");
+          return;
+        }
       }
-    }
 
-    // SAVE DATA IN DATABASE
-    const requestUrl = currentCategory
-      ? `/api/categories/${params.categoryId}`
-      : "/api/categories";
+      // SAVE DATA IN DATABASE
+      const requestUrl = currentCategory
+        ? `/api/categories/${params.categoryId}`
+        : "/api/categories";
 
-    const requestOptions = {
-      method: currentCategory ? "PATCH" : "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(categoryData),
-    };
+      const requestOptions = {
+        method: currentCategory ? "PATCH" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(categoryData),
+      };
 
-    try {
       const response = await fetch(requestUrl, requestOptions);
 
       if (response.ok) {
         router.push("/admin/categories");
         router.refresh();
+        toast.success(toastSuccessMessage);
+      } else {
+        throw new Error();
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong.");
     }
   };
-
-  const headingTitle = currentCategory ? "Edit category" : "Create category";
-  const headingDescription = currentCategory
-    ? "Edit a category"
-    : "Add a new category";
 
   return (
     <>
@@ -140,7 +148,7 @@ const CategoryForm = ({
           />
         </AdminFormInputsWrapper>
         <AdminFormSubmit
-          submitLabel="Submit"
+          submitLabel={submitFormLabel}
           cancelLabel="Cancel"
           isSubmitting={isSubmitting}
           onCancel={() => router.push("/admin/categories")}

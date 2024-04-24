@@ -20,6 +20,7 @@ import AdminFormImageInput from "@/app/(admin)/components/AdminForm/AdminFormInp
 import AdminFormSubmit from "@/app/(admin)/components/AdminForm/AdminFormSubmit/AdminFormSubmit";
 import AdminForm from "@/app/(admin)/components/AdminForm/AdminForm";
 import AdminFormInputsWrapper from "@/app/(admin)/components/AdminForm/AdminFormInputsWrapper";
+import toast from "react-hot-toast";
 
 interface BillboardFormProps {
   billboard: Billboard | null;
@@ -48,73 +49,75 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
   const params = useParams();
   const router = useRouter();
 
+  const headingTitle = billboard ? "Edit billboard" : "Create billboard";
+  const headingDescription = billboard
+    ? "Edit a Billboard"
+    : "Add a new billboard";
+  const toastSuccessMessage = billboard
+    ? "Billboard saved."
+    : "Billboard created.";
+  const submitFormLabel = billboard ? "Save" : "Create";
+
   const onSubmit: SubmitHandler<BillboardFormFields> = async (data) => {
-    console.log(data);
+    try {
+      const rawImageInput = data.imageUrl?.[0];
 
-    console.log("originalImage: ");
-    console.log(originalImage);
-
-    const rawImageInput = data.imageUrl?.[0];
-
-    // DELETE IMAGE FROM CLOUDINARY - IF NEEDED
-    if (rawImageInput) {
-      if (billboard?.imageUrl) {
-        // reason: image replaced by a new one
+      // DELETE IMAGE FROM CLOUDINARY - IF NEEDED
+      if (rawImageInput) {
+        if (billboard?.imageUrl) {
+          // reason: image replaced by a new one
+          deleteCldImage(cldOptions);
+        }
+      } else if (billboard?.imageUrl && !originalImage) {
+        // reason: delete button clicked
         deleteCldImage(cldOptions);
       }
-    } else if (billboard?.imageUrl && !originalImage) {
-      // reason: delete button clicked
-      deleteCldImage(cldOptions);
-    }
 
-    // UPLOAD IMAGE TO CLOUDINARY - IF NEEDED
-    // PREPARE BILLBOARD DATA TO SAVE IN THE DATABASE
+      // UPLOAD IMAGE TO CLOUDINARY - IF NEEDED
+      // PREPARE BILLBOARD DATA TO SAVE IN THE DATABASE
 
-    let billboardData;
+      let billboardData;
 
-    if (rawImageInput) {
-      const imageUrl = await uploadCldImage(rawImageInput);
-      if (imageUrl) {
-        billboardData = { ...data, imageUrl }; // update imageUrl
+      if (rawImageInput) {
+        const imageUrl = await uploadCldImage(rawImageInput);
+        if (imageUrl) {
+          billboardData = { ...data, imageUrl }; // update imageUrl
+        }
+      } else if (billboard?.imageUrl && !originalImage) {
+        billboardData = { ...data, imageUrl: null }; // remove imageUrl
+      } else if (billboard?.label !== data.label) {
+        billboardData = { label: data.label }; // only change the label
+      } else {
+        router.push("/admin/billboards"); // nothing has changed redirect to billboards page
+        return;
       }
-    } else if (billboard?.imageUrl && !originalImage) {
-      billboardData = { ...data, imageUrl: null }; // remove imageUrl
-    } else if (billboard?.label !== data.label) {
-      billboardData = { label: data.label }; // only change the label
-    } else {
-      router.push("/admin/billboards"); // nothing has changed redirect to billboards page
-      return;
-    }
 
-    // SAVE DATA IN DATABASE
-    const requestUrl = billboard
-      ? `/api/billboards/${params.billboardId}`
-      : "/api/billboards";
+      // SAVE DATA IN DATABASE
+      const requestUrl = billboard
+        ? `/api/billboards/${params.billboardId}`
+        : "/api/billboards";
 
-    const requestOptions = {
-      method: billboard ? "PATCH" : "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(billboardData),
-    };
+      const requestOptions = {
+        method: billboard ? "PATCH" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(billboardData),
+      };
 
-    try {
       const response = await fetch(requestUrl, requestOptions);
 
       if (response.ok) {
         router.push("/admin/billboards");
         router.refresh();
+        toast.success(toastSuccessMessage);
+      } else {
+        throw new Error();
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong");
     }
   };
-
-  const headingTitle = billboard ? "Edit billboard" : "Create billboard";
-  const headingDescription = billboard
-    ? "Edit a Billboard"
-    : "Add a new billboard";
 
   return (
     <>
@@ -144,7 +147,7 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
           />
         </AdminFormInputsWrapper>
         <AdminFormSubmit
-          submitLabel="Submit"
+          submitLabel={submitFormLabel}
           cancelLabel="Cancel"
           isSubmitting={isSubmitting}
           onCancel={() => router.push("/admin/billboards")}
