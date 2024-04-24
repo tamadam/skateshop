@@ -9,9 +9,8 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   const categories = await prisma.category.findMany();
   const billboards = await prisma.billboard.findMany();
 
-  const currentCategory = categories.filter(
-    (category) => category.id === params.categoryId
-  )[0];
+  const currentCategory =
+    categories.find((category) => category.id === params.categoryId) || null;
 
   return (
     <CategoryForm

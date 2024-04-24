@@ -128,9 +128,11 @@ const CategoryForm = ({
             type="select"
             options={[
               { value: "", label: "None" },
-              ...categories.map((category) => {
-                return { value: category.id, label: category.name };
-              }),
+              ...categories
+                .filter((category) => category.id !== currentCategory?.id)
+                .map((category) => {
+                  return { value: category.id, label: category.name };
+                }),
             ]}
             register={register}
             disabled={isSubmitting}
