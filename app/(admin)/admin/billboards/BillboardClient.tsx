@@ -22,7 +22,7 @@ const BillboardClient = ({
       />
 
       <BillboardTable
-        data={billboards}
+        billboards={billboards}
         totalBillboards={totalBillboards}
         columns={columns}
       />

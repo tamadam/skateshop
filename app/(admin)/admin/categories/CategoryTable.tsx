@@ -1,28 +1,23 @@
 import React, { useState } from "react";
-import { ColumnDefinition, FormattedCategory } from "./columns";
-import styles from "./CategoryTable.module.css";
-import { HiOutlinePlus } from "react-icons/hi";
-import Search from "@/app/components/Search/Search";
-import Button from "@/app/components/Button/Button";
+import { FormattedCategory } from "./columns";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getValidatedPageNumber, getTotalPages } from "@/lib/paginationUtils";
 import PaginationController from "@/app/components/PaginationController/PaginationController";
-import { LiaTrashAlt } from "react-icons/lia";
-import { MdModeEdit } from "react-icons/md";
-import { RiFileCopyFill } from "react-icons/ri";
-
 import toast from "react-hot-toast";
-
 import Modal from "@/app/components/Modal/Modal";
+import AdminTable from "../../components/AdminTable/AdminTable";
+import AdminTableHeading from "../../components/AdminTable/AdminTableHeading";
+import AdminTableContent from "../../components/AdminTable/AdminTableContent";
+import { ColumnDefinition } from "../../components/AdminTable/columnDefinition";
 
 type CategoryTableProps = {
-  data: FormattedCategory[];
+  categories: FormattedCategory[];
   columns: ColumnDefinition<FormattedCategory>[];
   totalCategories: number;
 };
 
 const CategoryTable = ({
-  data,
+  categories,
   columns,
   totalCategories,
 }: CategoryTableProps) => {
@@ -31,8 +26,6 @@ const CategoryTable = ({
 
   const currentPage = getValidatedPageNumber(searchParams.get("page"));
   const totalPages = getTotalPages(totalCategories);
-
-  const columnsCount = columns.length + 1;
 
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -88,92 +81,19 @@ const CategoryTable = ({
   };
 
   return (
-    <div className={styles.assetsTable}>
-      <div className={styles.assetsTableHeading}>
-        <Button
-          variant="primary"
-          onClick={() => router.push("/admin/categories/new")}
-          Icon={HiOutlinePlus}
-          iconFirst
-        >
-          <span>Add New</span>
-        </Button>
-        <Search />
-      </div>
-      <div
-        className={styles.assetsTableWrapper}
-        style={{
-          gridTemplateColumns: `repeat(${columnsCount}, 1fr)`,
-        }}
-      >
-        <div
-          className={styles.assetsTableHeader}
-          style={{ gridColumn: `span ${columnsCount}` }}
-        >
-          {columns.map((column) => {
-            return <div key={column.header}>{column.header}</div>;
-          })}
-        </div>
-        <div
-          className={styles.assetsTableContent}
-          style={{ gridColumn: `span ${columnsCount}` }}
-        >
-          {data.length === 0 && (
-            <div className={styles.assetsNoTableContent}>
-              No categories available
-            </div>
-          )}
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className={styles.assetsTableItem}
-              style={{ gridColumn: `span ${columnsCount}` }}
-            >
-              {columns.map((column, index2) => {
-                const asset = item[column.field as keyof typeof item];
-                return (
-                  <div
-                    className={styles.assetItem}
-                    data-label={column.header}
-                    key={index2}
-                  >
-                    {asset}
-                  </div>
-                );
-              })}
-
-              <div className={styles.assetsTableActions}>
-                <Button
-                  variant="update"
-                  className={styles.actionButton}
-                  shape="original"
-                  onClick={() => router.push(`/admin/categories/${item.id}`)}
-                  Icon={MdModeEdit}
-                  tooltip="Update"
-                />
-                <Button
-                  variant="cancel"
-                  className={styles.actionButton}
-                  shape="original"
-                  onClick={() => {
-                    copyId(item.id);
-                  }}
-                  Icon={RiFileCopyFill}
-                  tooltip="Copy ID"
-                />
-                <Button
-                  variant="delete"
-                  className={styles.actionButton}
-                  Icon={LiaTrashAlt}
-                  shape="original"
-                  onClick={() => handleDeleteModalOpen(item)}
-                  tooltip="Delete"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <AdminTable>
+      <AdminTableHeading
+        addNewLabel="Add New"
+        onAddNew={() => router.push("/admin/categories/new")}
+      />
+      <AdminTableContent
+        data={categories}
+        columns={columns}
+        noDataLabel="No categories available"
+        onUpdate={(item) => router.push(`/admin/categories/${item.id}`)}
+        onCopy={(item) => copyId(item.id)}
+        onDelete={(item) => handleDeleteModalOpen(item)}
+      />
       <Modal
         title="Are you sure you want to delete this category?"
         description="This action is permanent and cannot be undone."
@@ -185,7 +105,7 @@ const CategoryTable = ({
         isActionLoading={isLoading}
       />
       <PaginationController totalPages={totalPages} currentPage={currentPage} />
-    </div>
+    </AdminTable>
   );
 };
 

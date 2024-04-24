@@ -22,7 +22,7 @@ const CategoryClient = ({
       />
 
       <CategoryTable
-        data={categories}
+        categories={categories}
         totalCategories={totalCategories}
         columns={columns}
       />
