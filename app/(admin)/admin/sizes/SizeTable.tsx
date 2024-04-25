@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { FormattedSize } from "./columns";
 import { ColumnDefinition } from "../../components/AdminTable/columnDefinition";
