@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { FormattedBillboard } from "./columns";
 import { useRouter, useSearchParams } from "next/navigation";
