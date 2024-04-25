@@ -7,6 +7,9 @@ import Button from "@/app/components/Button/Button";
 
 interface ImageUploadProps {
   id: string;
+  label: string;
+  classNameForLabel?: string;
+  classNameForInput?: string;
   imageUrl: string | null | undefined;
   disabled: boolean;
   resetField: UseFormResetField<any>;
@@ -17,6 +20,9 @@ interface ImageUploadProps {
 
 const ImageUpload = ({
   id,
+  label,
+  classNameForLabel,
+  classNameForInput,
   imageUrl,
   disabled,
   resetField,
@@ -34,6 +40,8 @@ const ImageUpload = ({
     if (files && files.length > 0) {
       url = URL.createObjectURL(files[0]);
       setSelectedImage(url);
+    } else {
+      setSelectedImage(null);
     }
   };
 
@@ -45,47 +53,49 @@ const ImageUpload = ({
 
   return (
     <>
-      <label
-        htmlFor={id}
-        className={styles.imageUploadWrapper}
-        style={{
-          backgroundImage: `${
-            selectedImage || originalImage
-              ? `url(${selectedImage || originalImage})`
-              : "unset"
-          }`,
-        }}
-      >
-        <div>
-          <input
-            id={id}
-            disabled={disabled}
-            {...register(id)}
-            accept="image/*"
-            type="file"
-            onChange={handleImageInputChange}
-            className={styles.imageUploadFileInput}
-          />
+      <label htmlFor={id} className={styles.imageUploadWrapper}>
+        <div className={classNameForLabel}>{label}</div>
+        <div
+          className={`${styles.imageUploadContent} ${classNameForInput}`}
+          style={{
+            backgroundImage: `${
+              selectedImage || originalImage
+                ? `url(${selectedImage || originalImage})`
+                : "unset"
+            }`,
+          }}
+        >
+          <div>
+            <input
+              id={id}
+              disabled={disabled}
+              {...register(id)}
+              accept="image/*"
+              type="file"
+              onChange={handleImageInputChange}
+              className={styles.imageUploadFileInput}
+            />
 
-          {selectedImage || originalImage ? (
-            <div className={styles.imageDeleteButton}>
-              <Button
-                variant="delete"
-                onClick={(event) => {
-                  event.preventDefault();
-                  prepareImageRemoval();
-                }}
-                iconSize="2em"
-                Icon={LiaTrashAlt}
-                shape="square"
-              />
-            </div>
-          ) : (
-            <div className={styles.imageUploadIcon}>
-              <AiOutlineUpload />
-              <h3>Click here to upload an image</h3>
-            </div>
-          )}
+            {selectedImage || originalImage ? (
+              <div className={styles.imageDeleteButton}>
+                <Button
+                  variant="delete"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    prepareImageRemoval();
+                  }}
+                  iconSize="2em"
+                  Icon={LiaTrashAlt}
+                  shape="square"
+                />
+              </div>
+            ) : (
+              <div className={styles.imageUploadIcon}>
+                <AiOutlineUpload />
+                <h3>Click here to upload an image</h3>
+              </div>
+            )}
+          </div>
         </div>
       </label>
     </>

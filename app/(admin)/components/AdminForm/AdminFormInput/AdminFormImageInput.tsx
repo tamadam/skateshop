@@ -36,10 +36,12 @@ const AdminFormImageInput = ({
 
   return (
     <div className={styles.inputField}>
-      <div className={inputFieldLabel}>{label}</div>
       <div className={styles.inputFieldImageInput}>
         <ImageUpload
           id={id}
+          label={label}
+          classNameForLabel={inputFieldLabel}
+          classNameForInput={styles.inputFieldInput}
           imageUrl={imageUrl}
           resetField={resetField}
           register={register}
