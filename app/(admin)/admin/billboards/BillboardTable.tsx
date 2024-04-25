@@ -12,11 +12,11 @@ import AdminTableHeading from "../../components/AdminTable/AdminTableHeading";
 import AdminTable from "../../components/AdminTable/AdminTable";
 import { ColumnDefinition } from "../../components/AdminTable/columnDefinition";
 
-type BillboardTableProps = {
+interface BillboardTableProps {
   billboards: FormattedBillboard[];
   totalBillboards: number;
   columns: ColumnDefinition<FormattedBillboard>[];
-};
+}
 
 const BillboardTable = ({
   billboards,

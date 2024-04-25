@@ -1,54 +1,49 @@
 import React, { useState } from "react";
-import { FormattedCategory } from "./columns";
+import { FormattedSize } from "./columns";
+import { ColumnDefinition } from "../../components/AdminTable/columnDefinition";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getValidatedPageNumber, getTotalPages } from "@/lib/paginationUtils";
-import PaginationController from "@/app/components/PaginationController/PaginationController";
+import { getTotalPages, getValidatedPageNumber } from "@/lib/paginationUtils";
 import toast from "react-hot-toast";
-import Modal from "@/app/components/Modal/Modal";
 import AdminTable from "../../components/AdminTable/AdminTable";
 import AdminTableHeading from "../../components/AdminTable/AdminTableHeading";
 import AdminTableContent from "../../components/AdminTable/AdminTableContent";
-import { ColumnDefinition } from "../../components/AdminTable/columnDefinition";
+import Modal from "@/app/components/Modal/Modal";
+import PaginationController from "@/app/components/PaginationController/PaginationController";
 
-interface CategoryTableProps {
-  categories: FormattedCategory[];
-  columns: ColumnDefinition<FormattedCategory>[];
-  totalCategories: number;
+interface SizeTableProps {
+  sizes: FormattedSize[];
+  totalSizes: number;
+  columns: ColumnDefinition<FormattedSize>[];
 }
 
-const CategoryTable = ({
-  categories,
-  columns,
-  totalCategories,
-}: CategoryTableProps) => {
+const SizeTable = ({ sizes, totalSizes, columns }: SizeTableProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const currentPage = getValidatedPageNumber(searchParams.get("page"));
-  const totalPages = getTotalPages(totalCategories);
+  const totalPages = getTotalPages(totalSizes);
 
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] =
-    useState<FormattedCategory | null>(null);
+  const [selectedSize, setSelectedSize] = useState<FormattedSize | null>(null);
 
-  const handleDeleteModalOpen = (category: FormattedCategory) => {
-    setSelectedCategory(category);
+  const handleDeleteModalOpen = (size: FormattedSize) => {
+    setSelectedSize(size);
     setShowModal(true);
   };
 
   const handleDeleteModalClose = () => {
-    setSelectedCategory(null);
+    setSelectedSize(null);
     setShowModal(false);
   };
 
-  const handleDelete = async (category: FormattedCategory | null) => {
+  const handleDelete = async (size: FormattedSize | null) => {
     try {
       setIsLoading(true);
 
-      if (!category) throw new Error("No category available");
+      if (!size) throw new Error("No size available");
 
-      const response = await fetch(`/api/categories/${category.id}`, {
+      const response = await fetch(`/api/sizes/${size.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -56,14 +51,14 @@ const CategoryTable = ({
       });
 
       if (response.ok) {
-        const newTotalPages = getTotalPages(totalCategories - 1);
+        const newTotalPages = getTotalPages(totalSizes - 1);
         if (newTotalPages != totalPages && currentPage === totalPages) {
           if (currentPage > 1) {
             router.push(`?page=${currentPage - 1}`);
           }
         }
         router.refresh();
-        toast.success("Category deleted successfully!");
+        toast.success("Size deleted successfully!");
       } else {
         throw new Error();
       }
@@ -77,29 +72,29 @@ const CategoryTable = ({
 
   const copyId = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Category ID copied to the clipboard!");
+    toast.success("Size ID copied to the clipboard!");
   };
 
   return (
     <AdminTable>
       <AdminTableHeading
         addNewLabel="Add New"
-        onAddNew={() => router.push("/admin/categories/new")}
+        onAddNew={() => router.push("/admin/sizes/new")}
       />
       <AdminTableContent
-        data={categories}
+        data={sizes}
         columns={columns}
-        noDataLabel="No categories available"
-        onUpdate={(item) => router.push(`/admin/categories/${item.id}`)}
+        noDataLabel="No sizes available"
+        onUpdate={(item) => router.push(`/admin/sizes/${item.id}`)}
         onCopy={(item) => copyId(item.id)}
         onDelete={(item) => handleDeleteModalOpen(item)}
       />
       <Modal
-        title="Are you sure you want to delete this category?"
+        title="Are you sure you want to delete this size?"
         description="This action is permanent and cannot be undone."
         open={showModal}
         onCancel={handleDeleteModalClose}
-        onAction={() => handleDelete(selectedCategory)}
+        onAction={() => handleDelete(selectedSize)}
         actionLabel="Delete"
         actionVariant="delete"
         isActionLoading={isLoading}
@@ -109,4 +104,4 @@ const CategoryTable = ({
   );
 };
 
-export default CategoryTable;
+export default SizeTable;
