@@ -96,7 +96,7 @@ model Size {
 model Brand {
   id        String    @id @default(uuid())
   name      String
-  imageUrl  String
+  imageUrl  String?
   products  Product[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

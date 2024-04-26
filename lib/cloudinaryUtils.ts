@@ -73,13 +73,13 @@ export const deleteCldImage = async (cldOptions: CldOptionsType | undefined) => 
     }
 };
 
-export const uploadCldImage = async (rawImageInput: string | File) => {
+export const uploadCldImage = async (rawImageInput: string | File, uploadPresetName: string) => {
     try {
         const formData = new FormData();
         formData.append("file", rawImageInput);
         formData.append(
             "upload_preset",
-            CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME
+            uploadPresetName
         );
     
         // Upload the image to Cloudinary

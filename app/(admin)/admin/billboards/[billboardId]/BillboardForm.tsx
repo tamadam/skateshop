@@ -21,6 +21,7 @@ import AdminFormSubmit from "@/app/(admin)/components/AdminForm/AdminFormSubmit/
 import AdminForm from "@/app/(admin)/components/AdminForm/AdminForm";
 import AdminFormInputsWrapper from "@/app/(admin)/components/AdminForm/AdminFormInputsWrapper";
 import toast from "react-hot-toast";
+import { CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME } from "@/app/constants";
 
 interface BillboardFormProps {
   billboard: Billboard | null;
@@ -51,7 +52,7 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
 
   const headingTitle = billboard ? "Edit billboard" : "Create billboard";
   const headingDescription = billboard
-    ? "Edit a Billboard"
+    ? "Edit a billboard"
     : "Add a new billboard";
   const toastSuccessMessage = billboard
     ? "Billboard saved."
@@ -79,7 +80,10 @@ const BillboardForm = ({ billboard, cldOptions }: BillboardFormProps) => {
       let billboardData;
 
       if (rawImageInput) {
-        const imageUrl = await uploadCldImage(rawImageInput);
+        const imageUrl = await uploadCldImage(
+          rawImageInput,
+          CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME
+        );
         if (imageUrl) {
           billboardData = { ...data, imageUrl }; // update imageUrl
         }
