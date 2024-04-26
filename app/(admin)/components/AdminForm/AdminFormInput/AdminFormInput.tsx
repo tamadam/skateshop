@@ -13,8 +13,8 @@ type AdminFormInputPropsBase = {
   register: UseFormRegister<any>;
 };
 
-type AdminFormTextInputProps = AdminFormInputPropsBase & {
-  type: "text";
+type AdminFormTextAndColorInput = AdminFormInputPropsBase & {
+  type: "text" | "color";
   options?: { value: string; label: string }[];
 };
 
@@ -23,7 +23,9 @@ type AdminFormSelectInputProps = AdminFormInputPropsBase & {
   options: { value: string; label: string }[];
 };
 
-type AdminFormInputProps = AdminFormTextInputProps | AdminFormSelectInputProps;
+type AdminFormInputProps =
+  | AdminFormTextAndColorInput
+  | AdminFormSelectInputProps;
 
 const AdminFormInput = ({
   type,
@@ -58,6 +60,19 @@ const AdminFormInput = ({
           disabled={disabled}
           placeholder={placeholder}
           className={styles.inputFieldInput}
+          {...register(id)}
+        />
+      )}
+
+      {/* INPUT COLOR */}
+      {type === "color" && (
+        <input
+          autoComplete="off"
+          type={type}
+          id={id}
+          disabled={disabled}
+          placeholder={placeholder}
+          className={`${styles.inputFieldInput} ${styles.inputFieldColor}`}
           {...register(id)}
         />
       )}

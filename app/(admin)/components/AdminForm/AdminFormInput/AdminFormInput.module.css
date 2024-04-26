@@ -1,6 +1,7 @@
 .inputFieldLabel {
     font-weight: var(--fw-m);
     white-space: normal;
+    display: block;
 }
 
 .labelRequired::after {
@@ -16,6 +17,46 @@
 .inputFieldInput {
     padding: 0.4em;
     width: 100%;
+}
+
+.inputFieldColorContainer {
+    display: flex;
+    align-items: center;
+}
+
+.inputFieldColor {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 1px solid var(--admin-default-border-clr);
+    cursor: pointer;
+    padding: 0;
+    max-width: 5em;
+    margin-block: 0.65em;
+}
+
+.inputFieldColor:focus{
+    border-radius: 0;
+    outline: none;
+}
+  
+.inputFieldColor::-webkit-color-swatch-wrapper {
+    padding: 0; 
+}
+  
+.inputFieldColor::-webkit-color-swatch{
+    border: 0;
+    border-radius: 0;
+}
+  
+.inputFieldColor::-moz-color-swatch,
+.inputFieldColor::-moz-focus-inner{
+    border: 0;
+}
+  
+.inputFieldColor::-moz-focus-inner{
+    padding: 0;
 }
 
 .validationErrorMessage {
