@@ -1,3 +1,4 @@
+import { GENDERS } from "@prisma/client";
 import { z } from "zod";
 
 // SCHEMA FOR USER LOGIN
@@ -118,3 +119,20 @@ export const brandsFormSchema = z.object({
 });
 
 export type BrandFormFields = z.infer<typeof brandsFormSchema>;
+
+// SCHEMA FOR PRODUCTS
+
+export const productsFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  price: z.coerce.number().min(1),
+  categoryId: z.string().min(1, "Category is required"),
+  brandId: z.string().min(1, "Brand is required"),
+  sizeId: z.string().min(1, "Size is required"),
+  colorId: z.string().optional().nullable(),
+  images: z.object({ url: z.string() }).array(),
+  gender: z.nativeEnum(GENDERS),
+  isFeatured: z.boolean().default(false).optional(),
+  isArchived: z.boolean().default(false).optional(),
+});
+
+export type ProductFormFields = z.infer<typeof productsFormSchema>;
