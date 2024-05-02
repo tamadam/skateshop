@@ -1,0 +1,108 @@
+.authPageWrapper {
+    background: #fff;
+    color: #000;
+    overflow: hidden;
+}
+
+.authFormOuterWrapper {
+    max-width: var(--screen-max-width);
+    padding-block: calc(var(--navbar-height) + 2em);
+    padding-inline: 1em;
+    margin: 0 auto;
+    min-height: 100svh;
+    display: grid;
+    justify-items: center;
+}
+
+.authFormInnerWrapper {
+    max-width: 40rem;
+    width: 100%;
+}
+
+.authFormHeading {
+    font-size: var(--fs-m);
+    font-weight: var(--fw-m);
+    color: var(--navbar-dft-bg);
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.authForm {
+    margin-block: 1em;
+    padding: 1em;
+    border: 1px solid var(--clr-grey-light);
+    border-radius: 0.4em;
+}
+
+.authFormInformation {
+    text-align: center;
+}
+
+.authInputs,
+.authNameInput {
+    display: grid;
+    gap: 1em;
+}
+
+.authInputs {
+    margin-block: 1em 2em;
+}
+
+.authNameInput {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20ch), 1fr));
+}
+
+.authSubmit > button {
+    width: 100%;
+}
+
+.authRedirectWrapper {
+    text-align: center;
+    margin-block: 1em;
+}
+
+.authRedirectWrapper > svg {
+    color: var(--clr-grey-medium);
+}
+
+.authRedirectSeparator {
+    width: 80%;
+    margin: 1em auto;
+    border: none;
+    border-top: 1px dashed var(--clr-grey-medium);
+}
+
+.authRedirectText {
+    margin-block-end: 0.2em;
+}
+
+
+/* INPUT FIELDS */
+
+.inputFieldLabel {
+    font-weight: var(--fw-m);
+    white-space: normal;
+    display: block;
+}
+
+.labelRequired::after {
+    content: "*";
+    color: red;
+}
+
+.inputFieldInput {
+    padding: 0.6em;
+    margin-block-start: 0.2em;
+    width: 100%;
+    border: 1px solid var(--clr-grey-medium);
+}
+
+.inputFieldInput:focus {
+    outline: 1px solid var(--clr-cyan);
+    border: 1px solid var(--clr-cyan);
+}
+
+.validationErrorMessage {
+    color: red;
+}

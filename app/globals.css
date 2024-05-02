@@ -50,7 +50,10 @@
     --cancel-btn-clr: #000;
     --cancel-btn-bg: transparent;
     
-    
+    --clr-grey-light: #d3d3d3;
+    --clr-grey-medium: #b7b7b7;
+    --clr-cyan: #00c2ff;
+
     /* TRANSITIONS */
     --overlay-trans-duration: 0.4s;
     --overlay-trans-type: linear;
@@ -99,6 +102,11 @@ h1, h2, h3, h4, h5, h6 {
 
 ul, ol {
     list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
 }
 
 button {

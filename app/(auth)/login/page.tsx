@@ -1,8 +1,9 @@
 import SignInForm from "../components/SignInForm";
+import styles from "./../components/AuthStyles.module.css";
 
 const LoginPage = () => {
   return (
-    <div style={{ zIndex: 10, background: "red", paddingBlock: "10rem" }}>
+    <div className={styles.authPageWrapper}>
       <SignInForm />
     </div>
   );

@@ -1,0 +1,9 @@
+.link {
+    text-decoration: inherit;
+    color: var(--clr-cyan);
+    font-weight: var(--fw-m);
+}
+
+.link:hover {
+    text-decoration: underline;
+}
