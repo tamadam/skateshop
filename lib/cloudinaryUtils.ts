@@ -1,4 +1,4 @@
-import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME, CLOUDINARY_DESTROY_API, CLOUDINARY_UPLOAD_API } from "@/app/constants";
+import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_DESTROY_API, CLOUDINARY_UPLOAD_API } from "@/app/constants";
 import crypto from "crypto";
 
 export type CldOptionsType = {
@@ -31,12 +31,11 @@ export const getCldOptions = (url: string | null | undefined, regex: RegExp) => 
     if (!url) {
         return cldOptions;
     }
-    
+
     const match = url.match(regex);
     if (match) {
         cldOptions.publicId = match?.[0];
     }
-    
 
     if (cldOptions.publicId) {
         cldOptions.signature = generateSHA1(
@@ -65,12 +64,18 @@ export const deleteCldImage = async (cldOptions: CldOptionsType | undefined) => 
           throw new Error("Response was not ok");
         }
 
-        const data = await response.json();
+        //const data = await response.json();
         //console.log(data);
       } catch (error) {
         console.error("Something went wrong", error);
       }
     }
+};
+
+export const deleteCldImageUsingUrl = async (url: string, regex: RegExp) => {
+    const cldOptions = getCldOptions(url, regex);
+
+    deleteCldImage(cldOptions);
 };
 
 export const uploadCldImage = async (rawImageInput: string | File, uploadPresetName: string) => {

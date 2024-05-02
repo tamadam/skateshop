@@ -129,7 +129,17 @@ export const productsFormSchema = z.object({
   brandId: z.string().min(1, "Brand is required"),
   sizeId: z.string().min(1, "Size is required"),
   colorId: z.string().optional().nullable(),
-  images: z.object({ url: z.string() }).array(),
+  images: typeof window === "undefined"
+  ? z.object({ url: z.string() }).array()
+  : z.instanceof(FileList).optional().refine((files) => {
+    if (!files || files.length === 0) return true;
+    
+    return Array.from(files).every((file) => ACCEPTED_FILE_TYPES.includes(file.type));
+  }, "Files must be .jpg, .jpeg, .png or .webp format").refine((files) => {
+    if (!files || files.length === 0) return true;
+
+    return Array.from(files).every((file) => file.size < MAX_UPLOAD_SIZE);
+  }, `File size must be less than ${MEGABYTE_SIZE}MB`),
   gender: z.nativeEnum(GENDERS),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),

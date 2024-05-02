@@ -26,3 +26,8 @@
     right: 0.4em;
     font-size: min(var(--fs-s), 6vw);
 }
+
+.imagesPreview {
+    display: flex;
+    flex-wrap: wrap;
+}

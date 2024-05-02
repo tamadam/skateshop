@@ -9,7 +9,8 @@ import AdminTableHeading from "../../components/AdminTable/AdminTableHeading";
 import AdminTableContent from "../../components/AdminTable/AdminTableContent";
 import Modal from "@/app/components/Modal/Modal";
 import PaginationController from "@/app/components/PaginationController/PaginationController";
-import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
+import { deleteCldImageUsingUrl } from "@/lib/cloudinaryUtils";
+import { CLOUDINARY_PRODUCTS_REGEX } from "@/app/constants";
 
 interface ProductTableProps {
   products: FormattedProduct[];
@@ -57,15 +58,15 @@ const ProductTable = ({
       });
 
       if (response.ok) {
-        // delete billboard image from Cloudinary if exists
-        /* if (billboard.imageUrl) {
-          const cldOptions = getCldOptions(
-            billboard?.imageUrl,
-            CLOUDINARY_BILLBOARDS_REGEX
-          );
+        // delete product image from Cloudinary if exists
+        const toBeRemovedImageUrls = product.images.map((image) => image.url);
 
-          deleteCldImage(cldOptions);
-        } */
+        if (toBeRemovedImageUrls.length !== 0) {
+          // console.log("delete images");
+          for (const image of toBeRemovedImageUrls) {
+            deleteCldImageUsingUrl(image, CLOUDINARY_PRODUCTS_REGEX);
+          }
+        }
 
         const newTotalPages = getTotalPages(totalProducts - 1);
         if (newTotalPages != totalPages && currentPage === totalPages) {

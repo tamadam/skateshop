@@ -10,4 +10,7 @@ export const CLOUDINARY_BILLBOARDS_REGEX = /billboards\/\w+/; // 'billboards/pub
 export const CLOUDINARY_BRANDS_UPLOAD_PRESET_NAME = "brandPreset";
 export const CLOUDINARY_BRANDS_REGEX = /brands\/\w+/; // 'brands/public_id'
 
+export const CLOUDINARY_PRODUCTS_UPLOAD_PRESET_NAME = "productPreset";
+export const CLOUDINARY_PRODUCTS_REGEX = /products\/\w+/; // 'products/public_id'
+
 export const PAGINATION_ITEMS_PER_PAGE = 5;
