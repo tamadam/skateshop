@@ -1,0 +1,5 @@
+.adminDashboardWrapper {
+    margin-block: 1em;
+    display: grid;
+    gap: 0.4em;
+}
