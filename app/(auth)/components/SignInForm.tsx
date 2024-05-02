@@ -11,6 +11,7 @@ import Spinner from "@/app/components/Spinner/Spinner";
 import CustomLink from "@/app/components/CustomLink/CustomLink";
 import { RiAccountPinCircleFill } from "react-icons/ri";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SignInForm = () => {
   const {
@@ -21,21 +22,28 @@ const SignInForm = () => {
     resolver: zodResolver(signInFormSchema),
   });
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<SignInFormFields> = async (data) => {
     try {
       const response = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        redirect: true,
-        callbackUrl: "/",
+        redirect: false,
       });
 
       if (response && !response.ok) {
-        throw new Error("Login failed.");
+        throw new Error(response?.error || "Something went wrong");
       }
+
+      router.push("/");
+      router.refresh(); // necessary for admin users
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong.");
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong.");
+      }
     }
   };
 
