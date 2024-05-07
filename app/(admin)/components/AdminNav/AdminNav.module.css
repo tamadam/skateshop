@@ -41,8 +41,8 @@
         visibility: hidden;
         z-index: 200;
         height: 100%;
-        width: 18rem;
-        left: -18rem;
+        width: min(100%, 18rem);
+        left: max(-100%, -18rem);
         top: 0;
         transition: visibility var(--overlay-trans-duration), left var(--overlay-trans-duration) ease-out;
     }
