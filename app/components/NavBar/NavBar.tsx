@@ -23,6 +23,9 @@ const NavBar = async () => {
           </h3>
         </div>
         <ul className={`${libre.className} ${styles.navbarItemsContainer}`}>
+          <li>
+            <Link href="/marketplace">Marketplace</Link>
+          </li>
           <li>Skateboards</li>
           <li>Clothes</li>
           <li>Accessories</li>
@@ -35,7 +38,7 @@ const NavBar = async () => {
           <li>{session ? <SignOut /> : <Link href="/login">Login</Link>}</li>
 
           {/* <li>CART</li> */}
-          <li>ACC</li>
+          {/* <li>ACC</li> */}
         </ul>
       </div>
     </nav>
