@@ -1,0 +1,29 @@
+.footerWrapper { 
+    max-width: var(--screen-max-width);
+    padding-inline: var(--navbar-padding-inline);
+    margin-block: 3em;
+    margin-inline: auto;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.footerTitle h2 {
+    font-size: var(--fs-l);
+    font-weight: var(--fw-l);
+    margin-block-end: 0.2em;
+}
+
+.footerTitle span {
+    font-size: var(--fs-m);
+}
+
+.footerLinks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    margin-block: 1em;
+}

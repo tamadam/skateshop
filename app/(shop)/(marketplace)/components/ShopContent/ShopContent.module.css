@@ -3,7 +3,7 @@
     color: #000;
     font-size: var(--fs-s);
     min-height: 100svh;
-    overflow: auto;
+    /* overflow: auto; */
     /* width: 100%; */
     /* padding-block: calc(var(--navbar-height) + 1.6em); */
 }
