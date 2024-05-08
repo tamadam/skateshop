@@ -1,0 +1,1 @@
+export const BILLBOARD_DEFAULT_BACKGROUND = "/static/images/white_grafiti_optimized.png";

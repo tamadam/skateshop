@@ -1,4 +1,4 @@
-import { PAGINATION_ITEMS_PER_PAGE } from "@/app/constants";
+import { PAGINATION_ITEMS_PER_PAGE } from "@/app/(admin)/constants";
 import { getValidatedPageNumber } from "@/lib/paginationUtils";
 import prisma from "@/prisma/client";
 import { FormattedSize } from "./columns";

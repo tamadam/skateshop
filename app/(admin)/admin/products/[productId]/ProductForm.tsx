@@ -9,7 +9,7 @@ import Heading from "@/app/(admin)/components/Heading/Heading";
 import {
   CLOUDINARY_PRODUCTS_REGEX,
   CLOUDINARY_PRODUCTS_UPLOAD_PRESET_NAME,
-} from "@/app/constants";
+} from "@/app/(admin)/constants";
 import { ProductFormFields, productsFormSchema } from "@/app/validationSchemas";
 import { capitalize } from "@/lib/capitalize";
 import { deleteCldImageUsingUrl, uploadCldImage } from "@/lib/cloudinaryUtils";

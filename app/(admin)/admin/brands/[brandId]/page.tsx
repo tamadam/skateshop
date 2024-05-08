@@ -1,4 +1,4 @@
-import { CLOUDINARY_BRANDS_REGEX } from "@/app/constants";
+import { CLOUDINARY_BRANDS_REGEX } from "@/app/(admin)/constants";
 import { getCldOptions } from "@/lib/cloudinaryUtils";
 import prisma from "@/prisma/client";
 import BrandForm from "./BrandForm";

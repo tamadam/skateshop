@@ -10,7 +10,7 @@ import AdminTableContent from "../../components/AdminTable/AdminTableContent";
 import Modal from "@/app/components/Modal/Modal";
 import PaginationController from "@/app/components/PaginationController/PaginationController";
 import { deleteCldImageUsingUrl } from "@/lib/cloudinaryUtils";
-import { CLOUDINARY_PRODUCTS_REGEX } from "@/app/constants";
+import { CLOUDINARY_PRODUCTS_REGEX } from "@/app/(admin)/constants";
 
 interface ProductTableProps {
   products: FormattedProduct[];

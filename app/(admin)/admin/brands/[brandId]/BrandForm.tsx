@@ -6,7 +6,7 @@ import AdminFormInput from "@/app/(admin)/components/AdminForm/AdminFormInput/Ad
 import AdminFormInputsWrapper from "@/app/(admin)/components/AdminForm/AdminFormInputsWrapper";
 import AdminFormSubmit from "@/app/(admin)/components/AdminForm/AdminFormSubmit/AdminFormSubmit";
 import Heading from "@/app/(admin)/components/Heading/Heading";
-import { CLOUDINARY_BRANDS_UPLOAD_PRESET_NAME } from "@/app/constants";
+import { CLOUDINARY_BRANDS_UPLOAD_PRESET_NAME } from "@/app/(admin)/constants";
 import { BrandFormFields, brandsFormSchema } from "@/app/validationSchemas";
 import {
   CldOptionsType,

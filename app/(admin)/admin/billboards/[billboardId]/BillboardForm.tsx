@@ -21,7 +21,7 @@ import AdminFormSubmit from "@/app/(admin)/components/AdminForm/AdminFormSubmit/
 import AdminForm from "@/app/(admin)/components/AdminForm/AdminForm";
 import AdminFormInputsWrapper from "@/app/(admin)/components/AdminForm/AdminFormInputsWrapper";
 import toast from "react-hot-toast";
-import { CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME } from "@/app/constants";
+import { CLOUDINARY_BILLBOARDS_UPLOAD_PRESET_NAME } from "@/app/(admin)/constants";
 
 interface BillboardFormProps {
   billboard: Billboard | null;

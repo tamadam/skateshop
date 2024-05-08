@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
 import BillboardClient from "./BillboardClient";
-import { PAGINATION_ITEMS_PER_PAGE } from "@/app/constants";
+import { PAGINATION_ITEMS_PER_PAGE } from "@/app/(admin)/constants";
 import { getValidatedPageNumber } from "@/lib/paginationUtils";
 import { formatDate } from "@/lib/formatDate";
 import { FormattedBillboard } from "./columns";

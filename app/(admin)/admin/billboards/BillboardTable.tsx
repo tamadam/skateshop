@@ -5,7 +5,7 @@ import { getValidatedPageNumber, getTotalPages } from "@/lib/paginationUtils";
 import PaginationController from "@/app/components/PaginationController/PaginationController";
 import toast from "react-hot-toast";
 import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
-import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
+import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/(admin)/constants";
 import Modal from "@/app/components/Modal/Modal";
 import AdminTableContent from "../../components/AdminTable/AdminTableContent";
 import AdminTableHeading from "../../components/AdminTable/AdminTableHeading";

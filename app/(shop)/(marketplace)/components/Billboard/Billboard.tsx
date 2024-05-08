@@ -1,6 +1,7 @@
 import { Libre_Franklin } from "next/font/google";
-import { BillboardType } from "../../types";
+import { BillboardType } from "../../../types";
 import styles from "./Billboard.module.css";
+import { BILLBOARD_DEFAULT_BACKGROUND } from "@/app/(shop)/constants";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
@@ -14,7 +15,7 @@ const Billboard = ({ billboard }: BillboardProps) => {
       className={styles.billboardWrapper}
       style={{
         backgroundImage: `url(${
-          billboard.imageUrl || "/static/images/white_grafiti_optimized.png"
+          billboard.imageUrl || BILLBOARD_DEFAULT_BACKGROUND
         })`,
       }}
     >

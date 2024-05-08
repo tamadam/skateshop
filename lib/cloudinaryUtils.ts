@@ -1,4 +1,4 @@
-import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_DESTROY_API, CLOUDINARY_UPLOAD_API } from "@/app/constants";
+import { CLOUDINARY_DESTROY_API, CLOUDINARY_UPLOAD_API } from "@/app/(admin)/constants";
 import crypto from "crypto";
 
 export type CldOptionsType = {
@@ -39,7 +39,7 @@ export const getCldOptions = (url: string | null | undefined, regex: RegExp) => 
 
     if (cldOptions.publicId) {
         cldOptions.signature = generateSHA1(
-        generateSignature(cldOptions.publicId, CLOUDINARY_API_SECRET, cldOptions.timestamp)
+        generateSignature(cldOptions.publicId, process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET!, cldOptions.timestamp)
       );
     }
 
@@ -52,7 +52,7 @@ export const deleteCldImage = async (cldOptions: CldOptionsType | undefined) => 
         const formData = new FormData();
         formData.append("public_id", cldOptions.publicId);
         formData.append("signature", cldOptions.signature);
-        formData.append("api_key", CLOUDINARY_API_KEY);
+        formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY!);
         formData.append("timestamp", cldOptions.timestamp.toString());
 
         const response = await fetch(CLOUDINARY_DESTROY_API, {

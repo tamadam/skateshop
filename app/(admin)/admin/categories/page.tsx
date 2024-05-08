@@ -3,7 +3,7 @@ import CategoryClient from "./CategoryClient";
 import { FormattedCategory } from "./columns";
 import { formatDate } from "@/lib/formatDate";
 import { getValidatedPageNumber } from "@/lib/paginationUtils";
-import { PAGINATION_ITEMS_PER_PAGE } from "@/app/constants";
+import { PAGINATION_ITEMS_PER_PAGE } from "@/app/(admin)/constants";
 
 interface CategoriesPageProps {
   searchParams: { [key: string]: string | string[] | undefined };

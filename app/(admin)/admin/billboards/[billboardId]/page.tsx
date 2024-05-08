@@ -2,7 +2,7 @@ import React from "react";
 import BillboardForm from "./BillboardForm";
 import prisma from "@/prisma/client";
 import { getCldOptions } from "@/lib/cloudinaryUtils";
-import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/constants";
+import { CLOUDINARY_BILLBOARDS_REGEX } from "@/app/(admin)/constants";
 
 interface BillboardPageProps {
   params: { billboardId: string };

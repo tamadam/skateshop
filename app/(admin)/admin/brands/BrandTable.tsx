@@ -4,7 +4,7 @@ import { FormattedBrand } from "./columns";
 import { getTotalPages, getValidatedPageNumber } from "@/lib/paginationUtils";
 import { useState } from "react";
 import { deleteCldImage, getCldOptions } from "@/lib/cloudinaryUtils";
-import { CLOUDINARY_BRANDS_REGEX } from "@/app/constants";
+import { CLOUDINARY_BRANDS_REGEX } from "@/app/(admin)/constants";
 import toast from "react-hot-toast";
 import AdminTable from "../../components/AdminTable/AdminTable";
 import AdminTableHeading from "../../components/AdminTable/AdminTableHeading";
