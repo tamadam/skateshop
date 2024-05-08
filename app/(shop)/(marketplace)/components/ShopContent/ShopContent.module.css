@@ -3,13 +3,14 @@
     color: #000;
     font-size: var(--fs-s);
     min-height: 100svh;
-    width: 100%;
+    overflow: auto;
+    /* width: 100%; */
     /* padding-block: calc(var(--navbar-height) + 1.6em); */
 }
 
-.shopContent {
+/* .shopContent {
     overflow-x: auto;
     max-width: var(--screen-max-width);
     margin: 0 auto;
     padding-inline: var(--navbar-padding-inline);
-}
+} */
