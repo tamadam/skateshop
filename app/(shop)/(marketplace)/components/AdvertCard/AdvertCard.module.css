@@ -1,0 +1,22 @@
+.advertCardWrapper {
+    display: block;
+    position: relative;
+    height: 100%;
+}
+
+.advertCardContent {
+    --advert-card-label-bg-clr: #e0e0e0dd;
+    --advert-card-label-clr: #EA1A1A;
+    background: var(--advert-card-label-bg-clr);
+    color: var(--advert-card-label-clr);
+    font-size: var(--fs-l);
+    font-weight: var(--fw-l);
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    text-align: center;
+}
+
+.advertCardImage {
+    object-fit: cover;
+    object-position: center;
+}

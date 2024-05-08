@@ -1,0 +1,42 @@
+.logos {
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+    gap: 1em;
+    padding-block: 1em;
+}
+
+.logoImage {
+    object-fit: contain;
+}
+
+.logoImage[aria-hidden="true"] {
+    display: none
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .logoSlider{
+        overflow: hidden;
+        mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    }
+
+    .logos {
+        overflow-x: hidden;
+        width: max-content;
+        animation: slide 20s linear infinite;
+    }
+
+    .logos:hover {
+        animation-play-state: paused;
+    }
+
+    .logoImage[aria-hidden="true"] {
+        display: block;
+    }
+}
+
+@keyframes slide {
+    to {
+        transform: translateX(calc(-50% - 0.5em));
+    }
+}

@@ -1,5 +1,6 @@
 .shopContentWrapper {
     background: #fff;
+    background: url("/static/images/shop_bg.png");
     color: #000;
     font-size: var(--fs-s);
     min-height: 100svh;
