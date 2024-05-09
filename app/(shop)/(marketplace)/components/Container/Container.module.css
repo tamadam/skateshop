@@ -1,6 +1,7 @@
 .container {
     margin-inline: auto;
     padding-inline: var(--navbar-padding-inline);
+    padding-block: 2em;
     max-width: var(--screen-max-width);
     background: #fff;
 }

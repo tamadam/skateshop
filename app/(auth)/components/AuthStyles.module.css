@@ -69,7 +69,6 @@
 .authRedirectSeparator {
     width: 80%;
     margin: 1em auto;
-    border: none;
     border-top: 1px dashed var(--clr-grey-medium);
 }
 

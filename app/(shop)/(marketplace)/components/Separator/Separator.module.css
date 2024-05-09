@@ -1,0 +1,5 @@
+.separator {
+    height: 4px;
+    background: url("/static/images/separator.png");
+    margin-block: 2em;
+}

@@ -111,6 +111,10 @@ button {
     cursor: pointer;
 }
 
+hr {
+    border: none;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
     :has(:target) {

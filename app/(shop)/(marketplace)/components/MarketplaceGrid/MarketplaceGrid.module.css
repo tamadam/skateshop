@@ -12,7 +12,6 @@
     "subcat6"
     "brand";
     gap: 1em;
-    padding-block: 2em;
     grid-template-rows: repeat(9, 1fr) auto;
 }
 

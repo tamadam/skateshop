@@ -1,3 +1,4 @@
+import { Product } from "@prisma/client";
 import qs from "query-string";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
@@ -10,7 +11,9 @@ interface SearchAttributes {
   isFeatured?: boolean;
 }
 
-const getProducts = async (searchAttributes: SearchAttributes = {}) => {
+const getProducts = async (
+  searchAttributes: SearchAttributes = {}
+): Promise<Product[]> => {
   const url = qs.stringifyUrl({
     url: URL,
     query: {
