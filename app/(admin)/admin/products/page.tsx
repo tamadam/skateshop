@@ -28,6 +28,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
       },
       include: {
         images: true,
+        category: true,
       },
       skip: itemsPerPage * (currentPage - 1),
       take: itemsPerPage,
@@ -48,6 +49,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
       name: product.name,
       price: product.price.toNumber(),
       images: product.images,
+      category: product.category.name,
       createdAt: formatDate(product.createdAt, "en-US"),
     };
   });
