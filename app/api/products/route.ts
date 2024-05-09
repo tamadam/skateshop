@@ -55,12 +55,30 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     try {
+        const searchParams = request.nextUrl.searchParams;
+        const categoryId = searchParams.get("categoryId") || undefined;
+        const brandId = searchParams.get("brandId") || undefined;
+        const sizeId = searchParams.get("sizeId") || undefined;
+        const colorId = searchParams.get("colorId") || undefined;
+        const isFeatured = searchParams.get("isFeatured") ? true : false;
+       
         const products = await prisma.product.findMany({
+            where: {
+                categoryId,
+                brandId,
+                sizeId,
+                colorId,
+                isFeatured
+            },
             orderBy: {
                 createdAt: "desc"
             },
             include: {
                 images: true,
+                category: true,
+                brand: true,
+                size: true,
+                color: true,
             },
         });
     
