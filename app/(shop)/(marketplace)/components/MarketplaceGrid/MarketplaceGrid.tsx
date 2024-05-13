@@ -2,19 +2,28 @@ import { Brand } from "@prisma/client";
 import AdvertCard from "../AdvertCard/AdvertCard";
 import BrandSlider from "../LogoSlider/BrandSlider";
 import styles from "./MarketplaceGrid.module.css";
+import ImageSlider from "../ImageSlider/ImageSlider";
 
 interface MarketplaceGridProps {
   brands: Brand[];
 }
 
 const MarketplaceGrid = ({ brands }: MarketplaceGridProps) => {
+  const imageSliderUrls = [
+    "/static/images/sale1.jpg",
+    "/static/images/sale1-2.png",
+    "/static/images/sale1-3.png",
+    "/static/images/sale1-4.png",
+  ];
+
   return (
     <div className={styles.marketplaceWrapper}>
       <div id={styles.offer}>
         <AdvertCard href="#" imageUrl="/static/images/offer.jpg" />
       </div>
       <div id={styles.catOne}>
-        <AdvertCard href="#" imageUrl="/static/images/sale1.jpg" />
+        <ImageSlider imageUrls={imageSliderUrls} />
+        {/* <AdvertCard href="#" imageUrl="/static/images/sale1.jpg" /> */}
       </div>
       <div id={styles.catTwo}>
         <AdvertCard href="#" imageUrl="/static/images/sale2.png" />

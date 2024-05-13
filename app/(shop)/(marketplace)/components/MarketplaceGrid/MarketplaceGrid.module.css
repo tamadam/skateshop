@@ -5,14 +5,14 @@
     "cat1"
     "subcat1"
     "subcat2"
+    "brand"
     "subcat3"
     "cat2"
     "subcat4"
     "subcat5"
-    "subcat6"
-    "brand";
+    "subcat6";
     gap: 1em;
-    grid-template-rows: repeat(9, 1fr) auto;
+    grid-template-rows: repeat(4, 1fr) auto repeat(5, 1fr);
 }
 
 #offer {
@@ -66,7 +66,7 @@
     overflow: hidden;
 }
 
-@media (min-width: 320px) {
+@media (min-width: 420px) {
     .marketplaceWrapper {
         grid-template-areas:
         "offer subcat1"
