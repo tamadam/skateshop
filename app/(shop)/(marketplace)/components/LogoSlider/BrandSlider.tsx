@@ -17,12 +17,11 @@ const BrandSlider = ({ brands }: BrandSliderProps) => {
       <div className={styles.logos}>
         {copybrands.map((brand, index) => {
           return (
-            <Image
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
               key={index}
               src={brand.imageUrl || "/static/images/not_found.png"}
               alt={`logo-${brand.name}`}
-              width={90}
-              height={50}
               className={styles.logoImage}
               aria-hidden={brand.ariaHidden}
             />

@@ -8,6 +8,7 @@
 
 .logoImage {
     object-fit: contain;
+    aspect-ratio: 4 / 1;
 }
 
 .logoImage[aria-hidden="true"] {
