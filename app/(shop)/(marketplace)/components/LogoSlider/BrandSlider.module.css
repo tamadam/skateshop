@@ -26,9 +26,12 @@
         animation: slide 20s linear infinite;
     }
 
-    .logos:hover {
-        animation-play-state: paused;
+    @media only screen and not (hover: none) {
+        .logos:hover {
+            animation-play-state: paused;
+        }
     }
+
 
     .logoImage[aria-hidden="true"] {
         display: block;
