@@ -1,7 +1,7 @@
-import Image from "next/image";
 import styles from "./ProductCard.module.css";
 import { ProductType } from "../../types";
 import { Libre_Franklin, Open_Sans } from "next/font/google";
+import ImageSlider from "../../(marketplace)/components/ImageSlider/ImageSlider";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -16,15 +16,23 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, onClick }: ProductCardProps) => {
+  const images = product.images.map((image) => image.url);
+
   return (
     <div className={styles.cardContainer} onClick={onClick}>
       <div className={styles.cardImageWrapper}>
-        <Image
+        <ImageSlider
+          imageUrls={
+            images.length !== 0 ? images : ["/static/images/not_found.png"]
+          }
+          productCard
+        />
+        {/* <Image
           fill
           src={product.images[0]?.url || "/static/images/not_found.png"}
           alt="product image"
           className={styles.cardImage}
-        />
+        /> */}
       </div>
       <div className={`${styles.cardDetails} ${openSans.className}`}>
         <div className={styles.cardHeading}>

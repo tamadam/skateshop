@@ -5,7 +5,6 @@ import getBrands from "../../actions/getBrands";
 import MarketplaceGrid from "../components/MarketplaceGrid/MarketplaceGrid";
 import getProducts from "../../actions/getProducts";
 import FeaturedProducts from "../components/FeaturedProducts/FeaturedProducts";
-import Separator from "../components/Separator/Separator";
 
 const MarketplacePage = async () => {
   const billboard = await getBillboard("9737f519-0681-4508-9af9-24d1a96732c9");

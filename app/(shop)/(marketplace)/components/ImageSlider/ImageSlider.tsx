@@ -11,9 +11,10 @@ const SWIPE_TRESHOLD = 50;
 
 interface ImageSliderProps {
   imageUrls: string[];
+  productCard?: boolean;
 }
 
-const ImageSlider = ({ imageUrls }: ImageSliderProps) => {
+const ImageSlider = ({ imageUrls, productCard = false }: ImageSliderProps) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -64,7 +65,9 @@ const ImageSlider = ({ imageUrls }: ImageSliderProps) => {
               key={imageUrl}
               src={imageUrl}
               alt="advert image"
-              className={styles.imageSliderImage}
+              className={`${styles.imageSliderImage} ${
+                productCard ? styles.contain : styles.cover
+              }`}
               style={{
                 translate: `${-100 * imageIndex}%`,
                 left: `${100 * index}%`,
@@ -73,41 +76,69 @@ const ImageSlider = ({ imageUrls }: ImageSliderProps) => {
           );
         })}
       </div>
-      {imageUrls.length >= 2 && (
-        <>
-          <Button
-            Icon={MdArrowBackIosNew}
-            shape="circle"
-            className={`${styles.imageSliderButton} ${styles.buttonLeft}`}
-            onClick={handleLeftClick}
-          />
-          <Button
-            Icon={MdArrowForwardIos}
-            shape="circle"
-            className={`${styles.imageSliderButton} ${styles.buttonRight}`}
-            onClick={handleRightClick}
-          />
-          <div className={styles.imageNavigation}>
-            {imageUrls.map((_, index) => {
-              return (
-                <Button
-                  key={index}
-                  onClick={() => setImageIndex(index)}
-                  Icon={GoDotFill}
-                  shape="original"
-                  variant="cancel"
-                  className={[
-                    styles.imageNavButton,
-                    imageIndex === index && styles.active,
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                />
-              );
-            })}
-          </div>
-        </>
-      )}
+      {imageUrls.length >= 2 &&
+        (!productCard ? (
+          <>
+            <Button
+              Icon={MdArrowBackIosNew}
+              shape="circle"
+              className={`${styles.imageSliderButton} ${styles.buttonLeft}`}
+              onClick={handleLeftClick}
+            />
+            <Button
+              Icon={MdArrowForwardIos}
+              shape="circle"
+              className={`${styles.imageSliderButton} ${styles.buttonRight}`}
+              onClick={handleRightClick}
+            />
+            <div className={styles.imageNavigation}>
+              {imageUrls.map((_, index) => {
+                return (
+                  <Button
+                    key={index}
+                    onClick={() => setImageIndex(index)}
+                    Icon={GoDotFill}
+                    shape="original"
+                    variant="cancel"
+                    className={[
+                      styles.imageNavButton,
+                      imageIndex === index && styles.active,
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  />
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          <>
+            <Button
+              Icon={MdArrowBackIosNew}
+              shape="circle"
+              className={`${[
+                styles.imageSliderButton,
+                styles.buttonLeft,
+                productCard && styles.cardArrow,
+              ]
+                .filter(Boolean)
+                .join(" ")}`}
+              onClick={handleLeftClick}
+            />
+            <Button
+              Icon={MdArrowForwardIos}
+              shape="circle"
+              className={`${[
+                styles.imageSliderButton,
+                styles.buttonRight,
+                productCard && styles.cardArrow,
+              ]
+                .filter(Boolean)
+                .join(" ")}`}
+              onClick={handleRightClick}
+            />
+          </>
+        ))}
     </div>
   );
 };

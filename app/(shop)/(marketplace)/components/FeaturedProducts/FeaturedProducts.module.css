@@ -90,7 +90,7 @@
 }
 
 
-@media (min-width: 1290px) {
+@media (min-width: 1280px) {
     .carousel {
         grid-auto-columns: calc((100% / 4) - 12px);
     }
