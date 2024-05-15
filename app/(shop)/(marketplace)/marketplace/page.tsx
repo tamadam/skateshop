@@ -17,7 +17,6 @@ const MarketplacePage = async () => {
       <Billboard billboard={billboard} />
       <Container>
         <MarketplaceGrid brands={brands} />
-        <Separator />
         <FeaturedProducts products={featuredProducts} />
       </Container>
     </div>

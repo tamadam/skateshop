@@ -25,6 +25,7 @@
     --fw-m: 600;
     --fw-s: 500;
     --fw-xs: 400;
+    --fw-xxs: 300;
 
     /* BUTTONS */
     --bg-clr-transition: background-color 0.2s ease-out;

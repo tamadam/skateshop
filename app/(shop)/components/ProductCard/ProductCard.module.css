@@ -1,0 +1,79 @@
+.cardContainer {
+    position: relative;
+    background: #e7e7e7;
+    border-bottom: 1px solid #cecece;
+    padding: 1em;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.cardContainer:hover {
+    background: #cecece;
+}
+
+.cardImageWrapper {
+    background: #fff;
+    aspect-ratio: 1 / 1;
+    position: relative;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cardDetails {
+    text-align: center;
+}
+
+.cardHeading {
+    margin-block: 2em 1em;
+    line-height: 1;
+}
+
+.cardName {
+    font-weight: var(--fw-l);
+    color: #000;
+    font-size: calc(var(--fs-xs));
+    text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cardBrand {
+    font-weight: var(--fw-xxs);
+    font-size: calc(var(--fs-xs) - 4px);
+    text-transform: uppercase;
+    color: #777;
+    padding-bottom: 0.2em;
+}
+
+.cardPrice {
+    color: #000;
+    font-size: calc(var(--fs-xs) - 2px);
+    font-weight: var(--fw-l);
+    margin-block-start: 0.8em;
+}
+
+.cardNewFlag {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    background-color: red;
+    color: #fff;
+    font-weight: var(--fw-m);
+    font-size: var(--fs-xs);
+    padding: 0.4em;
+    text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
