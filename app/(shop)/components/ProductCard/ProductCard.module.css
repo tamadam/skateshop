@@ -1,8 +1,9 @@
 .cardContainer {
+    --card-padding: 0.4em;
     position: relative;
     background: #e7e7e7;
     border-bottom: 1px solid #cecece;
-    padding: 1em;
+    padding: var(--card-padding);
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
@@ -33,9 +34,9 @@
 }
 
 .cardName {
-    font-weight: var(--fw-l);
+    font-weight: var(--fw-lm);
     color: #000;
-    font-size: calc(var(--fs-xs));
+    font-size: calc(var(--fs-xs) - 2px);
     text-transform: uppercase;
     overflow: hidden;
     white-space: nowrap;
@@ -44,7 +45,7 @@
 
 .cardBrand {
     font-weight: var(--fw-xxs);
-    font-size: calc(var(--fs-xs) - 4px);
+    font-size: var(--fs-xs);
     text-transform: uppercase;
     color: #777;
     padding-bottom: 0.2em;
@@ -59,8 +60,8 @@
 
 .cardNewFlag {
     position: absolute;
-    top: 1em;
-    left: 1em;
+    top: var(--card-padding);
+    left: var(--card-padding);
     background-color: red;
     color: #fff;
     font-weight: var(--fw-m);
@@ -69,6 +70,11 @@
     text-transform: uppercase;
 }
 
+@media (min-width: 861px) {
+    .cardContainer {
+        --card-padding: 0.8em;
+    }
+}
 
 
 

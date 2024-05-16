@@ -70,9 +70,9 @@
     .imageSliderWrapper .imageSliderButton.cardArrow {
         opacity: 1;
         visibility: visible;
-        top: 95%;
-        transform: translateY(-95%);
-        background: transparent !important;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: var(--fs-s);
     }
 }
 

@@ -5,7 +5,7 @@
 
     /* NAVBAR */
     --navbar-height: 5rem;
-    --navbar-padding-inline: 1.2rem;
+    --navbar-padding-inline: 0.4rem;
     --navbar-dft-bg: rgba(0, 0, 0, .9);
     --navbar-lin-bg: linear-gradient(180deg, rgba(0,0,0,.9) 95%, rgba(255,255,255,0) 100%);
 
@@ -22,6 +22,7 @@
     /* FONT WEIGHTS */
     --fw-xl: 900;
     --fw-l: 800;
+    --fw-lm: 700;
     --fw-m: 600;
     --fw-s: 500;
     --fw-xs: 400;
@@ -125,8 +126,8 @@ hr {
 
 @media (min-width: 640px) {
     :root {
-
-      --fs-m: 1.6rem;
+        --navbar-padding-inline: 1.2rem;
+        --fs-m: 1.6rem;
     }
 }
 

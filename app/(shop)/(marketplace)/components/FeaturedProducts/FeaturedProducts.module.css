@@ -39,7 +39,7 @@
 }
   
 .carousel {
-    --carousel-gap: 16px;
+    --carousel-gap: 10px;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 100%;
@@ -77,7 +77,7 @@
     text-align: center;
 }
 
-@media (min-width: 520px) {
+@media (min-width: 370px) {
     .carousel {
         grid-auto-columns: calc((100% / 2) - var(--carousel-gap) / 2);
     }
@@ -85,13 +85,13 @@
 
 @media (min-width: 861px) {
     .carousel {
-        grid-auto-columns: calc((100% / 3) - 11px);
+        grid-auto-columns: calc((100% / 3) - 7px);
     }
 }
 
 
 @media (min-width: 1280px) {
     .carousel {
-        grid-auto-columns: calc((100% / 4) - 12px);
+        grid-auto-columns: calc((100% / 4) - 8px);
     }
 }
