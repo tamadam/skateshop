@@ -38,7 +38,7 @@
 /* LEFT - RIGHT BUTTONS */
 
 .imageSliderButton {
-    position: absolute;
+    position: absolute !important;
     top: 50%;
     transform: translateY(-50%);
     font-size: var(--fs-m);

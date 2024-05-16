@@ -6,7 +6,7 @@
 /* Card Slider Arrows */
 .sliderArrow {
     --inline-gap: -0.2em;
-    position: absolute;
+    position: absolute !important;
     top: 50%;
     height: 1.6em;
     width: 1.6em;
@@ -14,10 +14,10 @@
     font-size: var(--fs-l);
     text-align: center;
     z-index: 10;
-    border-radius: 50%;
+    border-radius: 50% !important;
     box-shadow: 0 3px 6px rgba(0,0,0,0.23);
     transform: translateY(-50%);
-    transition: transform 0.1s linear;
+    transition: transform 0.1s linear !important;
     background: var(--arrow-btn-bg-clr) !important;
     color: white !important;
 
