@@ -5,6 +5,7 @@
     background-position: center bottom;
     display: grid;
     place-items: center;
+    overflow: hidden;
 }
 
 .billboardContentWrapper {
@@ -29,5 +30,15 @@
 @media (min-width: 861px) {
     .billboardWrapper {
         min-height: calc(var(--navbar-height) * 4);
+    }
+}
+
+@media (max-width: 280px) {
+    .billboardWrapper {
+        min-height: calc(var(--navbar-height) * 2);
+    }
+
+    .billboardContent {
+        font-size: var(--fs-m);
     }
 }

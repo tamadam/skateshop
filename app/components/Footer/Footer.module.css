@@ -7,6 +7,7 @@
     place-items: center;
     text-align: center;
     text-transform: uppercase;
+    overflow: hidden;
 }
 
 .footerTitle h2 {
@@ -26,4 +27,14 @@
     flex-wrap: wrap;
     gap: 0.4em;
     margin-block: 1em;
+}
+
+@media (max-width: 280px) {
+    .footerTitle h2 {
+        font-size: var(--fs-m);
+    }
+    
+    .footerTitle span {
+        font-size: var(--fs-s);
+    }
 }
