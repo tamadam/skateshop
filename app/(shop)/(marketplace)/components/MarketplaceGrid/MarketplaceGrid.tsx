@@ -1,11 +1,11 @@
-import { Brand } from "@prisma/client";
+import { BrandType } from "@/app/(shop)/types";
 import AdvertCard from "../AdvertCard/AdvertCard";
 import BrandSlider from "../LogoSlider/BrandSlider";
 import styles from "./MarketplaceGrid.module.css";
 import ImageSlider from "../ImageSlider/ImageSlider";
 
 interface MarketplaceGridProps {
-  brands: Brand[];
+  brands: BrandType[];
 }
 
 const MarketplaceGrid = ({ brands }: MarketplaceGridProps) => {

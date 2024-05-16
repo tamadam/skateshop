@@ -1,9 +1,8 @@
-import { Brand } from "@prisma/client";
+import { BrandType } from "@/app/(shop)/types";
 import styles from "./BrandSlider.module.css";
-import Image from "next/image";
 
 interface BrandSliderProps {
-  brands: Brand[];
+  brands: BrandType[];
 }
 
 const BrandSlider = ({ brands }: BrandSliderProps) => {
