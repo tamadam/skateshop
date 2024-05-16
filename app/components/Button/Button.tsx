@@ -24,7 +24,7 @@ interface ButtonProps {
   colorInvert?: boolean;
   tooltip?: string;
   Icon?: IconType;
-  onClick?: (event?: any) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = ({

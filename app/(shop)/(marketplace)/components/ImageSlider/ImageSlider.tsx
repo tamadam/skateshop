@@ -123,7 +123,10 @@ const ImageSlider = ({ imageUrls, productCard = false }: ImageSliderProps) => {
               ]
                 .filter(Boolean)
                 .join(" ")}`}
-              onClick={handleLeftClick}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleLeftClick();
+              }}
             />
             <Button
               Icon={MdArrowForwardIos}
@@ -135,7 +138,10 @@ const ImageSlider = ({ imageUrls, productCard = false }: ImageSliderProps) => {
               ]
                 .filter(Boolean)
                 .join(" ")}`}
-              onClick={handleRightClick}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleRightClick();
+              }}
             />
           </>
         ))}
