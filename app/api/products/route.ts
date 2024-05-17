@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
         const brandId = searchParams.get("brandId") || undefined;
         const sizeId = searchParams.get("sizeId") || undefined;
         const colorId = searchParams.get("colorId") || undefined;
-        const isFeatured = searchParams.get("isFeatured") ? true : false;
+        const isFeatured = searchParams.get("isFeatured");
        
         const products = await prisma.product.findMany({
             where: {
@@ -68,7 +68,8 @@ export async function GET(request: NextRequest) {
                 brandId,
                 sizeId,
                 colorId,
-                isFeatured
+                isFeatured: isFeatured ? true : undefined,
+                isArchived: false,
             },
             orderBy: {
                 createdAt: "desc"
