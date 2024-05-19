@@ -1,3 +1,4 @@
+import { CATEGORY_ID_SEARCH_PARAM } from "@/app/constants";
 import { CategoryType } from "../types";
 import qs from "query-string";
 
@@ -11,7 +12,7 @@ const getDirectSubCategories = async (
   const url = qs.stringifyUrl({
     url: URL,
     query: {
-      categoryId,
+      [CATEGORY_ID_SEARCH_PARAM]: categoryId,
     },
   });
 

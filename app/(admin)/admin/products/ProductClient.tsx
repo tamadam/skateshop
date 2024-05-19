@@ -1,5 +1,6 @@
 "use client";
 
+import { CATEGORY_ID_SEARCH_PARAM } from "@/app/constants";
 import ApiList from "../../components/ApiInfo/ApiList";
 import Heading from "../../components/Heading/Heading";
 import { columns, FormattedProduct } from "./columns";
@@ -24,7 +25,16 @@ const ProductClient = ({ products, totalProducts }: ProductClientProps) => {
         columns={columns}
       />
 
-      <ApiList entityName="products" entityIdName="productId" />
+      <ApiList
+        entityName="products"
+        entityIdName="productId"
+        customPublicEntities={[
+          {
+            title: "GET PRODUCTS FROM GIVEN CATEGORY",
+            searchParam: `?${CATEGORY_ID_SEARCH_PARAM}={categoryId}`,
+          },
+        ]}
+      />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { Category, ROLES } from "@prisma/client";
+import { CATEGORY_ID_SEARCH_PARAM } from "@/app/constants";
 
 export async function POST(request: NextRequest) {
     try {
@@ -44,7 +45,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     try {
-        const categoryId = request.nextUrl.searchParams.get("categoryId");      
+        const categoryId = request.nextUrl.searchParams.get(CATEGORY_ID_SEARCH_PARAM);      
        
         let categories: Category[] = [];
 

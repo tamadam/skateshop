@@ -1,5 +1,6 @@
 "use client";
 
+import { CATEGORY_ID_SEARCH_PARAM } from "@/app/constants";
 import ApiList from "../../components/ApiInfo/ApiList";
 import Heading from "../../components/Heading/Heading";
 import CategoryTable from "./CategoryTable";
@@ -27,7 +28,16 @@ const CategoryClient = ({
         columns={columns}
       />
 
-      <ApiList entityName="categories" entityIdName="categoryId" />
+      <ApiList
+        entityName="categories"
+        entityIdName="categoryId"
+        customPublicEntities={[
+          {
+            title: "GET DIRECT SUBCATEGORIES",
+            searchParam: `?${CATEGORY_ID_SEARCH_PARAM}={categoryId}`,
+          },
+        ]}
+      />
     </div>
   );
 };

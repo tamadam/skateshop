@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { ROLES } from "@prisma/client";
 import { productsFormSchema } from "@/app/validationSchemas";
+import { CATEGORY_ID_SEARCH_PARAM } from "@/app/constants";
 
 export async function POST(request: NextRequest) {
     try {
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
-        const categoryIds = searchParams.getAll("categoryId") || undefined;
+        const categoryIds = searchParams.getAll(CATEGORY_ID_SEARCH_PARAM) || undefined;
         const brandId = searchParams.get("brandId") || undefined;
         const sizeId = searchParams.get("sizeId") || undefined;
         const colorId = searchParams.get("colorId") || undefined;

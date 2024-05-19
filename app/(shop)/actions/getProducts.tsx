@@ -1,6 +1,7 @@
 import { ProductType } from "../types";
 import qs from "query-string";
 import getAllSubCategories from "./getAllSubCategories";
+import { CATEGORY_ID_SEARCH_PARAM } from "@/app/constants";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
 
@@ -30,7 +31,7 @@ const getProducts = async (
   const url = qs.stringifyUrl({
     url: URL,
     query: {
-      categoryId: categoryIds,
+      [CATEGORY_ID_SEARCH_PARAM]: categoryIds,
       brandId: searchAttributes.brandId,
       sizeId: searchAttributes.sizeId,
       colorId: searchAttributes.colorId,

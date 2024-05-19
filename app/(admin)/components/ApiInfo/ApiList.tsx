@@ -9,9 +9,19 @@ import styles from "./ApiInfo.module.css";
 interface ApiListProps {
   entityName: string;
   entityIdName: string;
+  customPublicEntities?: [
+    {
+      title: string;
+      searchParam: string;
+    }
+  ];
 }
 
-const ApiList = ({ entityName, entityIdName }: ApiListProps) => {
+const ApiList = ({
+  entityName,
+  entityIdName,
+  customPublicEntities,
+}: ApiListProps) => {
   const origin = useOrigin();
   const baseUrl = `${origin}/api`;
 
@@ -35,6 +45,15 @@ const ApiList = ({ entityName, entityIdName }: ApiListProps) => {
           badgeVariant="public"
           badgeLabel="public"
         />
+        {customPublicEntities?.map((publicEntity, index) => (
+          <ApiInfo
+            key={index}
+            title={publicEntity.title}
+            description={`${baseUrl}/${entityName}/${publicEntity.searchParam}`}
+            badgeVariant="public"
+            badgeLabel="public"
+          />
+        ))}
         <ApiInfo
           title="POST"
           description={`${baseUrl}/${entityName}`}
