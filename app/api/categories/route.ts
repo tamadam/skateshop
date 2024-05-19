@@ -3,7 +3,7 @@ import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
-import { ROLES } from "@prisma/client";
+import { Category, ROLES } from "@prisma/client";
 
 export async function POST(request: NextRequest) {
     try {
@@ -37,13 +37,33 @@ export async function POST(request: NextRequest) {
     }
 }
 
+/*
+ This function returns all categories if categoryId is not provided.
+ If the categoryId is provided, it returns the direct subcategories of that category.
+*/
+
 export async function GET(request: NextRequest) {
     try {
-        const categories = await prisma.category.findMany({
-            orderBy: {
-                createdAt: "desc",
-            },
-        });
+        const categoryId = request.nextUrl.searchParams.get("categoryId");      
+       
+        let categories: Category[] = [];
+
+        if (categoryId) {
+            categories = await prisma.category.findMany({
+                where: {
+                    parentCategoryId: categoryId,
+                },
+                orderBy: {
+                    createdAt: "desc",
+                },
+            });
+        } else {
+            categories = await prisma.category.findMany({
+                orderBy: {
+                    createdAt: "desc",
+                },
+            });
+        }
 
         return NextResponse.json(categories, { status: 200 });
     } catch (error) {
