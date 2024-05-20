@@ -3,8 +3,8 @@ import Container from "../components/Container/Container";
 import getBillboard from "../../actions/getBillboard";
 import { BILLBOARD_DEFAULT_ID } from "../../constants";
 import getProducts from "../../actions/getProducts";
-import ProductsNav from "../components/ProductsNav/ProductsNav";
-import ProductsContent from "../components/ProductsContent/ProductsContent";
+import ProductsNav from "./components/ProductsNav/ProductsNav";
+import ProductsContent from "./components/ProductsContent/ProductsContent";
 
 interface ProductsPageProps {
   searchParams: { p: string };

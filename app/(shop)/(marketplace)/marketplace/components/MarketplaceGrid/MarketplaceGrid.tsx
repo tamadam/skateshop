@@ -1,8 +1,8 @@
 import { BrandType } from "@/app/(shop)/types";
-import AdvertCard from "../AdvertCard/AdvertCard";
-import BrandSlider from "../LogoSlider/BrandSlider";
+import AdvertCard from "../../../components/AdvertCard/AdvertCard";
+import BrandSlider from "../../../components/LogoSlider/BrandSlider";
 import styles from "./MarketplaceGrid.module.css";
-import ImageSlider from "../ImageSlider/ImageSlider";
+import ImageSlider from "../../../components/ImageSlider/ImageSlider";
 
 interface MarketplaceGridProps {
   brands: BrandType[];

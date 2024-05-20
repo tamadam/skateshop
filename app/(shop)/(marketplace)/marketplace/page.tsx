@@ -2,7 +2,7 @@ import Billboard from "../components/Billboard/Billboard";
 import getBillboard from "../../actions/getBillboard";
 import Container from "../components/Container/Container";
 import getBrands from "../../actions/getBrands";
-import MarketplaceGrid from "../components/MarketplaceGrid/MarketplaceGrid";
+import MarketplaceGrid from "./components/MarketplaceGrid/MarketplaceGrid";
 import getProducts from "../../actions/getProducts";
 import FeaturedProducts from "../components/FeaturedProducts/FeaturedProducts";
 import { BILLBOARD_DEFAULT_ID } from "../../constants";
