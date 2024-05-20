@@ -10,6 +10,7 @@ export type CategoryType = {
     id: string;
     name: string;
     billboard: BillboardType;
+    parentCategoryId: string;
 }
 
 export type BrandType = {

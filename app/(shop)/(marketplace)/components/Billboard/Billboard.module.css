@@ -2,7 +2,7 @@
     min-height: calc(var(--navbar-height) * 3);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center bottom;
+    background-position: center center;
     display: grid;
     place-items: center;
     overflow: hidden;
@@ -13,16 +13,15 @@
 }
 
 .billboardContent {
-    --billboard-label-bg-clr: #e0e0e0dd;
-    --billboard-label-clr: #EA1A1A;
-    padding: 0.4em;
-    background: var(--billboard-label-bg-clr);
+    --billboard-label-clr: #fff;
+    --billboard-label-shadow: 10px 10px 25px rgb(0 0 0), -10px 10px 25px rgb(0 0 0), -10px -10px 25px rgb(0 0 0), 10px -10px 25px rgb(0 0 0 / 8%);
+
     color: var(--billboard-label-clr);
+    text-shadow: var(--billboard-label-shadow);
     font-size: var(--fs-xl);
     font-weight: var(--fw-xl);
     text-transform: uppercase;
     letter-spacing: -2px;
-    border-radius: 0.4em;
     text-align: center;
     margin-inline: 0.2em;
 }

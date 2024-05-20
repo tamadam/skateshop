@@ -7,7 +7,7 @@ const ProductsFilter = () => {
   const { toggleOpen } = useSidebar();
 
   return (
-    <div>
+    <div style={{width: "fit-content", marginLeft: "auto"}}>
       <Button onClick={toggleOpen} className="desktop--hide">
         Sidebar
       </Button>
