@@ -1,0 +1,31 @@
+.productsSidebarWrapper {
+    --products-sidebar-font-clr: #000;
+    --products-sidebar-bg: #fff;
+
+/*     --products-nav-item-active-clr: #fff;
+    --products-nav-item-active-bg: rgba(0,194,255,1);  
+    --products-nav-item-active-bg-linear: linear-gradient(90deg, rgba(0,194,255,1) 0%, rgba(248,21,253,1) 100%); */
+
+
+    background: var(--products-sidebar-bg);
+    color: var(--products-sidebar-font-clr);
+}
+
+
+@media (max-width: 860px) {
+    .productsSidebarWrapper {
+        position: fixed;
+        visibility: hidden;
+        z-index: 200;
+        height: 100%;
+        width: min(100%, 18rem);
+        left: max(-100%, -18rem);
+        top: 0;
+        transition: visibility var(--overlay-trans-duration), left var(--overlay-trans-duration) ease-out;
+    }
+
+    .productsSidebarWrapper.open {
+        visibility: visible;
+        left: 0;
+    }
+}
