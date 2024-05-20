@@ -3,7 +3,7 @@
 import Button from "@/app/components/Button/Button";
 import styles from "./Heading.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useAdminNav } from "../AdminNav/AdminNavContext";
+import { useSidebar } from "@/app/providers/Sidebar/SidebarContext";
 
 interface HeadingProps {
   title: string;
@@ -16,7 +16,7 @@ const Heading = ({
   description,
   showSidebarButton = true,
 }: HeadingProps) => {
-  const { toggleOpen } = useAdminNav();
+  const { toggleOpen } = useSidebar();
 
   return (
     <div className={`${styles.headingWrapper} ${styles.headingFontSize}`}>

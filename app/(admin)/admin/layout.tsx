@@ -1,14 +1,14 @@
 import { PropsWithChildren } from "react";
-import AdminNavWrapper from "../components/AdminNav/AdminNavWrapper";
+import SidebarWrapper from "@/app/providers/Sidebar/SidebarWrapper";
 import AdminContent from "../components/AdminContent/AdminContent";
 import styles from "./AdminLayout.module.css";
 
 export default function AdminLayout({ children }: PropsWithChildren) {
   return (
-    <AdminNavWrapper>
+    <SidebarWrapper>
       <div className={styles.adminContentMainWrapper}>
         <AdminContent>{children}</AdminContent>
       </div>
-    </AdminNavWrapper>
+    </SidebarWrapper>
   );
 }

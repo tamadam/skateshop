@@ -1,16 +1,16 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
-const AdminNavContext = createContext({
+const SidebarContext = createContext({
   isOpen: false,
   toggleOpen: () => {},
   setOpen: (open: boolean) => {},
 });
 
-export function useAdminNav() {
-  return useContext(AdminNavContext);
+export function useSidebar() {
+  return useContext(SidebarContext);
 }
 
-export function AdminNavProvider({ children }: PropsWithChildren) {
+export function SidebarProvider({ children }: PropsWithChildren) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
@@ -22,8 +22,8 @@ export function AdminNavProvider({ children }: PropsWithChildren) {
   };
 
   return (
-    <AdminNavContext.Provider value={{ isOpen, toggleOpen, setOpen }}>
+    <SidebarContext.Provider value={{ isOpen, toggleOpen, setOpen }}>
       {children}
-    </AdminNavContext.Provider>
+    </SidebarContext.Provider>
   );
 }

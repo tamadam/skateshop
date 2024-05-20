@@ -10,14 +10,13 @@ import { GiSkateboard } from "react-icons/gi";
 import { MdNumbers } from "react-icons/md";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { TbBrandDatabricks } from "react-icons/tb";
-
-import { useAdminNav } from "./AdminNavContext";
+import { useSidebar } from "@/app/providers/Sidebar/SidebarContext";
 import Overlay from "@/app/components/Overlay/Overlay";
 import Badge from "@/app/components/Badge/Badge";
 
 const AdminNav = () => {
   const pathname = usePathname();
-  const { isOpen, setOpen } = useAdminNav();
+  const { isOpen, setOpen } = useSidebar();
 
   useEffect(() => {
     setOpen(false);
