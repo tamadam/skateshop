@@ -1,0 +1,5 @@
+.productsGridWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20ch), 1fr));
+    gap: 1em;
+}

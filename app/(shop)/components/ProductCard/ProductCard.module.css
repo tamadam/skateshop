@@ -6,6 +6,7 @@
     padding: var(--card-padding);
     transition: all 0.2s ease-in-out;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .cardContainer:hover {

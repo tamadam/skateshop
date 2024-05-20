@@ -1,4 +1,9 @@
+"use client";
+
+import ProductCard from "@/app/(shop)/components/ProductCard/ProductCard";
 import { ProductType } from "@/app/(shop)/types";
+
+import styles from "./ProductsGrid.module.css";
 
 interface ProductsGridProps {
   products: ProductType[];
@@ -6,12 +11,16 @@ interface ProductsGridProps {
 
 const ProductsGrid = ({ products }: ProductsGridProps) => {
   return (
-    <div>
+    <div className={styles.productsGridWrapper}>
       {products.map((product) => {
         return (
-          <div key={product.id}>
-            {product.category.name} - {product.name}
-          </div>
+          <ProductCard
+            key={product.id}
+            product={product}
+            onClick={() => {
+              console.log("product clicked");
+            }}
+          />
         );
       })}
     </div>
