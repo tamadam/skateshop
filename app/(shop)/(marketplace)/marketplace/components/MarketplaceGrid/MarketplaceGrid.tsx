@@ -3,6 +3,12 @@ import AdvertCard from "../../../components/AdvertCard/AdvertCard";
 import BrandSlider from "../../../components/LogoSlider/BrandSlider";
 import styles from "./MarketplaceGrid.module.css";
 import ImageSlider from "../../../components/ImageSlider/ImageSlider";
+import {
+  CATEGORY_BEARINGS_ACCESSORIES_ID,
+  CATEGORY_CLOTHES_ID,
+  CATEGORY_SKATEBOARDS_ID,
+} from "@/app/(shop)/constants";
+import { CATEGORY_PRODUCTS_SEARCH_PARAM } from "@/app/constants";
 
 interface MarketplaceGridProps {
   brands: BrandType[];
@@ -16,36 +22,64 @@ const MarketplaceGrid = ({ brands }: MarketplaceGridProps) => {
     "/static/images/sale1-4.png",
   ];
 
+  const advertCardRoutes = [
+    {
+      id: styles.offer,
+      href: `/products?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_SKATEBOARDS_ID}`,
+      imageUrl: "/static/images/offer.jpg",
+    },
+    {
+      id: styles.catTwo,
+      href: `/products?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_SKATEBOARDS_ID}`,
+      imageUrl: "/static/images/sale2.png",
+    },
+    {
+      id: styles.subcatOne,
+      href: `/products/?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_CLOTHES_ID}`,
+      imageUrl: "/static/images/cat1.jpg",
+    },
+    {
+      id: styles.subcatTwo,
+      href: `/products/?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_CLOTHES_ID}`,
+      imageUrl: "/static/images/cat2.jpg",
+    },
+    {
+      id: styles.subcatThree,
+      href: `/products?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_SKATEBOARDS_ID}`,
+      imageUrl: "/static/images/cat3.jpg",
+    },
+    {
+      id: styles.subcatFour,
+      href: `/products?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_BEARINGS_ACCESSORIES_ID}`,
+      imageUrl: "/static/images/cat4.jpg",
+    },
+    {
+      id: styles.subcatFive,
+      href: `/products/?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_CLOTHES_ID}`,
+      imageUrl: "/static/images/cat5.jpg",
+    },
+    {
+      id: styles.subcatSix,
+      href: `/products/?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${CATEGORY_CLOTHES_ID}`,
+      imageUrl: "/static/images/cat6.jpg",
+    },
+  ];
+
   return (
     <div className={styles.marketplaceWrapper}>
-      <div id={styles.offer}>
-        <AdvertCard href="#" imageUrl="/static/images/offer.jpg" />
-      </div>
       <div id={styles.catOne}>
         <ImageSlider imageUrls={imageSliderUrls} />
         {/* <AdvertCard href="#" imageUrl="/static/images/sale1.jpg" /> */}
       </div>
-      <div id={styles.catTwo}>
-        <AdvertCard href="#" imageUrl="/static/images/sale2.png" />
-      </div>
-      <div id={styles.subcatOne}>
-        <AdvertCard href="#" imageUrl="/static/images/cat1.jpg" />
-      </div>
-      <div id={styles.subcatTwo}>
-        <AdvertCard href="#" imageUrl="/static/images/cat2.jpg" />
-      </div>
-      <div id={styles.subcatThree}>
-        <AdvertCard href="#" imageUrl="/static/images/cat3.jpg" />
-      </div>
-      <div id={styles.subcatFour}>
-        <AdvertCard href="#" imageUrl="/static/images/cat4.jpg" />
-      </div>
-      <div id={styles.subcatFive}>
-        <AdvertCard href="#" imageUrl="/static/images/cat5.jpg" />
-      </div>
-      <div id={styles.subcatSix}>
-        <AdvertCard href="#" imageUrl="/static/images/cat6.jpg" />
-      </div>
+
+      {advertCardRoutes.map((card) => {
+        return (
+          <div key={card.id} id={card.id}>
+            <AdvertCard href={card.href} imageUrl={card.imageUrl} />
+          </div>
+        );
+      })}
+
       <div id={styles.brand}>
         <BrandSlider brands={brands} />
       </div>
