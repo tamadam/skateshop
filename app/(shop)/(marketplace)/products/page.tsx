@@ -17,18 +17,22 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   return (
     <div>
       <Billboard billboard={billboard} />
-      <Container>
-        <ProductsNav />
-        ProductsPage
-        <ProductsFilter />
+      <Container includeSidebar>
         <div>
-          {products.map((product) => {
-            return (
-              <div key={product.id}>
-                {product.category.name} - {product.name}
-              </div>
-            );
-          })}
+          <ProductsNav />
+        </div>
+        <div>
+          <ProductsFilter />
+          <div>
+            ProductsPage
+            {products.map((product) => {
+              return (
+                <div key={product.id}>
+                  {product.category.name} - {product.name}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </Container>
     </div>

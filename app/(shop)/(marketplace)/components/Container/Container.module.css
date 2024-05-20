@@ -1,7 +1,21 @@
-.container {
+.containerBase {
+    max-width: var(--screen-max-width);
     margin-inline: auto;
+    background: #fff;
+}
+
+.containerSingle {
     padding-inline: var(--navbar-padding-inline);
     padding-block: 2em;
-    max-width: var(--screen-max-width);
-    background: #fff;
+}
+
+.containerWithSidebar {
+    display: grid;
+}
+
+@media (min-width: 861px) {
+    .containerWithSidebar {
+        grid-template-columns: 28% 70%;
+        gap: 2%;
+    }
 }

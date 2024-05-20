@@ -1,8 +1,25 @@
-import { PropsWithChildren } from "react";
+import { ReactNode } from "react";
 import styles from "./Container.module.css";
 
-const Container = ({ children }: PropsWithChildren) => {
-  return <div className={styles.container}>{children}</div>;
+interface ContainerProps {
+  children?: ReactNode | undefined;
+  includeSidebar?: boolean;
+}
+
+const Container = ({
+  children = undefined,
+  includeSidebar = false,
+}: ContainerProps) => {
+  return (
+    <div
+      className={[
+        styles.containerBase,
+        includeSidebar ? styles.containerWithSidebar : styles.containerSingle,
+      ].join(" ")}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Container;
