@@ -3,8 +3,8 @@ import Container from "../components/Container/Container";
 import getBillboard from "../../actions/getBillboard";
 import { BILLBOARD_DEFAULT_ID } from "../../constants";
 import getProducts from "../../actions/getProducts";
-import ProductsFilter from "../components/ProductsFilter/ProductsFilter";
 import ProductsNav from "../components/ProductsNav/ProductsNav";
+import ProductsContent from "../components/ProductsContent/ProductsContent";
 
 interface ProductsPageProps {
   searchParams: { p: string };
@@ -18,22 +18,8 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     <div>
       <Billboard billboard={billboard} />
       <Container includeSidebar>
-        <div>
-          <ProductsNav />
-        </div>
-        <div>
-          <ProductsFilter />
-          <div>
-            ProductsPage
-            {products.map((product) => {
-              return (
-                <div key={product.id}>
-                  {product.category.name} - {product.name}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <ProductsNav />
+        <ProductsContent products={products} />
       </Container>
     </div>
   );

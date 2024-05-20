@@ -16,7 +16,7 @@ const ProductsNav = () => {
   }, [pathname]);
 
   return (
-    <>
+    <div>
       <Overlay open={isOpen} onClick={() => setOpen(false)} hideOnDesktop />
       <div
         className={[styles.productsSidebarWrapper, isOpen && styles.open]
@@ -29,7 +29,7 @@ const ProductsNav = () => {
         <div>Item</div>
         <div>Item</div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,11 +1,11 @@
 .containerBase {
     max-width: var(--screen-max-width);
     margin-inline: auto;
+    padding-inline: var(--navbar-padding-inline);
     background: #fff;
 }
 
 .containerSingle {
-    padding-inline: var(--navbar-padding-inline);
     padding-block: 2em;
 }
 
