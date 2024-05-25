@@ -4,6 +4,7 @@ import getAllSubCategories from "./getAllSubCategories";
 import {
   BRAND_ID_SEARCH_PARAM,
   CATEGORY_ID_SEARCH_PARAM,
+  SIZE_ID_SEARCH_PARAM,
 } from "@/app/constants";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
@@ -20,7 +21,7 @@ const getCategoryIds = async (categoryId?: string): Promise<string[]> => {
 interface SearchAttributes {
   categoryId?: string;
   brandIds?: string[];
-  sizeId?: string;
+  sizeIds?: string[];
   colorId?: string;
   isFeatured?: boolean;
 }
@@ -36,7 +37,7 @@ const getProducts = async (
     query: {
       [CATEGORY_ID_SEARCH_PARAM]: categoryIds,
       [BRAND_ID_SEARCH_PARAM]: searchAttributes.brandIds,
-      sizeId: searchAttributes.sizeId,
+      [SIZE_ID_SEARCH_PARAM]: searchAttributes.sizeIds,
       colorId: searchAttributes.colorId,
       isFeatured: searchAttributes.isFeatured,
     },

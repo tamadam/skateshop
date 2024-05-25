@@ -11,6 +11,7 @@ import { Libre_Franklin } from "next/font/google";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
+  SIZE_SEARCH_PARAM,
 } from "@/app/constants";
 
 const libre = Libre_Franklin({
@@ -54,7 +55,8 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
     }[];
     searchParam:
       | typeof BRAND_SEARCH_PARAM
-      | typeof CATEGORY_PRODUCTS_SEARCH_PARAM;
+      | typeof CATEGORY_PRODUCTS_SEARCH_PARAM
+      | typeof SIZE_SEARCH_PARAM;
     filter: boolean;
   }[] = [
     {
@@ -85,13 +87,13 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
       label: "Sizes",
       items: [
         ...removeDuplicates(
-          data.productInfo.map((product) => ({
-            id: product.size.id,
-            name: product.size.name,
+          data.sizes.map((info) => ({
+            id: info.id,
+            name: info.name,
           }))
         ),
       ],
-      searchParam: CATEGORY_PRODUCTS_SEARCH_PARAM,
+      searchParam: SIZE_SEARCH_PARAM,
       filter: true,
     },
     {

@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
+  SIZE_SEARCH_PARAM,
 } from "@/app/constants";
 import { toggleSearchParams } from "@/lib/toggleSearchParams";
 
@@ -20,7 +21,8 @@ interface NavItemProps {
   }[];
   searchParam:
     | typeof BRAND_SEARCH_PARAM
-    | typeof CATEGORY_PRODUCTS_SEARCH_PARAM;
+    | typeof CATEGORY_PRODUCTS_SEARCH_PARAM
+    | typeof SIZE_SEARCH_PARAM;
   open: boolean;
   filter: boolean;
 }

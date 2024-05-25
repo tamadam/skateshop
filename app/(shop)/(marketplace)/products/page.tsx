@@ -6,6 +6,7 @@ import ProductsContent from "./components/ProductsContent/ProductsContent";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
+  SIZE_SEARCH_PARAM,
 } from "@/app/constants";
 import getCategory from "../../actions/getCategory";
 import {
@@ -14,6 +15,7 @@ import {
   ProductInfo,
   ProductNavInfo,
   ProductType,
+  SizeType,
 } from "../../types";
 import getAllSubCategories from "../../actions/getAllSubCategories";
 
@@ -36,6 +38,14 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     ? [brandIdsParam]
     : [];
 
+  // get sizeId from URL (s=)
+  const sizeIdsParam = searchParams[SIZE_SEARCH_PARAM];
+  const sizeIds = Array.isArray(sizeIdsParam)
+    ? sizeIdsParam
+    : sizeIdsParam
+    ? [sizeIdsParam]
+    : [];
+
   // retrieve category for Billboard image
   const category: CategoryType = await getCategory(categoryId);
 
@@ -47,11 +57,16 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 
   // get all brands for the retrieved products
   const brands: BrandType[] = products.map((product) => product.brand);
+  const sizes: SizeType[] = products.map((product) => product.size);
 
   // filter products to display only relevant ones (selected brand etc.)
-  const filteredProducts: ProductType[] = products.filter((product) =>
-    brandIds.length !== 0 ? brandIds.includes(product.brand.id) : product
-  );
+  const filteredProducts: ProductType[] = products
+    .filter((product) =>
+      brandIds.length !== 0 ? brandIds.includes(product.brand.id) : product
+    )
+    .filter((product) =>
+      sizeIds.length !== 0 ? sizeIds.includes(product.size.id) : product
+    );
 
   // create object to pass data to sidebar
   const productInfo: ProductInfo[] = products.map((product) => ({
@@ -65,6 +80,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     productInfo,
     subCategories,
     brands,
+    sizes,
   };
 
   return (

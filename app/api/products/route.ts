@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { ROLES } from "@prisma/client";
 import { productsFormSchema } from "@/app/validationSchemas";
-import { BRAND_ID_SEARCH_PARAM, CATEGORY_ID_SEARCH_PARAM } from "@/app/constants";
+import { BRAND_ID_SEARCH_PARAM, CATEGORY_ID_SEARCH_PARAM, SIZE_ID_SEARCH_PARAM } from "@/app/constants";
 
 export async function POST(request: NextRequest) {
     try {
@@ -61,15 +61,16 @@ export async function GET(request: NextRequest) {
         const categoryIds = rawCategoryIds.length ? rawCategoryIds : undefined;
         const rawBrandIds = searchParams.getAll(BRAND_ID_SEARCH_PARAM);
         const brandIds = rawBrandIds.length ? rawBrandIds : undefined;
-        const sizeId = searchParams.get("sizeId") || undefined;
+        const rawSizeIds = searchParams.getAll(SIZE_ID_SEARCH_PARAM);
+        const sizeIds = rawSizeIds.length ? rawSizeIds : undefined;
         const colorId = searchParams.get("colorId") || undefined;
         const isFeatured = searchParams.get("isFeatured");
 
         const products = await prisma.product.findMany({
             where: {
                 categoryId: { in : categoryIds },
-                brandId: { in : brandIds},
-                sizeId,
+                brandId: { in : brandIds },
+                sizeId: { in : sizeIds },
                 colorId,
                 isFeatured: isFeatured ? true : undefined,
                 isArchived: false,
