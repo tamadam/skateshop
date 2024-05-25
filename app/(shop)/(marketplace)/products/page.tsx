@@ -59,19 +59,26 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   const category: CategoryType = await getCategory(categoryId);
 
   // retrieve subcategories under current category
-  const subCategories: CategoryType[] = await getAllSubCategories(categoryId);
+  const subCategories: CategoryType[] = (
+    await getAllSubCategories(categoryId)
+  ).sort((a, b) => a.name.localeCompare(b.name));
 
   // retrieve all products under current category
   const products: ProductType[] = await getProducts({ categoryId });
 
   // get all brands, sizes and colors for the retrieved products
-  const brands: BrandType[] = products.map((product) => product.brand);
-  const sizes: SizeType[] = products.map((product) => product.size);
+  const brands: BrandType[] = products
+    .map((product) => product.brand)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  const sizes: SizeType[] = products
+    .map((product) => product.size)
+    .sort((a, b) => a.name.localeCompare(b.name));
   const colors: ColorType[] = products
     .map((product) =>
       product.color ? product.color : { id: "", name: "", value: "" }
     )
-    .filter((color) => color.id !== "");
+    .filter((color) => color.id !== "")
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   // filter products to display only relevant ones (selected brand/size/color)
   const filteredProducts: ProductType[] = products
