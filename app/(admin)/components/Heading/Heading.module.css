@@ -3,7 +3,7 @@
     justify-content: space-between;
     gap: 1em;
     line-height: 1em;
-    border-bottom: 1px solid var(--admin-default-border-clr);
+    border-bottom: 1px solid var(--default-border-clr);
     font-size: var(--fs-m);
     overflow: hidden;
 }

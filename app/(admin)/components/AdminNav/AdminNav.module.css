@@ -17,7 +17,7 @@
 }
 
 .adminNavItem {
-    border-bottom: 1px solid var(--admin-default-border-clr);
+    border-bottom: 1px solid var(--default-border-clr);
 }
 
 .adminNavItem.active {

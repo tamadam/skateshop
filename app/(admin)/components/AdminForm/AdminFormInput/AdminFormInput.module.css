@@ -29,7 +29,7 @@
     -moz-appearance: none;
     -webkit-appearance: none;
     background: none;
-    border: 1px solid var(--admin-default-border-clr);
+    border: 1px solid var(--default-border-clr);
     cursor: pointer;
     padding: 0;
     max-width: 5em;
@@ -71,7 +71,7 @@
     --container-width: calc(var(--circle-size) * 2.4);
     --container-height: calc(var(--circle-size) * 1.4);
     --container-radius: 0.675em;
-    --container-bg-color: var(--admin-default-border-clr);
+    --container-bg-color: var(--default-border-clr);
     --container-bg-color-checked: var(--update-btn-bg);
 
     position: relative;

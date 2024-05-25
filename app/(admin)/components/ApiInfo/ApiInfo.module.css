@@ -1,6 +1,6 @@
 .apiInfoWrapper {
     padding: 1em;
-    border: 1px solid var(--admin-default-border-clr);
+    border: 1px solid var(--default-border-clr);
     border-radius: 0.4em;
     overflow: hidden;
 

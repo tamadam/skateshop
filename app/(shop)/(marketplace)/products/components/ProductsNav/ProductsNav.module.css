@@ -65,7 +65,7 @@
 }
 
 .subItem:not(:last-child) {
-    border-bottom: 1px solid #cbcbcb; /*replace with admin-default-border-clr --> put in globals.css*/
+    border-bottom: 1px solid var(--default-border-clr);
 }
 
 @media (max-width: 860px) {

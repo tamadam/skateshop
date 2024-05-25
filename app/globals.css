@@ -56,6 +56,9 @@
     --overlay-trans-duration: 0.4s;
     --overlay-trans-type: linear;
 
+    /* BORDER COLOR */
+    --default-border-clr: #cbcbcb;
+
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400;
     font-synthesis: none;
