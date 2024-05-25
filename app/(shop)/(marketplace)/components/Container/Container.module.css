@@ -11,6 +11,7 @@
 
 .containerWithSidebar {
     display: grid;
+    padding-block: 1em;
 }
 
 @media (min-width: 861px) {

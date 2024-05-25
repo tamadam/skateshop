@@ -1,16 +1,72 @@
 .productsSidebarWrapper {
-    --products-sidebar-font-clr: #000;
-    --products-sidebar-bg: #fff;
+    --products-sidebar-main-font-clr: #000;
+    --products-sidebar-main-bg: #fff;
+    --products-sidebar-menu-font-clr: #fff;
+    --products-sidebar-menu-bg: #000;
+    
+    --transition-duration: 400ms;
+    --transition-timing: cubic-bezier(.46,1.19,.36,1.02);
 
-/*     --products-nav-item-active-clr: #fff;
-    --products-nav-item-active-bg: rgba(0,194,255,1);  
-    --products-nav-item-active-bg-linear: linear-gradient(90deg, rgba(0,194,255,1) 0%, rgba(248,21,253,1) 100%); */
-
+    --products-sidebar-padding: 0.6em;
 
     background: var(--products-sidebar-bg);
     color: var(--products-sidebar-font-clr);
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
+.menuItem {
+    border: 1px solid var(--products-sidebar-menu-bg);
+}
+
+.menuItemTitle {
+    background: var(--products-sidebar-menu-bg);
+    color: var(--products-sidebar-menu-font-clr);
+    padding: var(--products-sidebar-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--fw-m);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.titleIcon {
+    display: flex;
+}
+
+.titleIcon > svg {
+    transition: rotate var(--transition-duration) var(--transition-timing);
+}
+
+.titleIcon.rotate > svg {
+    rotate: 180deg;
+}
+
+.menuItemSubItems {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition-duration) var(--transition-timing);
+    font-size: var(--fs-s);
+}
+
+.menuItemSubItems > .menuSubItem {
+    overflow: hidden;
+}
+
+.menuItemSubItems.open {
+    grid-template-rows: 1fr;
+}
+
+.subItem {
+    padding: var(--products-sidebar-padding);
+    cursor: pointer;
+}
+
+.subItem:not(:last-child) {
+    border-bottom: 1px solid #cbcbcb; /*replace with admin-default-border-clr --> put in globals.css*/
+}
 
 @media (max-width: 860px) {
     .productsSidebarWrapper {
@@ -22,6 +78,7 @@
         left: max(-100%, -18rem);
         top: 0;
         transition: visibility var(--overlay-trans-duration), left var(--overlay-trans-duration) ease-out;
+        padding: 1em;
     }
 
     .productsSidebarWrapper.open {
