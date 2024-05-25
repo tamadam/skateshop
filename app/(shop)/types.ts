@@ -60,4 +60,5 @@ export type ProductInfo = {
 export type ProductNavInfo = {
     productInfo: ProductInfo[];
     subCategories: CategoryType[];
+    brands: BrandType[]
 }

@@ -64,6 +64,10 @@
     cursor: pointer;
 }
 
+.subItem.activeSearch {
+    background: red;
+}
+
 .subItem:not(:last-child) {
     border-bottom: 1px solid var(--default-border-clr);
 }

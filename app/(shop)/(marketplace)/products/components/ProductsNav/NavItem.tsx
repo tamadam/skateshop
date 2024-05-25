@@ -4,12 +4,12 @@ import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 import styles from "./ProductsNav.module.css";
-import { updateSearchParams } from "@/lib/updateSearchParams";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
 } from "@/app/constants";
+import { toggleSearchParams } from "@/lib/toggleSearchParams";
 
 interface NavItemProps {
   label: string;
@@ -21,12 +21,14 @@ interface NavItemProps {
     | typeof BRAND_SEARCH_PARAM
     | typeof CATEGORY_PRODUCTS_SEARCH_PARAM;
   open: boolean;
+  filter: boolean;
 }
 
-const NavItem = ({ label, data, searchParam, open }: NavItemProps) => {
+const NavItem = ({ label, data, searchParam, open, filter }: NavItemProps) => {
   const [isOpen, setOpen] = useState<boolean>(open);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParamIds = [...Array.from(searchParams.values())];
 
   return (
     <div className={styles.menuItem}>
@@ -52,12 +54,23 @@ const NavItem = ({ label, data, searchParam, open }: NavItemProps) => {
           {data.map((dt) => (
             <div
               key={dt.id}
-              className={styles.subItem}
+              className={[
+                styles.subItem,
+                searchParamIds.includes(dt.id) && styles.activeSearch,
+              ]
+                .filter(Boolean)
+                .join(" ")}
               onClick={() => {
-                const newSearchParams = updateSearchParams(searchParams, [
-                  { key: searchParam, value: dt.id },
-                ]);
-                router.push(newSearchParams);
+                if (filter) {
+                  const newSearchParams = toggleSearchParams(
+                    searchParams,
+                    [{ key: searchParam, value: dt.id }],
+                    true
+                  );
+                  router.push(newSearchParams);
+                } else {
+                  router.push(`?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${dt.id}`);
+                }
               }}
             >
               {dt.name}

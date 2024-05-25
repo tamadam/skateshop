@@ -55,6 +55,7 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
     searchParam:
       | typeof BRAND_SEARCH_PARAM
       | typeof CATEGORY_PRODUCTS_SEARCH_PARAM;
+    filter: boolean;
   }[] = [
     {
       label: "Subcategories",
@@ -65,18 +66,20 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
         })),
       ],
       searchParam: CATEGORY_PRODUCTS_SEARCH_PARAM,
+      filter: false,
     },
     {
       label: "Brands",
       items: [
         ...removeDuplicates(
-          data.productInfo.map((info) => ({
-            id: info.brand.id,
-            name: info.brand.name,
+          data.brands.map((info) => ({
+            id: info.id,
+            name: info.name,
           }))
         ),
       ],
       searchParam: BRAND_SEARCH_PARAM,
+      filter: true,
     },
     {
       label: "Sizes",
@@ -89,6 +92,7 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
         ),
       ],
       searchParam: CATEGORY_PRODUCTS_SEARCH_PARAM,
+      filter: true,
     },
     {
       label: "Colors",
@@ -101,6 +105,7 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
         ),
       ],
       searchParam: CATEGORY_PRODUCTS_SEARCH_PARAM,
+      filter: true,
     },
   ];
 
@@ -125,6 +130,7 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
                 open={index === 0 ? true : false}
                 label={menuItem.label}
                 data={menuItem.items}
+                filter={menuItem.filter}
               />
             )
           );
