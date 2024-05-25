@@ -6,3 +6,6 @@ export const BRAND_SEARCH_PARAM = "b";
 
 export const SIZE_ID_SEARCH_PARAM = "sizeId";
 export const SIZE_SEARCH_PARAM = "s";
+
+export const COLOR_ID_SEARCH_PARAM = "colorId";
+export const COLOR_SEARCH_PARAM = "c";

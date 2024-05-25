@@ -6,12 +6,14 @@ import ProductsContent from "./components/ProductsContent/ProductsContent";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
+  COLOR_SEARCH_PARAM,
   SIZE_SEARCH_PARAM,
 } from "@/app/constants";
 import getCategory from "../../actions/getCategory";
 import {
   BrandType,
   CategoryType,
+  ColorType,
   ProductInfo,
   ProductNavInfo,
   ProductType,
@@ -46,6 +48,14 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     ? [sizeIdsParam]
     : [];
 
+  // get colorId from URL (c=)
+  const colorIdsParam = searchParams[COLOR_SEARCH_PARAM];
+  const colorIds = Array.isArray(colorIdsParam)
+    ? colorIdsParam
+    : colorIdsParam
+    ? [colorIdsParam]
+    : [];
+
   // retrieve category for Billboard image
   const category: CategoryType = await getCategory(categoryId);
 
@@ -55,18 +65,29 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   // retrieve all products under current category
   const products: ProductType[] = await getProducts({ categoryId });
 
-  // get all brands for the retrieved products
+  // get all brands, sizes and colors for the retrieved products
   const brands: BrandType[] = products.map((product) => product.brand);
   const sizes: SizeType[] = products.map((product) => product.size);
+  const colors: ColorType[] = products
+    .map((product) =>
+      product.color ? product.color : { id: "", name: "", value: "" }
+    )
+    .filter((color) => color.id !== "");
 
-  // filter products to display only relevant ones (selected brand etc.)
+  // filter products to display only relevant ones (selected brand/size/color)
   const filteredProducts: ProductType[] = products
     .filter((product) =>
       brandIds.length !== 0 ? brandIds.includes(product.brand.id) : product
     )
     .filter((product) =>
       sizeIds.length !== 0 ? sizeIds.includes(product.size.id) : product
-    );
+    )
+    .filter((product) => {
+      return (
+        colorIds.length === 0 ||
+        (product.color && colorIds.includes(product.color.id))
+      );
+    });
 
   // create object to pass data to sidebar
   const productInfo: ProductInfo[] = products.map((product) => ({
@@ -81,6 +102,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     subCategories,
     brands,
     sizes,
+    colors,
   };
 
   return (

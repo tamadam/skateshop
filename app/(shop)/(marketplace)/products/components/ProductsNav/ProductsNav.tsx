@@ -11,6 +11,7 @@ import { Libre_Franklin } from "next/font/google";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
+  COLOR_SEARCH_PARAM,
   SIZE_SEARCH_PARAM,
 } from "@/app/constants";
 
@@ -56,7 +57,8 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
     searchParam:
       | typeof BRAND_SEARCH_PARAM
       | typeof CATEGORY_PRODUCTS_SEARCH_PARAM
-      | typeof SIZE_SEARCH_PARAM;
+      | typeof SIZE_SEARCH_PARAM
+      | typeof COLOR_SEARCH_PARAM;
     filter: boolean;
   }[] = [
     {
@@ -100,13 +102,13 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
       label: "Colors",
       items: [
         ...removeDuplicates(
-          data.productInfo.map((product) => ({
-            id: product.color?.id || "",
-            name: product.color?.name || "",
+          data.colors.map((info) => ({
+            id: info?.id || "",
+            name: info?.name || "",
           }))
         ),
       ],
-      searchParam: CATEGORY_PRODUCTS_SEARCH_PARAM,
+      searchParam: COLOR_SEARCH_PARAM,
       filter: true,
     },
   ];

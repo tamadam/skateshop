@@ -62,4 +62,5 @@ export type ProductNavInfo = {
     subCategories: CategoryType[];
     brands: BrandType[];
     sizes: SizeType[];
+    colors: ColorType[];
 }

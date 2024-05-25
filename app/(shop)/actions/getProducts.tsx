@@ -4,6 +4,7 @@ import getAllSubCategories from "./getAllSubCategories";
 import {
   BRAND_ID_SEARCH_PARAM,
   CATEGORY_ID_SEARCH_PARAM,
+  COLOR_ID_SEARCH_PARAM,
   SIZE_ID_SEARCH_PARAM,
 } from "@/app/constants";
 
@@ -22,7 +23,7 @@ interface SearchAttributes {
   categoryId?: string;
   brandIds?: string[];
   sizeIds?: string[];
-  colorId?: string;
+  colorIds?: string[];
   isFeatured?: boolean;
 }
 
@@ -38,7 +39,7 @@ const getProducts = async (
       [CATEGORY_ID_SEARCH_PARAM]: categoryIds,
       [BRAND_ID_SEARCH_PARAM]: searchAttributes.brandIds,
       [SIZE_ID_SEARCH_PARAM]: searchAttributes.sizeIds,
-      colorId: searchAttributes.colorId,
+      [COLOR_ID_SEARCH_PARAM]: searchAttributes.colorIds,
       isFeatured: searchAttributes.isFeatured,
     },
   });
