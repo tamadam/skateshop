@@ -9,6 +9,8 @@
 
     --products-sidebar-padding: 0.6em;
 
+    --font-clr-active: #d92727;
+
     background: var(--products-sidebar-main-bg);
     color: var(--products-sidebar-main-font-clr);
     display: flex;
@@ -30,6 +32,11 @@
     font-weight: var(--fw-m);
     text-transform: uppercase;
     cursor: pointer;
+    transition: color 100ms ease-in-out;
+}
+
+.menuItemTitle:hover {
+    color: var(--font-clr-active);
 }
 
 .titleIcon {
@@ -62,10 +69,28 @@
 .subItem {
     padding: var(--products-sidebar-padding);
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subItem > svg {
+    transition: opacity 100ms ease-in-out;
+    color: rgb(165, 162, 162);
+    opacity: 0;
+}
+
+.subItem:hover > svg {
+    opacity: 1;
 }
 
 .subItem.activeSearch {
-    background: red;
+    color: var(--font-clr-active)
+}
+
+.subItem.activeSearch > svg {
+    opacity: 1;
+    color: var(--font-clr-active)
 }
 
 .subItem:not(:last-child) {

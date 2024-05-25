@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { IoCheckmarkCircle } from "react-icons/io5";
 
 import styles from "./ProductsNav.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -73,7 +74,8 @@ const NavItem = ({ label, data, searchParam, open, filter }: NavItemProps) => {
                 }
               }}
             >
-              {dt.name}
+              <span>{dt.name}</span>
+              {filter && <IoCheckmarkCircle size="1.2em" />}
             </div>
           ))}
         </div>
