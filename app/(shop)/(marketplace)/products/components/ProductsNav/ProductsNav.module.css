@@ -9,8 +9,8 @@
 
     --products-sidebar-padding: 0.6em;
 
-    background: var(--products-sidebar-bg);
-    color: var(--products-sidebar-font-clr);
+    background: var(--products-sidebar-main-bg);
+    color: var(--products-sidebar-main-font-clr);
     display: flex;
     flex-direction: column;
     gap: 1em;

@@ -100,11 +100,12 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
           .filter(Boolean)
           .join(" ")}
       >
-        {menuItems.map((menuItem) => {
+        {menuItems.map((menuItem, index) => {
           return (
             menuItem.items.length !== 0 && (
               <NavItem
                 key={menuItem.label}
+                open={index === 0 ? true : false}
                 label={menuItem.label}
                 data={menuItem.items}
               />

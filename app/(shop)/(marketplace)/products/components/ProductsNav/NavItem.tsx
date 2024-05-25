@@ -4,6 +4,8 @@ import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 import styles from "./ProductsNav.module.css";
+import { updateSearchParams } from "@/lib/updateSearchParams";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface NavItemProps {
   label: string;
@@ -11,10 +13,13 @@ interface NavItemProps {
     id: string;
     name: string;
   }[];
+  open: boolean;
 }
 
-const NavItem = ({ label, data }: NavItemProps) => {
-  const [isOpen, setOpen] = useState<boolean>(false);
+const NavItem = ({ label, data, open }: NavItemProps) => {
+  const [isOpen, setOpen] = useState<boolean>(open);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   return (
     <div className={styles.menuItem}>
@@ -38,7 +43,16 @@ const NavItem = ({ label, data }: NavItemProps) => {
       >
         <div className={styles.menuSubItem}>
           {data.map((dt) => (
-            <div className={styles.subItem} key={dt.id}>
+            <div
+              key={dt.id}
+              className={styles.subItem}
+              onClick={() => {
+                const newSearchParams = updateSearchParams(searchParams, [
+                  { key: "p", value: dt.id },
+                ]);
+                router.push(newSearchParams);
+              }}
+            >
               {dt.name}
             </div>
           ))}
