@@ -50,15 +50,7 @@ export type ProductType = {
     isArchived: boolean;
 }
 
-export type ProductInfo = {
-    brand: BrandType;
-    size: SizeType;
-    color: ColorType | null;
-    price: string;
-}
-
 export type ProductNavInfo = {
-    productInfo: ProductInfo[];
     subCategories: CategoryType[];
     brands: BrandType[];
     sizes: SizeType[];

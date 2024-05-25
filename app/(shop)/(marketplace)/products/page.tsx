@@ -14,7 +14,6 @@ import {
   BrandType,
   CategoryType,
   ColorType,
-  ProductInfo,
   ProductNavInfo,
   ProductType,
   SizeType,
@@ -90,15 +89,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     });
 
   // create object to pass data to sidebar
-  const productInfo: ProductInfo[] = products.map((product) => ({
-    brand: product.brand,
-    price: product.price,
-    size: product.size,
-    color: product.color,
-  }));
-
   const productsNavInfo: ProductNavInfo = {
-    productInfo,
     subCategories,
     brands,
     sizes,
