@@ -1,9 +1,16 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
-type SortType = "price" | "name" | "random";
-type SortState = "asc" | "desc" | "random";
+export type SortType = "price" | "name" | "random";
+export type SortState = "asc" | "desc";
 
-const ProductSortContext = createContext({
+interface ProductSortContextType {
+  sortType: SortType;
+  sortState: SortState;
+  setSortType: (type: SortType) => void;
+  setSortState: (state: SortState) => void;
+}
+
+const ProductSortContext = createContext<ProductSortContextType>({
   sortType: "price",
   sortState: "asc",
   setSortType: (type: SortType) => {},
