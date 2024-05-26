@@ -56,3 +56,8 @@ export type ProductNavInfo = {
     sizes: SizeType[];
     colors: ColorType[];
 }
+
+export type ProductBreadcrumbData = {
+    id: string;
+    name: string;
+}

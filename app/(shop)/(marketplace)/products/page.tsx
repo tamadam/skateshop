@@ -14,11 +14,13 @@ import {
   BrandType,
   CategoryType,
   ColorType,
+  ProductBreadcrumbData,
   ProductNavInfo,
   ProductType,
   SizeType,
 } from "../../types";
 import getAllSubCategories from "../../actions/getAllSubCategories";
+import getParentCategories from "../../actions/getParentCategories";
 
 interface ProductsPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -55,8 +57,20 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     ? [colorIdsParam]
     : [];
 
-  // retrieve category for Billboard image
+  // retrieve current category for Billboard image and breadcrumb
   const category: CategoryType = await getCategory(categoryId);
+
+  // retrieve all parent categories recursively for the current category
+  const parentCategories = await getParentCategories(category.parentCategoryId);
+
+  // create object for breadcrumb
+
+  const breadcrumbData: ProductBreadcrumbData[] = [
+    category,
+    ...parentCategories,
+  ]
+    .map((category) => ({ id: category.id, name: category.name }))
+    .reverse();
 
   // retrieve subcategories under current category
   const subCategories: CategoryType[] = (
@@ -108,7 +122,10 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
       <Billboard billboard={category?.billboard} />
       <Container includeSidebar>
         <ProductsNav data={productsNavInfo} />
-        <ProductsContent products={filteredProducts} />
+        <ProductsContent
+          products={filteredProducts}
+          breadcrumb={breadcrumbData}
+        />
       </Container>
     </div>
   );

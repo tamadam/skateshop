@@ -1,0 +1,64 @@
+.productsFilterWrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+    "breadcrumb breadcrumb breadcrumb sidebar"
+    "brands brands brands brands"
+    ". . order order";
+    gap: 0.8em;
+}
+
+.productsFilterBreadcrumb {
+    grid-area: breadcrumb;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.2em;
+}
+
+.productsFilterSidebarTrigger {
+    grid-area: sidebar;
+    background: green;
+}
+
+.productsFilterBrands {
+    grid-area: brands;
+    background: red;
+}
+
+.productsFilterOrderBy {
+    grid-area: order;
+    background: yellow;
+}
+
+.dynamicBreadcrumbWrapper {
+    display: flex;
+    gap: 0.2em;
+}
+
+.dynamicBreadcrumbItem {
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: var(--fs-xs);
+    word-break: break-all;
+}
+
+.dynamicBreadcrumbItem.active {
+    cursor: default;
+    font-weight: var(--fw-m);
+}
+
+@media (min-width: 861px) {
+    .productsFilterWrapper {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+        "breadcrumb breadcrumb breadcrumb order"
+        "brands brands brands brands"
+    }
+
+    .productsFilterSidebarTrigger {
+        display: none;
+    }
+}
