@@ -3,6 +3,7 @@
 import Button from "@/app/components/Button/Button";
 import { useSidebar } from "@/app/providers/Sidebar/SidebarContext";
 import { ImHome } from "react-icons/im";
+import { GiHamburgerMenu } from "react-icons/gi";
 import {
   MdKeyboardDoubleArrowRight,
   MdKeyboardArrowRight,
@@ -57,9 +58,11 @@ const ProductsFilter = ({ breadcrumb }: ProductsFilterProps) => {
           ))}
       </div>
       <div className={styles.productsFilterSidebarTrigger}>
-        <Button onClick={toggleOpen} className="desktop--hide">
-          Sidebar
-        </Button>
+        <Button
+          Icon={GiHamburgerMenu}
+          onClick={toggleOpen}
+          className="desktop--hide"
+        />
       </div>
       <div className={styles.productsFilterBrands}>Brands</div>
       <div className={styles.productsFilterOrderBy}>Order By</div>
