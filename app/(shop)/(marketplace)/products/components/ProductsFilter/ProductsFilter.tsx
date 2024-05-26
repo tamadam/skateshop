@@ -10,16 +10,37 @@ import {
 } from "react-icons/md";
 import styles from "./ProductsFilter.module.css";
 import { useRouter } from "next/navigation";
-import { ProductBreadcrumbData } from "@/app/(shop)/types";
+import {
+  BrandType,
+  ProductBreadcrumbData,
+  ProductType,
+} from "@/app/(shop)/types";
 import { CATEGORY_PRODUCTS_SEARCH_PARAM } from "@/app/constants";
+
+const removeDuplicates = (brands: BrandType[]): BrandType[] => {
+  const uniqueIds = new Set<string>();
+  return brands.filter((brand) => {
+    if (uniqueIds.has(brand.id)) {
+      return false;
+    } else {
+      uniqueIds.add(brand.id);
+      return true;
+    }
+  });
+};
 
 interface ProductsFilterProps {
   breadcrumb: ProductBreadcrumbData[];
+  products: ProductType[];
 }
 
-const ProductsFilter = ({ breadcrumb }: ProductsFilterProps) => {
+const ProductsFilter = ({ breadcrumb, products }: ProductsFilterProps) => {
   const { toggleOpen } = useSidebar();
   const router = useRouter();
+
+  const currentBrands = removeDuplicates(
+    products.map((product) => product.brand)
+  );
 
   return (
     <div className={styles.productsFilterWrapper}>
@@ -64,7 +85,19 @@ const ProductsFilter = ({ breadcrumb }: ProductsFilterProps) => {
           className="desktop--hide"
         />
       </div>
-      <div className={styles.productsFilterBrands}>Brands</div>
+      <div className={styles.productsFilterBrands}>
+        {currentBrands.map((brand, index) => {
+          return (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={index}
+              src={brand.imageUrl || "/static/images/not_found.png"}
+              alt={`logo-${brand.name}`}
+              className={styles.brandImage}
+            />
+          );
+        })}
+      </div>
       <div className={styles.productsFilterOrderBy}>Order By</div>
     </div>
   );

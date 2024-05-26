@@ -23,7 +23,9 @@
 
 .productsFilterBrands {
     grid-area: brands;
-    background: red;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
 }
 
 .productsFilterOrderBy {
@@ -46,6 +48,11 @@
 .dynamicBreadcrumbItem.active {
     cursor: default;
     font-weight: var(--fw-m);
+}
+
+.brandImage {
+    object-fit: contain;
+    aspect-ratio: 4 / 1;
 }
 
 @media (min-width: 861px) {

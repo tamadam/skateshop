@@ -11,7 +11,7 @@ interface ProductsContentProps {
 const ProductsContent = ({ products, breadcrumb }: ProductsContentProps) => {
   return (
     <div className={styles.productsContentWrapper}>
-      <ProductsFilter breadcrumb={breadcrumb} />
+      <ProductsFilter breadcrumb={breadcrumb} products={products} />
       <ProductsGrid products={products} />
     </div>
   );
