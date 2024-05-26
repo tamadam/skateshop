@@ -1,7 +1,7 @@
 .productsFilterWrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr) min-content;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(3, min-content);
     grid-template-areas:
     "breadcrumb breadcrumb breadcrumb sidebar"
     "brands brands brands brands"
@@ -26,6 +26,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
+    padding-block: 0.4em;
 }
 
 .productsFilterOrderBy {
@@ -62,7 +63,7 @@
 @media (min-width: 861px) {
     .productsFilterWrapper {
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        grid-template-rows: repeat(2, min-content);
         grid-template-areas:
         "breadcrumb breadcrumb breadcrumb order"
         "brands brands brands brands"
