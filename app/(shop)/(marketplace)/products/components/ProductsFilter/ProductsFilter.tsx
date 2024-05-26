@@ -9,13 +9,17 @@ import {
   MdKeyboardArrowRight,
 } from "react-icons/md";
 import styles from "./ProductsFilter.module.css";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   BrandType,
   ProductBreadcrumbData,
   ProductType,
 } from "@/app/(shop)/types";
-import { CATEGORY_PRODUCTS_SEARCH_PARAM } from "@/app/constants";
+import {
+  BRAND_SEARCH_PARAM,
+  CATEGORY_PRODUCTS_SEARCH_PARAM,
+} from "@/app/constants";
+import { toggleSearchParams } from "@/lib/toggleSearchParams";
 
 const removeDuplicates = (brands: BrandType[]): BrandType[] => {
   const uniqueIds = new Set<string>();
@@ -35,8 +39,9 @@ interface ProductsFilterProps {
 }
 
 const ProductsFilter = ({ breadcrumb, products }: ProductsFilterProps) => {
-  const { toggleOpen } = useSidebar();
+  const searchParams = useSearchParams();
   const router = useRouter();
+  const { toggleOpen } = useSidebar();
 
   const currentBrands = removeDuplicates(
     products.map((product) => product.brand)
@@ -88,13 +93,25 @@ const ProductsFilter = ({ breadcrumb, products }: ProductsFilterProps) => {
       <div className={styles.productsFilterBrands}>
         {currentBrands.map((brand, index) => {
           return (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <div
               key={index}
-              src={brand.imageUrl || "/static/images/not_found.png"}
-              alt={`logo-${brand.name}`}
-              className={styles.brandImage}
-            />
+              className={styles.brandImageContainer}
+              onClick={() => {
+                const newSearchParams = toggleSearchParams(
+                  searchParams,
+                  [{ key: BRAND_SEARCH_PARAM, value: brand.id }],
+                  true
+                );
+                router.push(newSearchParams);
+              }}
+            >
+              {/*  eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={brand.imageUrl || "/static/images/not_found.png"}
+                alt={`logo-${brand.name}`}
+                className={styles.brandImage}
+              />
+            </div>
           );
         })}
       </div>

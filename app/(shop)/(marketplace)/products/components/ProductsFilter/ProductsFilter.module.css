@@ -50,6 +50,10 @@
     font-weight: var(--fw-m);
 }
 
+.brandImageContainer {
+    cursor: pointer;
+}
+
 .brandImage {
     object-fit: contain;
     aspect-ratio: 4 / 1;
