@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { ROLES } from "@prisma/client";
 import { productsFormSchema } from "@/app/validationSchemas";
-import { BRAND_ID_SEARCH_PARAM, CATEGORY_ID_SEARCH_PARAM, COLOR_ID_SEARCH_PARAM, SIZE_ID_SEARCH_PARAM } from "@/app/constants";
+import { BRAND_ID_SEARCH_PARAM, CATEGORY_ID_SEARCH_PARAM, COLOR_ID_SEARCH_PARAM, IS_FEATURED_SEARCH_PARAM, PRODUCTS_ITEMS_PER_PAGE, PRODUCTS_PAGE_PARAM, SIZE_ID_SEARCH_PARAM } from "@/app/constants";
+import { getValidatedPageNumber } from "@/lib/paginationUtils";
 
 export async function POST(request: NextRequest) {
     try {
@@ -65,30 +66,70 @@ export async function GET(request: NextRequest) {
         const sizeIds = rawSizeIds.length ? rawSizeIds : undefined;
         const rawColorIds = searchParams.getAll(COLOR_ID_SEARCH_PARAM);
         const colorIds = rawColorIds.length ? rawColorIds : undefined;
-        const isFeatured = searchParams.get("isFeatured");
+        const isFeatured = searchParams.get(IS_FEATURED_SEARCH_PARAM);
+        const currentPage = getValidatedPageNumber(searchParams.get(PRODUCTS_PAGE_PARAM));
+        
 
-        const products = await prisma.product.findMany({
-            where: {
-                categoryId: { in : categoryIds },
-                brandId: { in : brandIds },
-                sizeId: { in : sizeIds },
-                colorId: { in : colorIds },
-                isFeatured: isFeatured ? true : undefined,
-                isArchived: false,
-            },
-            orderBy: {
-                createdAt: "desc"
-            },
-            include: {
-                images: true,
-                category: true,
-                brand: true,
-                size: true,
-                color: true,
-            },
-        });
+        const whereFilterForProducts = {
+            categoryId: { in : categoryIds },
+            brandId: { in : brandIds },
+            sizeId: { in : sizeIds },
+            colorId: { in : colorIds },
+            isFeatured: isFeatured ? true : undefined,
+            isArchived: false,
+        };
+
+        const whereFilterForSidebar = {
+            categoryId: { in : categoryIds },
+            isArchived: false,
+        }
+
+        const [products, totalProducts, rawBrands, rawSizes, rawColors] = await prisma.$transaction([
+            prisma.product.findMany({
+                where: whereFilterForProducts,
+                orderBy: {
+                    createdAt: "desc"
+                },
+                include: {
+                    images: true,
+                    category: true,
+                    brand: true,
+                    size: true,
+                    color: true,
+                },
+                skip: PRODUCTS_ITEMS_PER_PAGE * (currentPage - 1),
+                take: PRODUCTS_ITEMS_PER_PAGE,
+            }),
+            prisma.product.count({
+                where: whereFilterForProducts,
+            }),
+            prisma.product.findMany({
+                where: {
+                    categoryId: { in : categoryIds },
+                    sizeId: { in : sizeIds },
+                    colorId: { in : colorIds },
+                    isArchived: false,
+                },
+                select: { brand: true },
+                distinct: ["brandId"],
+            }),
+            prisma.product.findMany({
+                where: whereFilterForSidebar,
+                select: { size: true },
+                distinct: ["sizeId"],
+            }),
+            prisma.product.findMany({
+                where: whereFilterForSidebar,
+                select: { color: true},
+                distinct: ["colorId"],
+            }),
+        ]);
     
-        return NextResponse.json(products, { status: 200 });
+        const brands = rawBrands.map(b => b.brand);
+        const sizes = rawSizes.map(s => s.size);
+        const colors = rawColors.map(c => c.color);
+
+        return NextResponse.json({ data: { products, brands, sizes, colors }, pagination: { total: totalProducts } }, { status: 200 });
     } catch (error) {
         console.log("PRODUCTS_GET: ", error);
         return NextResponse.json("Internal server error", { status: 500 });

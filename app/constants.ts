@@ -9,3 +9,8 @@ export const SIZE_SEARCH_PARAM = "s";
 
 export const COLOR_ID_SEARCH_PARAM = "colorId";
 export const COLOR_SEARCH_PARAM = "c";
+
+export const IS_FEATURED_SEARCH_PARAM = "isFeatured";
+
+export const PRODUCTS_PAGE_PARAM = "page";
+export const PRODUCTS_ITEMS_PER_PAGE = 12;

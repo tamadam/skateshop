@@ -7,6 +7,8 @@ import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
   COLOR_SEARCH_PARAM,
+  PRODUCTS_ITEMS_PER_PAGE,
+  PRODUCTS_PAGE_PARAM,
   SIZE_SEARCH_PARAM,
 } from "@/app/constants";
 import getCategory from "../../actions/getCategory";
@@ -17,16 +19,22 @@ import {
   ProductBreadcrumbData,
   ProductNavInfo,
   ProductType,
+  RawProductType,
   SizeType,
 } from "../../types";
 import getAllSubCategories from "../../actions/getAllSubCategories";
 import getParentCategories from "../../actions/getParentCategories";
+import { getTotalPages, getValidatedPageNumber } from "@/lib/paginationUtils";
 
 interface ProductsPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
+  const currentPage: number = getValidatedPageNumber(
+    searchParams[PRODUCTS_PAGE_PARAM]
+  );
+
   // get categoryId from URL (p=)
   const categoryIdParam = searchParams[CATEGORY_PRODUCTS_SEARCH_PARAM];
   const categoryId = Array.isArray(categoryIdParam)
@@ -77,21 +85,32 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     await getAllSubCategories(categoryId)
   ).sort((a, b) => a.name.localeCompare(b.name));
 
-  // retrieve all products under current category
-  const products: ProductType[] = await getProducts({ categoryId });
+  // retrieve products under current category with pagination
+  const rawProducts: RawProductType = await getProducts({
+    categoryId,
+    brandIds,
+    sizeIds,
+    colorIds,
+    currentPage,
+  });
+
+  const products: ProductType[] = rawProducts.data.products;
+  const totalProducts: number = rawProducts.pagination.total;
+  const totalPages: number = getTotalPages(
+    totalProducts,
+    PRODUCTS_ITEMS_PER_PAGE
+  );
 
   // get all brands, sizes and colors for the retrieved products
-  const brands: BrandType[] = products
-    .map((product) => product.brand)
-    .sort((a, b) => a.name.localeCompare(b.name));
-  const sizes: SizeType[] = products
-    .map((product) => product.size)
-    .sort((a, b) => a.name.localeCompare(b.name));
-  const colors: ColorType[] = products
-    .map((product) =>
-      product.color ? product.color : { id: "", name: "", value: "" }
-    )
-    .filter((color) => color.id !== "")
+  const brands: BrandType[] = rawProducts.data.brands.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+
+  const sizes: SizeType[] = rawProducts.data.sizes.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+  const colors: ColorType[] = rawProducts.data.colors
+    .filter((color) => Boolean(color?.id))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   // filter products to display only relevant ones (selected brand/size/color)
@@ -109,6 +128,10 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
       );
     });
 
+  const brandsInFilter: BrandType[] = brands.filter((brand) =>
+    brandIds.length !== 0 ? brandIds.includes(brand.id) : brand
+  );
+
   // create object to pass data to sidebar
   const productsNavInfo: ProductNavInfo = {
     subCategories,
@@ -124,7 +147,10 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
         <ProductsNav data={productsNavInfo} />
         <ProductsContent
           products={filteredProducts}
+          brandsInFilter={brandsInFilter}
           breadcrumb={breadcrumbData}
+          totalPages={totalPages}
+          currentPage={currentPage}
         />
       </Container>
     </div>

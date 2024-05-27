@@ -1,7 +1,7 @@
 import { PAGINATION_ITEMS_PER_PAGE } from "@/app/(admin)/constants";
 
-export const getTotalPages = (data: number) => {
-    return Math.max(1, Math.ceil(data / PAGINATION_ITEMS_PER_PAGE));
+export const getTotalPages = (data: number, itemsPerPage = PAGINATION_ITEMS_PER_PAGE) => {
+    return Math.max(1, Math.ceil(data / itemsPerPage));
 };
 
 export const getValidatedPageNumber = (pageNumber: string | string[] | undefined | null) => {

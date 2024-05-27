@@ -1,6 +1,6 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
 
-export const updateSearchParams = (searchParams: ReadonlyURLSearchParams, newParams: {key: string, value: string}[]) => {
+export const updateSearchParams = (searchParams: ReadonlyURLSearchParams | URLSearchParams, newParams: {key: string, value: string}[]) => {
     const current = new URLSearchParams(searchParams);
     for (const param of newParams) {
         if (!param.value) {

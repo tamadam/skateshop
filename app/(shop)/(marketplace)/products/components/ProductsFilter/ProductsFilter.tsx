@@ -10,42 +10,22 @@ import {
 } from "react-icons/md";
 import styles from "./ProductsFilter.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  BrandType,
-  ProductBreadcrumbData,
-  ProductType,
-} from "@/app/(shop)/types";
+import { BrandType, ProductBreadcrumbData } from "@/app/(shop)/types";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
 } from "@/app/constants";
 import { toggleSearchParams } from "@/lib/toggleSearchParams";
 
-const removeDuplicates = (brands: BrandType[]): BrandType[] => {
-  const uniqueIds = new Set<string>();
-  return brands.filter((brand) => {
-    if (uniqueIds.has(brand.id)) {
-      return false;
-    } else {
-      uniqueIds.add(brand.id);
-      return true;
-    }
-  });
-};
-
 interface ProductsFilterProps {
   breadcrumb: ProductBreadcrumbData[];
-  products: ProductType[];
+  brands: BrandType[];
 }
 
-const ProductsFilter = ({ breadcrumb, products }: ProductsFilterProps) => {
+const ProductsFilter = ({ breadcrumb, brands }: ProductsFilterProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { toggleOpen } = useSidebar();
-
-  const currentBrands = removeDuplicates(
-    products.map((product) => product.brand)
-  );
 
   return (
     <div className={styles.productsFilterWrapper}>
@@ -91,7 +71,7 @@ const ProductsFilter = ({ breadcrumb, products }: ProductsFilterProps) => {
         />
       </div>
       <div className={styles.productsFilterBrands}>
-        {currentBrands.map((brand, index) => {
+        {brands.map((brand, index) => {
           return (
             <div
               key={index}

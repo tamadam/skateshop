@@ -50,6 +50,16 @@ export type ProductType = {
     isArchived: boolean;
 }
 
+export type RawProductType = {
+    data: {
+        products: ProductType[],
+        brands: BrandType[],
+        sizes: SizeType[],
+        colors: ColorType[],
+    };
+    pagination: { total: number };
+}
+
 export type ProductNavInfo = {
     subCategories: CategoryType[];
     brands: BrandType[];

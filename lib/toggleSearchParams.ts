@@ -1,4 +1,6 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
+import { updateSearchParams } from "./updateSearchParams";
+import { PRODUCTS_PAGE_PARAM } from "@/app/constants";
 
 export const toggleSearchParams = (searchParams: ReadonlyURLSearchParams, newParams: {key: string, value: string}[], extendUrl = false) => {
     const current = new URLSearchParams(searchParams);
@@ -22,8 +24,7 @@ export const toggleSearchParams = (searchParams: ReadonlyURLSearchParams, newPar
             }
         }
     }
-
-    const searchQuery = `?${current.toString()}`;
-
-    return searchQuery;
+    
+    // navigate to page 1
+    return updateSearchParams(current, [{key: PRODUCTS_PAGE_PARAM, value: "1"}])
 };

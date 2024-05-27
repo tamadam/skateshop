@@ -1,10 +1,12 @@
-import { ProductType } from "../types";
+import { RawProductType } from "../types";
 import qs from "query-string";
 import getAllSubCategories from "./getAllSubCategories";
 import {
   BRAND_ID_SEARCH_PARAM,
   CATEGORY_ID_SEARCH_PARAM,
   COLOR_ID_SEARCH_PARAM,
+  IS_FEATURED_SEARCH_PARAM,
+  PRODUCTS_PAGE_PARAM,
   SIZE_ID_SEARCH_PARAM,
 } from "@/app/constants";
 
@@ -25,11 +27,12 @@ interface SearchAttributes {
   sizeIds?: string[];
   colorIds?: string[];
   isFeatured?: boolean;
+  currentPage?: number;
 }
 
 const getProducts = async (
   searchAttributes: SearchAttributes = {}
-): Promise<ProductType[]> => {
+): Promise<RawProductType> => {
   // get all subcategories
   const categoryIds = await getCategoryIds(searchAttributes.categoryId);
 
@@ -40,7 +43,8 @@ const getProducts = async (
       [BRAND_ID_SEARCH_PARAM]: searchAttributes.brandIds,
       [SIZE_ID_SEARCH_PARAM]: searchAttributes.sizeIds,
       [COLOR_ID_SEARCH_PARAM]: searchAttributes.colorIds,
-      isFeatured: searchAttributes.isFeatured,
+      [IS_FEATURED_SEARCH_PARAM]: searchAttributes.isFeatured,
+      [PRODUCTS_PAGE_PARAM]: searchAttributes.currentPage,
     },
   });
 
