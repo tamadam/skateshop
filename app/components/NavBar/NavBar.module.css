@@ -45,10 +45,19 @@
 
 .navbarItemsContainer {
     display: flex;
+    align-items: center;
     gap: 1em;
     text-transform: uppercase;
     font-weight: var(--fw-m);
     font-size: var(--fs-xs);
+}
+
+.navbarItemsContainer > li {
+    transition: color 100ms ease-in-out;
+}
+
+.navbarItemsContainer > li:hover {
+    color: var(--primary-btn-bg);
 }
 
 @media (max-width: 860px) {

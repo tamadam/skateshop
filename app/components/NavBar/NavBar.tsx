@@ -3,6 +3,7 @@ import styles from "./NavBar.module.css";
 import Link from "next/link";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+import { MdAdminPanelSettings } from "react-icons/md";
 import SignOut from "@/app/(auth)/components/SignOut";
 import { ROLES } from "@prisma/client";
 import { CATEGORY_PRODUCTS_SEARCH_PARAM } from "@/app/constants";
@@ -39,14 +40,14 @@ const NavBar = async () => {
   return (
     <nav className={styles.navbarOuterWrapper}>
       <div className={styles.navbarInnerWrapper}>
-        <div className={styles.navbarTitleContainer}>
+        <Link href="/" className={styles.navbarTitleContainer}>
           <h1 className={`${libre.className} ${styles.navbarTitle}`}>
             Skate Shop
           </h1>
           <h3 className={`${libre.className} ${styles.navbarSubtitle}`}>
             Your skateboard supplier
           </h3>
-        </div>
+        </Link>
         <ul className={`${libre.className} ${styles.navbarItemsContainer}`}>
           {routes.map((route) => (
             <li key={route.href}>
@@ -56,9 +57,12 @@ const NavBar = async () => {
 
           <li>
             {session && session.user.role === ROLES.ADMIN ? (
-              <Link href="/admin">Admin</Link>
+              <Link href="/admin">
+                <MdAdminPanelSettings size="1.4em" />
+              </Link>
             ) : null}
           </li>
+
           <li>{session ? <SignOut /> : <Link href="/login">Login</Link>}</li>
 
           {/* <li>CART</li> */}
