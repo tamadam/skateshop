@@ -8,6 +8,7 @@ import {
   CATEGORY_PRODUCTS_SEARCH_PARAM,
   COLOR_SEARCH_PARAM,
   PRODUCTS_ITEMS_PER_PAGE,
+  PRODUCTS_ORDER_BY_PARAM,
   PRODUCTS_PAGE_PARAM,
   SIZE_SEARCH_PARAM,
 } from "@/app/constants";
@@ -31,9 +32,16 @@ interface ProductsPageProps {
 }
 
 const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
+  // get currentPage from URL (page=)
   const currentPage: number = getValidatedPageNumber(
     searchParams[PRODUCTS_PAGE_PARAM]
   );
+
+  // get orderBy from URL (mode=)
+  const rawOrderByMode = searchParams[PRODUCTS_ORDER_BY_PARAM];
+  const orderByMode = Array.isArray(rawOrderByMode)
+    ? rawOrderByMode[0]
+    : rawOrderByMode ?? "";
 
   // get categoryId from URL (p=)
   const categoryIdParam = searchParams[CATEGORY_PRODUCTS_SEARCH_PARAM];
@@ -92,6 +100,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     sizeIds,
     colorIds,
     currentPage,
+    orderByMode,
   });
 
   const products: ProductType[] = rawProducts.data.products;

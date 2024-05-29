@@ -6,6 +6,7 @@ import {
   CATEGORY_ID_SEARCH_PARAM,
   COLOR_ID_SEARCH_PARAM,
   IS_FEATURED_SEARCH_PARAM,
+  PRODUCTS_ORDER_BY_PARAM,
   PRODUCTS_PAGE_PARAM,
   SIZE_ID_SEARCH_PARAM,
 } from "@/app/constants";
@@ -28,6 +29,7 @@ interface SearchAttributes {
   colorIds?: string[];
   isFeatured?: boolean;
   currentPage?: number;
+  orderByMode?: string;
 }
 
 const getProducts = async (
@@ -45,6 +47,7 @@ const getProducts = async (
       [COLOR_ID_SEARCH_PARAM]: searchAttributes.colorIds,
       [IS_FEATURED_SEARCH_PARAM]: searchAttributes.isFeatured,
       [PRODUCTS_PAGE_PARAM]: searchAttributes.currentPage,
+      [PRODUCTS_ORDER_BY_PARAM]: searchAttributes.orderByMode,
     },
   });
 

@@ -4,8 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { ROLES } from "@prisma/client";
 import { productsFormSchema } from "@/app/validationSchemas";
-import { BRAND_ID_SEARCH_PARAM, CATEGORY_ID_SEARCH_PARAM, COLOR_ID_SEARCH_PARAM, IS_FEATURED_SEARCH_PARAM, PRODUCTS_ITEMS_PER_PAGE, PRODUCTS_PAGE_PARAM, SIZE_ID_SEARCH_PARAM } from "@/app/constants";
+import { BRAND_ID_SEARCH_PARAM, CATEGORY_ID_SEARCH_PARAM, COLOR_ID_SEARCH_PARAM, IS_FEATURED_SEARCH_PARAM, ORDER_BY, PRODUCTS_ITEMS_PER_PAGE, PRODUCTS_ORDER_BY_PARAM, PRODUCTS_PAGE_PARAM, SIZE_ID_SEARCH_PARAM } from "@/app/constants";
 import { getValidatedPageNumber } from "@/lib/paginationUtils";
+import { isValidOrderBy } from "@/lib/isValidOrderBy";
 
 export async function POST(request: NextRequest) {
     try {
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
         console.log("PRODUCTS_POST: ", error);
         return NextResponse.json("Internal server error", { status: 500 });
     }
-}
+} 
 
 export async function GET(request: NextRequest) {
     try {
@@ -68,7 +69,30 @@ export async function GET(request: NextRequest) {
         const colorIds = rawColorIds.length ? rawColorIds : undefined;
         const isFeatured = searchParams.get(IS_FEATURED_SEARCH_PARAM);
         const currentPage = getValidatedPageNumber(searchParams.get(PRODUCTS_PAGE_PARAM));
-        
+        const rawOrderMode = searchParams.get(PRODUCTS_ORDER_BY_PARAM);
+        const orderMode = isValidOrderBy(rawOrderMode) ? rawOrderMode : ORDER_BY.RANDOM_ORDER;
+
+        let orderByMode = {};
+
+        switch (orderMode) {
+            case ORDER_BY.PRICE_ASC:
+                orderByMode =  { price: "asc" };
+                break;
+            case ORDER_BY.PRICE_DESC:
+                orderByMode = { price: "desc" };
+                break;
+            case ORDER_BY.NAME_ASC:
+                orderByMode = { name: "asc" };
+                break;
+            case ORDER_BY.NAME_DESC:
+                orderByMode = { name: "desc" };
+                break;
+            case ORDER_BY.RANDOM_ORDER:
+                orderByMode = { createdAt: "desc" };
+                break;
+            default:
+                orderByMode = { createdAt: "desc" };
+        };
 
         const whereFilterForProducts = {
             categoryId: { in : categoryIds },
@@ -82,14 +106,12 @@ export async function GET(request: NextRequest) {
         const whereFilterForSidebar = {
             categoryId: { in : categoryIds },
             isArchived: false,
-        }
+        };
 
         const [products, totalProducts, rawBrands, rawSizes, rawColors] = await prisma.$transaction([
             prisma.product.findMany({
                 where: whereFilterForProducts,
-                orderBy: {
-                    createdAt: "desc"
-                },
+                orderBy: orderByMode,
                 include: {
                     images: true,
                     category: true,

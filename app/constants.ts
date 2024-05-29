@@ -14,3 +14,21 @@ export const IS_FEATURED_SEARCH_PARAM = "isFeatured";
 
 export const PRODUCTS_PAGE_PARAM = "page";
 export const PRODUCTS_ITEMS_PER_PAGE = 12;
+
+export enum ORDER_BY {
+    PRICE_ASC = "1",
+    PRICE_DESC = "2",
+    NAME_ASC = "3",
+    NAME_DESC = "4",
+    RANDOM_ORDER = "5"
+  }
+
+export const PRODUCTS_ORDER_BY_OPTIONS: { type: ORDER_BY, label: string }[] = [
+    { type: ORDER_BY.PRICE_ASC, label: "Price (ascending)" },
+    { type: ORDER_BY.PRICE_DESC, label: "Price (descending)" },
+    { type: ORDER_BY.NAME_ASC, label: "Name (ascending)" },
+    { type: ORDER_BY.NAME_DESC, label: "Name (descending)" },
+    { type: ORDER_BY.RANDOM_ORDER, label: "Random" },
+];
+
+export const PRODUCTS_ORDER_BY_PARAM = "mode"

@@ -14,8 +14,14 @@ import { BrandType, ProductBreadcrumbData } from "@/app/(shop)/types";
 import {
   BRAND_SEARCH_PARAM,
   CATEGORY_PRODUCTS_SEARCH_PARAM,
+  ORDER_BY,
+  PRODUCTS_ORDER_BY_OPTIONS,
+  PRODUCTS_ORDER_BY_PARAM,
 } from "@/app/constants";
 import { toggleSearchParams } from "@/lib/toggleSearchParams";
+import { updateSearchParams } from "@/lib/updateSearchParams";
+import { useState } from "react";
+import { isValidOrderBy } from "@/lib/isValidOrderBy";
 
 interface ProductsFilterProps {
   breadcrumb: ProductBreadcrumbData[];
@@ -26,6 +32,10 @@ const ProductsFilter = ({ breadcrumb, brands }: ProductsFilterProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { toggleOpen } = useSidebar();
+  const initialOrderBy = searchParams.get(PRODUCTS_ORDER_BY_PARAM);
+  const [orderBy, setOrderBy] = useState<ORDER_BY>(
+    isValidOrderBy(initialOrderBy) ? initialOrderBy : ORDER_BY.RANDOM_ORDER
+  );
 
   return (
     <div className={styles.productsFilterWrapper}>
@@ -95,7 +105,28 @@ const ProductsFilter = ({ breadcrumb, brands }: ProductsFilterProps) => {
           );
         })}
       </div>
-      <div className={styles.productsFilterOrderBy}>Order By</div>
+      <div className={styles.productsFilterOrderBy}>
+        <select
+          onChange={(event) => {
+            const selectedValue = event.target.value;
+            if (isValidOrderBy(selectedValue)) {
+              setOrderBy(selectedValue);
+              const newSearchParams = updateSearchParams(searchParams, [
+                { key: PRODUCTS_ORDER_BY_PARAM, value: selectedValue },
+              ]);
+              router.push(newSearchParams);
+            }
+          }}
+          defaultValue={orderBy}
+          className={styles.orderBySelect}
+        >
+          {PRODUCTS_ORDER_BY_OPTIONS.map((opt) => (
+            <option key={opt.type} value={opt.type}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

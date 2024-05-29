@@ -31,7 +31,7 @@
 
 .productsFilterOrderBy {
     grid-area: order;
-    background: yellow;
+    justify-self: end;
 }
 
 .dynamicBreadcrumbWrapper {
@@ -58,6 +58,10 @@
 .brandImage {
     object-fit: contain;
     aspect-ratio: 4 / 1;
+}
+
+.orderBySelect {
+    padding-block: 0.4em;
 }
 
 @media (min-width: 861px) {
