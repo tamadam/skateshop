@@ -1,10 +1,8 @@
 "use client";
 
-import { IoExitSharp } from "react-icons/io5";
-
 import { signOut } from "next-auth/react";
 
-const SignOut = () => {
+const SignOut = ({ className }: { className: string }) => {
   return (
     <button
       onClick={() => {
@@ -13,9 +11,9 @@ const SignOut = () => {
           callbackUrl: `${window.location.origin}/login`,
         });
       }}
-      style={{ display: "flex" }}
+      className={className}
     >
-      <IoExitSharp size="1.4em" />
+      Logout
     </button>
   );
 };

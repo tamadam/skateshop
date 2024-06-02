@@ -3,8 +3,6 @@ import styles from "./NavBar.module.css";
 import Link from "next/link";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import { MdAdminPanelSettings } from "react-icons/md";
-import SignOut from "@/app/(auth)/components/SignOut";
 import { ROLES } from "@prisma/client";
 import { CATEGORY_PRODUCTS_SEARCH_PARAM } from "@/app/constants";
 import {
@@ -12,6 +10,7 @@ import {
   CATEGORY_CLOTHES_ID,
   CATEGORY_SKATEBOARDS_ID,
 } from "@/app/(shop)/constants";
+import MyAccount from "./MyAccount/MyAccount";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
@@ -55,18 +54,13 @@ const NavBar = async () => {
             </li>
           ))}
 
-          <li>
-            {session && session.user.role === ROLES.ADMIN ? (
-              <Link href="/admin">
-                <MdAdminPanelSettings size="1.4em" />
-              </Link>
-            ) : null}
-          </li>
-
-          <li>{session ? <SignOut /> : <Link href="/login">Login</Link>}</li>
-
           {/* <li>CART</li> */}
-          {/* <li>ACC</li> */}
+          <li>
+            <MyAccount
+              isAuthenticated={Boolean(session)}
+              isAdmin={Boolean(session?.user.role === ROLES.ADMIN)}
+            />
+          </li>
         </ul>
       </div>
     </nav>
