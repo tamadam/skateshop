@@ -58,6 +58,7 @@
     /* TRANSITIONS */
     --overlay-trans-duration: 0.4s;
     --overlay-trans-type: linear;
+    --clr-trans: color 100ms ease-in-out;
 
     /* BORDER COLOR */
     --default-border-clr: #cbcbcb;

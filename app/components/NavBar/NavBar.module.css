@@ -53,7 +53,7 @@
 }
 
 .navbarItemsContainer > li {
-    transition: color 100ms ease-in-out;
+    transition: var(--clr-trans);
 }
 
 .navbarItemsContainer > li:hover {
