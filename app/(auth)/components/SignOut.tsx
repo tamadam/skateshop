@@ -2,7 +2,7 @@
 
 import { signOut } from "next-auth/react";
 
-const SignOut = ({ className }: { className: string }) => {
+const SignOut = ({ className }: { className?: string }) => {
   return (
     <button
       onClick={() => {

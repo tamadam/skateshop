@@ -1,0 +1,79 @@
+.navbarMobileWrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 1em;
+    background: var(--clr-cyan);
+}
+
+.navbarMobileContent {
+    width: 100%;
+    position: relative;
+}
+
+.navbarMobileTitle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    text-transform: uppercase;
+    font-size: var(--fs-m);
+    font-weight: var(--fw-m);
+    letter-spacing: 0.4em;
+    z-index: 10;
+    height: 2em;
+    cursor: pointer;
+    padding-inline: 1em;
+    user-select: none;
+}
+
+
+.navbarMobileOptionsWrapper {
+    position: absolute;
+    background: #fff;
+    color: #000;
+    font-size: var(--fs-s);
+    font-weight: var(--fs-m);
+    text-transform: uppercase;
+    bottom: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all 0.125s linear;
+
+    --box-shadow-clr: #00000029;
+    box-shadow: var(--box-shadow-clr) -2px 0px 4px 0px, var(--box-shadow-clr) 0px -2px 4px 0px, var(--box-shadow-clr) 2px 0px 4px 0px ;
+}
+
+.navbarMobileOptionsWrapper > .navbarMobileOptions {
+    overflow: hidden;
+}
+
+.navbarMobileOptionsWrapper.open {
+    grid-template-rows: 1fr;
+    padding-block: 1em 0.4em;
+}
+
+.navbarMobileOptions {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbarMobileOption {
+    padding-block: 0.6em;
+    padding-inline: 1em;
+    text-align: center;
+    transition: color 100ms ease-in-out;
+}
+
+.navbarMobileOption:hover {
+    color: var(--clr-cyan);
+}
+
+@media (min-width: 861px) {
+    .navbarMobileWrapper {
+        display: none;
+    }
+}

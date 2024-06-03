@@ -11,11 +11,14 @@ import {
   CATEGORY_SKATEBOARDS_ID,
 } from "@/app/(shop)/constants";
 import MyAccount from "./MyAccount/MyAccount";
+import NavBarMobile from "../NavBarMobile/NavBarMobile";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
 const NavBar = async () => {
   const session = await getServerSession(authOptions);
+  const isAuthenticated = Boolean(session);
+  const isAdmin = Boolean(session?.user.role === ROLES.ADMIN);
 
   const routes = [
     {
@@ -56,13 +59,15 @@ const NavBar = async () => {
 
           {/* <li>CART</li> */}
           <li>
-            <MyAccount
-              isAuthenticated={Boolean(session)}
-              isAdmin={Boolean(session?.user.role === ROLES.ADMIN)}
-            />
+            <MyAccount isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
           </li>
         </ul>
       </div>
+      <NavBarMobile
+        isAuthenticated={isAuthenticated}
+        isAdmin={isAdmin}
+        routes={routes}
+      />
     </nav>
   );
 };

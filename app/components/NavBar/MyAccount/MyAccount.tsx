@@ -34,7 +34,6 @@ const MyAccount = ({ isAuthenticated, isAdmin }: MyAccountProps) => {
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
-      console.log("Cleanup");
     };
   }, [myAccountRef]);
 
