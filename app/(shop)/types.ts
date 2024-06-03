@@ -36,6 +36,20 @@ export type ImageType = {
     url: string;
 }
 
+export type SingleProductType = {
+    id: string;
+    name: string;
+    price: string;
+    categoryId: string;
+    brandId: string;
+    sizeId: string;
+    colorId: string | null;
+    gender: GENDERS;
+    isFeatured: boolean;
+    isArchived: boolean;
+    images: ImageType[];
+}
+
 export type ProductType = {
     id: string;
     name: string;
