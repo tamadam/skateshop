@@ -42,7 +42,9 @@ const ProductBreadcrumb = ({ breadcrumb }: ProductBreadcrumbProps) => {
                 .join(" ")}
               onClick={() => {
                 if (!(breadcrumb.length - 1 === index)) {
-                  router.push(`?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${item.id}`);
+                  router.push(
+                    `/products?${CATEGORY_PRODUCTS_SEARCH_PARAM}=${item.id}`
+                  );
                 }
               }}
             >

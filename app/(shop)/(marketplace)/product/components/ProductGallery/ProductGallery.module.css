@@ -1,0 +1,21 @@
+.productDetailsImages {
+    display: grid;
+    justify-items: center;
+    gap: 0.4em;
+}
+
+.mainImage {
+    max-width: 500px;
+}
+
+.subImagesContainer {
+    display: flex;
+    gap: 0.4em;
+    overflow: hidden;
+}
+
+.subImage {
+    width: 160px;
+    height: 160px;
+    aspect-ratio: 1 / 1;
+}
