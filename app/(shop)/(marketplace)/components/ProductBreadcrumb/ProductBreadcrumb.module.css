@@ -1,0 +1,23 @@
+.breadcrumbWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.2em;
+}
+
+.dynamicBreadcrumbWrapper {
+    display: flex;
+    gap: 0.2em;
+}
+
+.dynamicBreadcrumbItem {
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: var(--fs-xs);
+    word-break: break-all;
+}
+
+.dynamicBreadcrumbItem.active {
+    cursor: default;
+    font-weight: var(--fw-m);
+}

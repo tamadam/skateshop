@@ -5,7 +5,7 @@ import { useSidebar } from "@/app/providers/Sidebar/SidebarContext";
 import { GiHamburgerMenu } from "react-icons/gi";
 import styles from "./ProductsFilter.module.css";
 import { BrandType, ProductBreadcrumbData } from "@/app/(shop)/types";
-import ProductBreadcrumb from "./ProductBreadcrumb";
+import ProductBreadcrumb from "../../../components/ProductBreadcrumb/ProductBreadcrumb";
 import ProductBrands from "./ProductBrands";
 import ProductOrderBy from "./ProductOrderBy";
 

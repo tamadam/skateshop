@@ -8,7 +8,7 @@ import {
   MdKeyboardArrowRight,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
-import styles from "./ProductsFilter.module.css";
+import styles from "./ProductBreadcrumb.module.css";
 import { CATEGORY_PRODUCTS_SEARCH_PARAM } from "@/app/constants";
 
 interface ProductBreadcrumbProps {
@@ -19,7 +19,7 @@ const ProductBreadcrumb = ({ breadcrumb }: ProductBreadcrumbProps) => {
   const router = useRouter();
 
   return (
-    <>
+    <div className={styles.breadcrumbWrapper}>
       <Button
         Icon={ImHome}
         iconSize="1.2em"
@@ -50,7 +50,7 @@ const ProductBreadcrumb = ({ breadcrumb }: ProductBreadcrumbProps) => {
             </div>
           </div>
         ))}
-    </>
+    </div>
   );
 };
 

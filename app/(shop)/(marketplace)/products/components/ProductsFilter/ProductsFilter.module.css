@@ -11,10 +11,6 @@
 
 .productsFilterBreadcrumb {
     grid-area: breadcrumb;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.2em;
 }
 
 .productsFilterSidebarTrigger {
@@ -32,23 +28,6 @@
 .productsFilterOrderBy {
     grid-area: order;
     justify-self: end;
-}
-
-.dynamicBreadcrumbWrapper {
-    display: flex;
-    gap: 0.2em;
-}
-
-.dynamicBreadcrumbItem {
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: var(--fs-xs);
-    word-break: break-all;
-}
-
-.dynamicBreadcrumbItem.active {
-    cursor: default;
-    font-weight: var(--fw-m);
 }
 
 .brandImageContainer {
