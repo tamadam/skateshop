@@ -12,6 +12,7 @@ import Billboard from "../../components/Billboard/Billboard";
 import Container from "../../components/Container/Container";
 import getBrand from "@/app/(shop)/actions/getBrand";
 import getProducts from "@/app/(shop)/actions/getProducts";
+import ProductBreadcrumb from "../../components/ProductBreadcrumb/ProductBreadcrumb";
 
 interface ProductPageProps {
   params: { productId: string };
@@ -47,7 +48,9 @@ const ProductPage = async ({ params }: ProductPageProps) => {
   return (
     <div>
       <Billboard billboard={categoryOfProduct.billboard} />
-      <Container></Container>
+      <Container>
+        <ProductBreadcrumb breadcrumb={breadcrumbData} />
+      </Container>
     </div>
   );
 };

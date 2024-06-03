@@ -4,7 +4,7 @@ import Container from "../components/Container/Container";
 import getBrands from "../../actions/getBrands";
 import MarketplaceGrid from "./components/MarketplaceGrid/MarketplaceGrid";
 import getProducts from "../../actions/getProducts";
-import FeaturedProducts from "../components/FeaturedProducts/FeaturedProducts";
+import ProductsSlider from "../components/ProductsSlider/ProductsSlider";
 import { BILLBOARD_DEFAULT_ID } from "../../constants";
 import { RawProductType } from "../../types";
 
@@ -21,7 +21,7 @@ const MarketplacePage = async () => {
       <Billboard billboard={billboard} />
       <Container>
         <MarketplaceGrid brands={brands} />
-        <FeaturedProducts products={featuredProducts} />
+        <ProductsSlider products={featuredProducts} title="Best sellers" />
       </Container>
     </div>
   );

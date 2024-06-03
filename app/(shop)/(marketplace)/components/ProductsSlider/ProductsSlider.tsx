@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import styles from "./FeaturedProducts.module.css";
+import styles from "./ProductsSlider.module.css";
 import { ProductType } from "@/app/(shop)/types";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIosNew } from "react-icons/md";
@@ -13,11 +13,12 @@ import { useRouter } from "next/navigation";
 
 const libre = Libre_Franklin({ subsets: ["latin"], weight: ["600"] });
 
-interface FeaturedProductsProps {
+interface ProductsSliderProps {
   products: ProductType[];
+  title: string;
 }
 
-const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
+const ProductsSlider = ({ products, title }: ProductsSliderProps) => {
   const carouselRef = useRef<HTMLUListElement>(null);
 
   const firstCardRef = useRef<HTMLLIElement>(null);
@@ -94,9 +95,9 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
   };
 
   return (
-    <div className={styles.featuredProductsWrapper}>
-      <div className={`${styles.featuredProductsTitle} ${libre.className}`}>
-        Best sellers
+    <div className={styles.productsSliderWrapper}>
+      <div className={`${styles.productsSliderTitle} ${libre.className}`}>
+        {title}
       </div>
       <Separator />
       <div className={styles.cardSliderWrapper} onMouseUp={dragStop}>
@@ -143,4 +144,4 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
   );
 };
 
-export default FeaturedProducts;
+export default ProductsSlider;

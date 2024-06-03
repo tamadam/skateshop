@@ -66,11 +66,11 @@
     scroll-snap-align: start;
 }
 
-.featuredProductsWrapper {
+.productsSliderWrapper {
     margin-block: 2em;
 }
 
-.featuredProductsTitle {
+.productsSliderTitle {
     text-transform: uppercase;
     font-weight: var(--fw-m);
     font-size: var(--fs-m);
