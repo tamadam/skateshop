@@ -9,6 +9,7 @@ import Button from "@/app/components/Button/Button";
 import ProductCard from "@/app/(shop)/components/ProductCard/ProductCard";
 import Separator from "../Separator/Separator";
 import { Libre_Franklin } from "next/font/google";
+import { useRouter } from "next/navigation";
 
 const libre = Libre_Franklin({ subsets: ["latin"], weight: ["600"] });
 
@@ -28,6 +29,7 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
   const [isEndOfCarousel, setIsEndOfCarousel] = useState<boolean>(false);
   const [isBeginningOfCarousel, setIsBeginningOfCarousel] =
     useState<boolean>(true);
+  const router = useRouter();
 
   const dragStart = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -123,7 +125,7 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
             >
               <ProductCard
                 product={product}
-                onClick={() => console.log("product clicked")}
+                onClick={() => router.push(`/product/${product.id}`)}
               />
             </li>
           ))}
