@@ -1,9 +1,12 @@
 .productDetailsWrapper {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 1.4em;
+    margin-block: 1em;
 }
 
 .productDetailsInformation {
+
 }
 
 .productTitleContainer h1 {

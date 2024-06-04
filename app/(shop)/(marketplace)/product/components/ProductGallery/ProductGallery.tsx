@@ -2,7 +2,7 @@
 
 import { ImageType } from "@/app/(shop)/types";
 import styles from "./ProductGallery.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import useContainerDimensions from "@/app/hooks/useContainerDimensions";
 import Button from "@/app/components/Button/Button";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
@@ -22,7 +22,14 @@ const ProductGallery = ({ images }: ProductGalleryProps) => {
   const [isEndOfCarousel, setIsEndOfCarousel] = useState<boolean>(false);
   const [isBeginningOfCarousel, setIsBeginningOfCarousel] =
     useState<boolean>(true);
-  const imageUrls = images.map((image) => image.url);
+
+  const imageUrls = useMemo(() => {
+    const rawImageUrls = images.map((image) => image.url);
+    return rawImageUrls.length === 0
+      ? ["/static/images/not_found.png"]
+      : rawImageUrls;
+  }, [images]);
+
   const [selectedImageUrl, setSelectedImageUrl] = useState<string>(
     imageUrls[0]
   );
