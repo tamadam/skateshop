@@ -1,0 +1,100 @@
+.imageSliderWrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    --transition-time: 300ms;
+}
+
+.imageSlider {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.imageSliderImage {
+    position: absolute;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.imageSliderImage.cover {
+    object-fit: cover;
+}
+
+.imageSliderImage.contain {
+    object-fit: contain;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .imageSliderImage {
+        transition: translate var(--transition-time) ease-in-out;
+    }
+}
+
+/* LEFT - RIGHT BUTTONS */
+
+.imageSliderButton {
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--fs-m);
+    background: #ffffffd4 !important;
+}
+
+.buttonLeft {
+    left: 0.4em;
+}
+
+.buttonRight {
+    right: 0.4em;
+}
+
+.imageSliderButton.cardArrow {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+@media not (pointer:coarse) {
+    .imageSliderWrapper:hover .imageSliderButton.cardArrow {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@media (pointer:coarse) {
+    .imageSliderWrapper .imageSliderButton.cardArrow {
+        opacity: 1;
+        visibility: visible;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: var(--fs-s);
+    }
+}
+
+
+
+/* DOTS AT THE BOTTOM */
+
+.imageNavigation {
+    color: #fff;
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    translate: -50%;
+    display: flex;
+    gap: 0.4em;
+}
+
+.imageNavButton {
+    color: #fff !important;
+    transition: scale var(--transition-time);
+}
+
+.active {
+    scale: 1.4;
+}

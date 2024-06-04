@@ -4,9 +4,10 @@ import { ImageType } from "@/app/(shop)/types";
 import styles from "./ProductGallery.module.css";
 import { useEffect, useRef, useState } from "react";
 import useContainerDimensions from "@/app/hooks/useContainerDimensions";
-import ImageSlider from "../../../components/ImageSlider/ImageSlider";
 import Button from "@/app/components/Button/Button";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+import ImagePreview from "./ImagePreview/ImagePreview";
+import GallerySlider from "./GallerySlider/GallerySlider";
 
 interface ProductGalleryProps {
   images: ImageType[];
@@ -58,6 +59,13 @@ const ProductGallery = ({ images }: ProductGalleryProps) => {
     }
   }, [width, imageWidth]);
 
+  const [imageIndex, setImageIndex] = useState(0);
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  useEffect(() => {
+    setImageIndex(imageUrls.findIndex((url) => url === selectedImageUrl));
+  }, [selectedImageUrl, imageUrls]);
+
   const handleArrowClick = (direction: string) => {
     if (!carouselRef.current) return;
 
@@ -78,11 +86,20 @@ const ProductGallery = ({ images }: ProductGalleryProps) => {
 
   return (
     <div className={styles.productDetailsImages} ref={galleryRef}>
-      <div className={styles.mainImage}>
-        <ImageSlider
+      <ImagePreview
+        imageUrls={imageUrls}
+        selectedImageUrl={selectedImageUrl}
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
+      />
+      <div className={styles.mainImage} onClick={() => setPreviewOpen(true)}>
+        <GallerySlider
           imageUrls={imageUrls}
           selectedImageUrl={selectedImageUrl}
           productCard
+          imageIndex={imageIndex}
+          setImageIndex={setImageIndex}
+          onImageChange={(index) => setSelectedImageUrl(imageUrls[index])}
         />
       </div>
 
