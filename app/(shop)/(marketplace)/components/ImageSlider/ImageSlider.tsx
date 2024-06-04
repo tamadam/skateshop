@@ -5,19 +5,30 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIosNew } from "react-icons/md";
 import Button from "@/app/components/Button/Button";
 import { GoDotFill } from "react-icons/go";
-import { TouchEventHandler, useState } from "react";
+import { TouchEventHandler, useEffect, useState } from "react";
 
 const SWIPE_TRESHOLD = 50;
 
 interface ImageSliderProps {
   imageUrls: string[];
   productCard?: boolean;
+  selectedImageUrl?: string;
 }
 
-const ImageSlider = ({ imageUrls, productCard = false }: ImageSliderProps) => {
+const ImageSlider = ({
+  imageUrls,
+  productCard = false,
+  selectedImageUrl = "",
+}: ImageSliderProps) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedImageUrl) {
+      setImageIndex(imageUrls.findIndex((url) => url === selectedImageUrl));
+    }
+  }, [selectedImageUrl, imageUrls]);
 
   const handleLeftClick = () => {
     setImageIndex((index) => (index === 0 ? imageUrls.length - 1 : index - 1));

@@ -5,17 +5,62 @@
 }
 
 .mainImage {
-    max-width: 500px;
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
 }
 
 .subImagesContainer {
-    display: flex;
-    gap: 0.4em;
-    overflow: hidden;
+    width: 100%;
+    position: relative;
 }
 
 .subImage {
     width: 160px;
-    height: 160px;
     aspect-ratio: 1 / 1;
+    object-fit: contain;
+    scroll-snap-align: start;
+    cursor: pointer;
+    border: 1px solid var(--default-border-clr);
+}
+  
+/* Card Slider Arrows */
+.sliderArrow {
+    --inline-gap: 0.1em;
+    height: 1.2em;
+    width: 1.2em;
+    position: absolute !important;
+    top: 50%;
+    font-size: var(--fs-l);
+    text-align: center;
+    z-index: 10;
+    border-radius: 50% !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+    transform: translateY(-50%);
+    transition: transform 0.1s linear !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.sliderArrow:active {
+    transform: translateY(-50%) scale(0.85);
+}
+
+.sliderArrow:first-child {
+    left: var(--inline-gap);
+}
+
+.sliderArrow:last-child{
+    right: var(--inline-gap);
+}
+  
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
