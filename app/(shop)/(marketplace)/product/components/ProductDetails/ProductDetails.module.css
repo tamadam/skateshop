@@ -19,6 +19,7 @@
     font-size: var(--fs-s);
     font-weight: var(--fw-xl);
     text-transform: uppercase;
+    margin-block-start: 1em;
 }
 
 @media (min-width: 861px) {

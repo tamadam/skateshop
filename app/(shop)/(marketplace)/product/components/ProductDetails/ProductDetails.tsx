@@ -1,9 +1,8 @@
 import { BrandType, SingleProductType } from "@/app/(shop)/types";
 import styles from "./ProductDetails.module.css";
 import { Libre_Franklin } from "next/font/google";
-import ProductCounter from "../ProductCounter/ProductCounter";
-import ProductAddToCart from "../ProductAddToCart/ProductAddToCart";
 import ProductGallery from "../ProductGallery/ProductGallery";
+import AddToCartForm from "../AddToCartForm/AddToCartForm";
 
 const libre = Libre_Franklin({
   subsets: ["latin"],
@@ -30,12 +29,7 @@ const ProductDetails = ({ product, brand }: ProductDetailsProps) => {
         <div className={styles.productPriceContainer}>
           <h2>&euro;{product.price}</h2>
         </div>
-        <div className={styles.productCounter}>
-          <ProductCounter />
-        </div>
-        <div className={styles.productAddToCart}>
-          <ProductAddToCart />
-        </div>
+        <AddToCartForm product={product} />
       </div>
     </div>
   );
