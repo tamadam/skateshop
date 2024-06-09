@@ -29,6 +29,9 @@ const ProductDetails = ({ product, brand }: ProductDetailsProps) => {
         <div className={styles.productPriceContainer}>
           <h2>&euro;{product.price}</h2>
         </div>
+        <div className={styles.productDescriptionContainer}>
+          {product.description}
+        </div>
         <AddToCartForm product={product} />
       </div>
     </div>

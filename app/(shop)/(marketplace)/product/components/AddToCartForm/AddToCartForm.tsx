@@ -23,6 +23,8 @@ const AddToCartForm = ({ product }: AddToCartFormProps) => {
   const handleCounterChange = (newCount: number) => {
     if (newCount <= 0) {
       setError("Quantity must be at least 1");
+    } else if (newCount > product.quantity) {
+      return;
     } else {
       setError("");
     }
@@ -34,8 +36,8 @@ const AddToCartForm = ({ product }: AddToCartFormProps) => {
     event.preventDefault();
     setIsSubmitting(true);
 
-    if (counter <= 0) {
-      setError("Quantity must be at least 1");
+    if (counter <= 0 || counter > product.quantity) {
+      setError("Quantity is not valid");
       return;
     }
 
