@@ -65,6 +65,8 @@ export async function PATCH(
             data: {
                 name: body.name,
                 price: body.price,
+                quantity: body.quantity,
+                description: body.description,
                 categoryId: body.categoryId,
                 brandId: body.brandId,
                 sizeId: body.sizeId,

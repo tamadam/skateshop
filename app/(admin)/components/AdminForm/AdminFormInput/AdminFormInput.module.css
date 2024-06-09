@@ -17,6 +17,7 @@
 .inputFieldInput {
     padding: 0.4em;
     width: 100%;
+    border: 1px solid grey;
 }
 
 .inputFieldColorContainer {
@@ -57,6 +58,11 @@
   
 .inputFieldColor::-moz-focus-inner{
     padding: 0;
+}
+
+.inputFieldTextarea {
+    resize: vertical;
+    min-height: 10rem;
 }
 
 .checkboxWrapper {

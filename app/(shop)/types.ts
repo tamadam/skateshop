@@ -40,6 +40,8 @@ export type SingleProductType = {
     id: string;
     name: string;
     price: string;
+    quantity: number;
+    description: string;
     categoryId: string;
     brandId: string;
     sizeId: string;
@@ -54,6 +56,8 @@ export type ProductType = {
     id: string;
     name: string;
     price: string;
+    quantity: number;
+    description: string;
     category: CategoryType;
     brand: BrandType;
     size: SizeType;

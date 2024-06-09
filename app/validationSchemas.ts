@@ -122,9 +122,13 @@ export type BrandFormFields = z.infer<typeof brandsFormSchema>;
 
 // SCHEMA FOR PRODUCTS
 
+export const DESCRIPTION_MAX_LENGTH = 150;
+
 export const productsFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   price: z.coerce.number().min(1),
+  quantity: z.coerce.number().min(1),
+  description: z.string().min(1, "Description is required").max(DESCRIPTION_MAX_LENGTH, `Description exceeds ${DESCRIPTION_MAX_LENGTH} characters`),
   categoryId: z.string().min(1, "Category is required"),
   brandId: z.string().min(1, "Brand is required"),
   sizeId: z.string().min(1, "Size is required"),

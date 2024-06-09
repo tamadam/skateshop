@@ -223,6 +223,15 @@ const ProductForm = ({
             errorMessage={errors.price?.message}
           />
           <AdminFormInput
+            type="number"
+            id="quantity"
+            label="Quantity"
+            required
+            register={register}
+            disabled={isSubmitting}
+            errorMessage={errors.quantity?.message}
+          />
+          <AdminFormInput
             type="select"
             id="categoryId"
             label="Category"
@@ -310,6 +319,15 @@ const ProductForm = ({
             register={register}
             disabled={isSubmitting}
             errorMessage={errors.isArchived?.message}
+          />
+          <AdminFormInput
+            type="textarea"
+            id="description"
+            label="Description"
+            required
+            register={register}
+            disabled={isSubmitting}
+            errorMessage={errors.description?.message}
           />
         </AdminFormInputsWrapper>
         <AdminFormInputsWrapper singleColumn>

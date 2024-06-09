@@ -14,7 +14,7 @@ type AdminFormInputPropsBase = {
 };
 
 type AdminFormTextAndColorInput = AdminFormInputPropsBase & {
-  type: "text" | "color" | "checkbox";
+  type: "text" | "number" | "textarea" | "color" | "checkbox";
   options?: { value: string; label: string }[];
 };
 
@@ -60,6 +60,31 @@ const AdminFormInput = ({
           disabled={disabled}
           placeholder={placeholder}
           className={styles.inputFieldInput}
+          {...register(id)}
+        />
+      )}
+
+      {/* INPUT NUMBER */}
+      {type === "number" && (
+        <input
+          autoComplete="off"
+          type={type}
+          id={id}
+          disabled={disabled}
+          placeholder={placeholder}
+          className={styles.inputFieldInput}
+          {...register(id)}
+        />
+      )}
+
+      {/* INPUT DESCRIPTION */}
+      {type === "textarea" && (
+        <textarea
+          autoComplete="off"
+          id={id}
+          disabled={disabled}
+          placeholder={placeholder}
+          className={`${styles.inputFieldInput} ${styles.inputFieldTextarea}`}
           {...register(id)}
         />
       )}
