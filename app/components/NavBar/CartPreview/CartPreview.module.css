@@ -1,0 +1,43 @@
+.cartPreviewWrapper {
+    position: relative;
+    display: flex;
+}
+
+.cartPreviewIcon {
+    cursor: pointer;
+    display: flex;
+}
+
+.cartPreviewContent {
+    position: absolute;
+    top: 2.8rem;
+    right: -1rem;
+    background: #fff;
+    color: #000;
+    padding-block: 1.4em 1em;
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.cartPreviewContent::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    top: -8px;
+    right: 14%;
+    rotate: 45deg;
+}
+
+.dropdownItem {
+    display: block;
+    padding-inline: 1em 2em;
+    border-left: 2px solid transparent;
+    line-height: 3em;
+}
+
+.dropdownItem:hover {
+    background: var(--clr-main-pink-light);
+    border-color: var(--clr-main-pink)
+}

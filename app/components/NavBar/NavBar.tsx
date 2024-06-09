@@ -12,6 +12,7 @@ import {
 } from "@/app/(shop)/constants";
 import MyAccount from "./MyAccount/MyAccount";
 import NavBarMobile from "../NavBarMobile/NavBarMobile";
+import CartPreview from "./CartPreview/CartPreview";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
@@ -56,8 +57,9 @@ const NavBar = async () => {
               <Link href={route.href}>{route.label}</Link>
             </li>
           ))}
-
-          {/* <li>CART</li> */}
+          <li>
+            <CartPreview />
+          </li>
           <li>
             <MyAccount isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
           </li>
