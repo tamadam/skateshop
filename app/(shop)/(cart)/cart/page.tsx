@@ -1,5 +1,7 @@
+import CartPageWrapper from "../components/CartPageWrapper/CartPageWrapper";
+
 const CartPage = () => {
-  return <div>CartPage</div>;
+  return <CartPageWrapper>Page</CartPageWrapper>;
 };
 
 export default CartPage;

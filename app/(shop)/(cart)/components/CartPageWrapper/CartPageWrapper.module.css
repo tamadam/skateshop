@@ -1,0 +1,3 @@
+.cartPageWrapper {
+    padding-block-start: calc(var(--navbar-height) + 1.6em);
+}
