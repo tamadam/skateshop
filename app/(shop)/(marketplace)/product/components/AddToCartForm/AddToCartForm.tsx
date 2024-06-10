@@ -8,6 +8,7 @@ import Button from "@/app/components/Button/Button";
 import { FaBasketShopping } from "react-icons/fa6";
 import Spinner from "@/app/components/Spinner/Spinner";
 import toast from "react-hot-toast";
+import { useCart } from "@/app/providers/Cart/CartContext";
 
 const COUNTER_INITIAL_VALUE = 1;
 
@@ -19,6 +20,8 @@ const AddToCartForm = ({ product }: AddToCartFormProps) => {
   const [counter, setCounter] = useState<number>(COUNTER_INITIAL_VALUE);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
+  const { addItem } = useCart();
 
   const handleCounterChange = (newCount: number) => {
     if (newCount <= 0) {
@@ -98,8 +101,9 @@ const AddToCartForm = ({ product }: AddToCartFormProps) => {
           iconFirst
           variant="primary"
           disabled={isSubmitting}
+          onClick={() => addItem(product, counter)}
         >
-          <span>Add to Cart (soon) {isSubmitting && <Spinner />}</span>
+          <span>Add to Cart{isSubmitting && <Spinner />}</span>
         </Button>
       </div>
     </form>
