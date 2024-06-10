@@ -29,7 +29,6 @@
     right: -1rem;
     background: #fff;
     color: #000;
-    padding-block: 1.4em 1em;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     max-height: 400px;
     overflow-x: auto;
@@ -95,4 +94,18 @@
     display: flex;
     gap: 0.2em;
     font-weight: var(--fw-s);
+}
+
+.cartPreviewContentInner {
+    position: relative;
+}
+
+.cartPageNavigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    padding: 0.4em;
+    background: #fff;
 }
