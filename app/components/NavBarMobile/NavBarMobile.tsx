@@ -7,6 +7,7 @@ import { Libre_Franklin } from "next/font/google";
 import { useState } from "react";
 import SignOut from "@/app/(auth)/components/SignOut";
 import Link from "next/link";
+import { useCart } from "@/app/providers/Cart/CartContext";
 
 const libre = Libre_Franklin({ subsets: ["latin"] });
 
@@ -22,10 +23,15 @@ const NavBarMobile = ({
   routes,
 }: NavBarMobileProps) => {
   const [isOpen, setOpen] = useState<Boolean>(false);
+  const { allQuantity } = useCart();
 
   const mobileExtendedRoutes = isAuthenticated
     ? [
         ...(isAdmin ? [{ href: "/admin", label: "Admin" }] : []),
+        {
+          href: "/cart",
+          label: `Cart (${allQuantity > 9 ? "9+" : allQuantity})`,
+        },
         { href: "#", label: "Logout", signOut: true },
       ]
     : [
