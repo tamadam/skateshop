@@ -1,0 +1,56 @@
+/* COUNTER */
+
+.counterWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.productCounter h2 {
+    font-weight: var(--fw-m);
+    margin-block-end: 0.4em;
+}
+
+.counterItem {
+    padding: 0.2em 0.4em;
+    border: 1px solid lightgray;
+}
+
+.minus,
+.plus {
+    background: lightgrey;
+    cursor: pointer;
+}
+
+.minus {
+    border-top-left-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+}
+
+.plus {
+    border-top-right-radius: 0.4em;
+    border-bottom-right-radius: 0.4em;
+}
+
+.counterInput {
+    outline: none;
+    border: none;
+    background: transparent;
+    max-width: 4em;
+    text-align: center;
+    width: 100%;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.counterInput::-webkit-outer-spin-button,
+.counterInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.counterInput[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* ==== */

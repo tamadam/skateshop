@@ -28,10 +28,6 @@ const NavBarMobile = ({
   const mobileExtendedRoutes = isAuthenticated
     ? [
         ...(isAdmin ? [{ href: "/admin", label: "Admin" }] : []),
-        {
-          href: "/cart",
-          label: `Cart (${allQuantity > 9 ? "9+" : allQuantity})`,
-        },
         { href: "#", label: "Logout", signOut: true },
       ]
     : [
@@ -41,6 +37,10 @@ const NavBarMobile = ({
 
   const finalRoutes: { href: string; label: string; signOut?: boolean }[] = [
     ...routes,
+    {
+      href: "/cart",
+      label: `Cart (${allQuantity > 9 ? "9+" : allQuantity})`,
+    },
     ...mobileExtendedRoutes,
   ];
 

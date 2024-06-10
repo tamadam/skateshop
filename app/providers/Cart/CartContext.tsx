@@ -32,13 +32,10 @@ const transformProductToCartItem = (
 
 interface CartContextType {
   cartItems: CartItem[];
-  addItem: (
-    product: SingleProductType,
-    quantity: number,
-    updateItem?: boolean
-  ) => void;
-  removeItem: (product: SingleProductType) => void;
+  addItem: (product: SingleProductType, quantity: number) => void;
+  removeItem: (id: string) => void;
   removeAll: () => void;
+  updateItemQuantity: (id: string, quantity: number) => void;
   allQuantity: number;
 }
 
@@ -47,6 +44,7 @@ const CartContext = createContext<CartContextType>({
   addItem: () => {},
   removeItem: () => {},
   removeAll: () => {},
+  updateItemQuantity: () => {},
   allQuantity: 0,
 });
 
@@ -70,11 +68,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
   }, [cartItems]);
 
   // add or update (quantity) item
-  const addItem = (
-    product: SingleProductType,
-    quantity: number,
-    updateItem = false
-  ) => {
+  const addItem = (product: SingleProductType, quantity: number) => {
     const cartItem = transformProductToCartItem(product, quantity);
     const existingCartItem = cartItems.find((item) => item.id === product.id);
 
@@ -83,7 +77,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
         item.id === existingCartItem.id
           ? {
               ...item,
-              quantity: updateItem ? quantity : item.quantity + quantity,
+              quantity: item.quantity + quantity,
             }
           : item
       );
@@ -93,8 +87,15 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const removeItem = (product: SingleProductType) => {
-    const newCart = cartItems.filter((item) => item.id !== product.id);
+  const updateItemQuantity = (id: string, quantity: number) => {
+    const newCart = cartItems.map((item) =>
+      item.id === id ? { ...item, quantity } : item
+    );
+    setCartItems(newCart);
+  };
+
+  const removeItem = (id: string) => {
+    const newCart = cartItems.filter((item) => item.id !== id);
     setCartItems(newCart);
   };
 
@@ -108,7 +109,14 @@ const CartProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addItem, removeItem, removeAll, allQuantity }}
+      value={{
+        cartItems,
+        addItem,
+        removeItem,
+        removeAll,
+        updateItemQuantity,
+        allQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -1,0 +1,134 @@
+.shoppingCartTitle {
+    font-size: var(--fs-m);
+    font-weight: var(--fw-l);
+    text-transform: uppercase;
+    margin-block-end: 2em;
+}
+
+.shoppingCartItemsWrapper {
+    display: grid;
+    gap: 3em;
+    position: relative;
+}
+
+.cartItems {
+    border: 1px solid var(--default-border-clr);
+    overflow: hidden;
+}
+
+.cartItem {
+    padding: 0.6em;
+    display: grid;
+    gap: 0.6em;
+    grid-template-areas:
+    "image details delete";
+    grid-template-columns: auto 1fr;
+}
+
+.cartItem:not(:last-child) {
+    border-bottom: 1px solid var(--default-border-clr);
+}
+
+.productName {
+    cursor: pointer;
+}
+
+.productImageContainer {
+    max-width: 200px;
+    grid-area: image;
+    cursor: pointer;
+}
+
+.productImage {
+    object-fit: contain;
+    aspect-ratio: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.productDetails {
+    grid-area: details;
+    display: grid;
+}
+
+.productName {
+    font-size: var(--fs-s);
+    font-weight: var(--fw-l);
+    text-transform: uppercase;
+}
+
+
+.productPrice {
+    color: var(--clr-main-pink);
+    font-weight: var(--fw-m);
+}
+
+.productPriceContainer h1,
+.productCounter h1 {
+    margin-block-end: 0.2em;
+}
+
+.productRemove {
+    grid-area: delete;
+    justify-self: end;
+    align-self: top;
+}
+
+.summaryWrapper {
+    background: #000;
+    color: #fff;
+    border-radius: 0.4em;
+    padding: 1em;
+    height: max-content;
+    position: sticky;
+    top: 0;
+}
+
+.summaryTitle h1 {
+    font-size: var(--fs-s);
+    font-weight: var(--fw-m);
+    text-transform: uppercase;
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #fff;
+}
+
+.summaryItem {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 1em;
+}
+
+.orderTotal {
+    border-top: 1px solid #fff;
+    padding-top: 0.4em;
+}
+
+.checkoutButton {
+    border-radius: 1em;
+    width: 100%;
+}
+
+.emptyCartWrapper {
+    display: grid;
+    gap: 1em;
+    width: fit-content;
+    overflow: hidden;
+}
+
+.continueShopping {
+    color: var(--clr-main-pink);
+}
+
+@media (min-width: 861px) {
+    .shoppingCartItemsWrapper {
+        grid-template-columns: 1fr 0.4fr;
+    }
+}
+
+@media (max-width: 340px) {
+    .cartItem {
+        grid-template-areas: "image image"
+        "details delete";
+        justify-items: center;
+    }
+}
