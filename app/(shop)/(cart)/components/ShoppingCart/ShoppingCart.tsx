@@ -5,16 +5,53 @@ import styles from "./ShoppingCart.module.css";
 import Button from "@/app/components/Button/Button";
 import { LiaTrashAlt } from "react-icons/lia";
 import Counter from "@/app/(shop)/(cart)/components/Counter/Counter";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IoIosArrowForward } from "react-icons/io";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const ShoppingCart = () => {
-  const { cartItems, removeItem, updateItemQuantity } = useCart();
+  const { cartItems, removeItem, updateItemQuantity, removeAll } = useCart();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("success")) {
+      toast.success("Payment completed");
+      removeAll();
+    }
+
+    if (searchParams.get("canceled")) {
+      toast.error("Something went wrong");
+    }
+  }, [searchParams, removeAll]);
 
   const totalPrice = cartItems.reduce((acc, currVal) => {
     return (acc += Number(currVal.price) * currVal.quantity);
   }, 0);
+
+  const onCheckout = async () => {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+      method: "POST",
+      body: JSON.stringify(
+        cartItems.map((item) => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+        }))
+      ),
+    });
+
+    if (request.ok) {
+      const requestData = await request.json();
+
+      const url = requestData.url;
+      window.location = url;
+    } else {
+      console.log("Error...");
+    }
+  };
 
   return (
     <div>
@@ -98,7 +135,7 @@ const ShoppingCart = () => {
                 <span>Order total</span>
                 <span>&euro;{totalPrice}</span>
               </div>
-              <Button className={styles.checkoutButton}>
+              <Button className={styles.checkoutButton} onClick={onCheckout}>
                 <span>Checkout</span>
               </Button>
             </div>
