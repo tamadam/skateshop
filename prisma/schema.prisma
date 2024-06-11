@@ -20,6 +20,7 @@ model User {
   email     String   @unique
   password  String
   role      ROLES    @default(USER)
+  orders    Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -47,25 +48,26 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   name        String
   price       Decimal
   categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category    @relation(fields: [categoryId], references: [id])
   brandId     String
-  brand       Brand    @relation(fields: [brandId], references: [id])
+  brand       Brand       @relation(fields: [brandId], references: [id])
   sizeId      String
-  size        Size     @relation(fields: [sizeId], references: [id])
+  size        Size        @relation(fields: [sizeId], references: [id])
   colorId     String?
-  color       Color?   @relation(fields: [colorId], references: [id])
+  color       Color?      @relation(fields: [colorId], references: [id])
   images      Image[]
   gender      GENDERS
   quantity    Int
-  description String   @db.VarChar(150)
+  description String      @db.VarChar(150)
   isFeatured  Boolean
   isArchived  Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  orderItem   OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model Image {
@@ -102,6 +104,26 @@ model Brand {
   products  Product[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  userId     Int
+  user       User        @relation(fields: [userId], references: [id])
+  orderItems OrderItem[]
+  phone      String      @default("")
+  address    String      @default("")
+  isPaid     Boolean
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 enum ROLES {
