@@ -2,6 +2,7 @@ import { SingleProductType } from "@/app/(shop)/types";
 import React, {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -99,9 +100,9 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     setCartItems(newCart);
   };
 
-  const removeAll = () => {
+  const removeAll = useCallback(() => {
     setCartItems([]);
-  };
+  }, []);
 
   const allQuantity = cartItems.reduce((acc, currVal) => {
     return (acc += currVal.quantity);

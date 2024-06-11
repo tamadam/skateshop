@@ -26,29 +26,42 @@ const getUserId = async () => {
     return user?.id;
 }
 
-// TODO : decrease quantity of existing products after payment
 export async function POST(request: NextRequest) {
-   
     const items: {id: string, name: string; price: string; quantity: string}[] = await request.json();
-    const productIds = items.map((item) => item.id);    
+    const productIds = items.map((item) => item.id);
+
+    const products = await prisma.product.findMany({
+      where: {
+        id: {
+          in: productIds,
+        },
+      },
+    });
 
     if (!items || items.length === 0) {
         return NextResponse.json("Products are required", { status: 400 });
     }
 
+    for (const item of items) {
+      const product = products.find(p => p.id === item.id);
+      if (product && (product.quantity - Number(item.quantity)) <= 0) {
+        return NextResponse.json(`Insufficient stock for product ${item.name}`, { status: 400 });
+      }
+    }
+
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
     items.forEach((product) => {
-        line_items.push({
-            quantity: Number(product.quantity),
-            price_data: {
-                currency: "EUR",
-                product_data: {
-                    name: product.name
-                },
-                unit_amount: Number(product.price) * 100,
-            },
-        });
+      line_items.push({
+          quantity: Number(product.quantity),
+          price_data: {
+              currency: "EUR",
+              product_data: {
+                  name: product.name
+              },
+              unit_amount: Number(product.price) * 100,
+          },
+      });
     });
 
     // check if the user is logged in
@@ -61,12 +74,13 @@ export async function POST(request: NextRequest) {
           address: "",
           phone: "",
           orderItems: {
-            create: productIds.map((productId) => ({
+            create: items.map((item) => ({
               product: {
                 connect: {
-                  id: productId,
+                  id: item.id,
                 },
               },
+              quantity: Number(item.quantity),
             })),
           },
         },

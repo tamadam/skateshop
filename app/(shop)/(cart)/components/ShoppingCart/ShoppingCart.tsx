@@ -17,8 +17,10 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     if (searchParams.get("success")) {
+      setTimeout(() => {
+        removeAll();
+      }, 0);
       toast.success("Payment completed");
-      removeAll();
     }
 
     if (searchParams.get("canceled")) {
@@ -49,7 +51,8 @@ const ShoppingCart = () => {
       const url = requestData.url;
       window.location = url;
     } else {
-      console.log("Error...");
+      const errorData = await request.json();
+      toast.error(errorData);
     }
   };
 
