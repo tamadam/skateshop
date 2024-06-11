@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { RiAdvertisementLine, RiNumbersFill } from "react-icons/ri";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { GiSkateboard } from "react-icons/gi";
-import { MdNumbers } from "react-icons/md";
+import { MdNumbers, MdOutlinePayment } from "react-icons/md";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { TbBrandDatabricks } from "react-icons/tb";
 import { useSidebar } from "@/app/providers/Sidebar/SidebarContext";
@@ -29,6 +29,12 @@ const AdminNav = () => {
       href: "/admin",
       icon: RiNumbersFill,
       active: pathname === "/admin",
+    },
+    {
+      label: "Orders",
+      href: "/admin/orders",
+      icon: MdOutlinePayment,
+      active: pathname === "/admin/orders",
     },
     {
       label: "Billboards",
