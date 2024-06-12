@@ -1,0 +1,182 @@
+.heroOuterWrapper {
+    width: 100%;
+    height: 100svh;
+    background: var(--dft-bg-clr);
+    background-image: url("/static/images/home_hero_bg_optimized.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center right; 
+    mask-image: linear-gradient(
+      rgb(0 0 0 / 1) 99%,
+      rgb(0 0 0 / 1) 98%,
+      rgb(0 0 0 / 0)
+    );
+  
+    --hero-main-txt-mr: 1rem;
+    --hero-title-fnt-clr: #FF81EB;
+    --hero-shop-fnt-clr: #48EDFF;
+    --hero-shop-fnt-hvr-clr: #26cee1;
+    --hero-advert-fnt-clr: #FFEE00;
+}
+
+.heroOuterWrapper img {
+    object-fit: contain;
+}
+
+.heroInnerWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr repeat(2, 1fr);
+    grid-template-areas:
+      "desk"
+      "title"
+      "shop";
+    height: 100%;
+    max-width: var(--screen-max-width);
+    margin: 0 auto;
+}
+
+.skateContainer {
+    grid-area: desk;
+    container-type: size;
+  
+    display: flex;
+    justify-content: center;
+    max-height: min(100svh, 1000px);
+}
+
+.desk {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    user-select: none;
+}
+
+.desk img {
+    position: absolute;
+    height: 120%;
+    rotate: 45deg;
+    left: 14%;
+} 
+
+.desk:last-child {
+    display: none;
+}
+
+.titleContainer {
+    grid-area: title;
+    align-self: center;
+    justify-self: end; 
+  
+    margin-inline-end: var(--hero-main-txt-mr);
+}
+
+.heroTitle {
+    text-transform: uppercase;
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-xl);
+    color: var(--hero-title-fnt-clr);
+    text-align: right;
+    padding-bottom: 0.2em;
+}
+
+.heroDiscount {
+    text-wrap: balance;
+    line-height: 1.4;
+    text-transform: uppercase;
+    text-align: right;
+    font-size: var(--fs-s);
+   
+}
+
+.heroDiscountHighlight {
+    width: fit-content;
+    margin-left: auto;
+    font-weight: var(--fw-l);
+    color: greenyellow;
+}
+
+
+.shopWrapper {
+    grid-area: shop;
+    align-self: flex-start;
+}
+
+.shopLink {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-left: auto;
+    gap: 0.4em;
+    font-size: var(--fs-l);
+    font-weight: var(--fw-l);
+    text-transform: uppercase;
+    color: var(--hero-shop-fnt-clr);
+    margin-inline-end: var(--hero-main-txt-mr);
+    transition: var(--clr-trans);
+}
+
+.shopIcon {
+    display: flex;
+    background-color: var(--primary-btn-bg);
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.4em;
+    transition: background-color 100ms ease-in-out;
+}
+
+.shopLink:hover {
+    color: var(--hero-shop-fnt-hvr-clr)
+}
+
+.shopLink:hover > .shopIcon {
+    background: var(--primary-btn-bg-hover);
+}
+
+@media (min-width: 860px) {
+    .heroInnerWrapper {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-areas:
+        "desk text1"
+        "desk title"
+        "desk shop";
+
+        --hero-main-txt-mr: 2.4rem;
+    }
+
+    .desk {
+        height: 80cqh;
+    }
+
+    .desk img {
+        rotate: 20deg;
+        height: 100%;
+    }
+
+    .desk:first-child {
+        align-self: start;
+        
+    }
+
+    .desk:last-child {
+        display: block;
+        align-self: center;
+        margin-left: -16cqw;
+    }
+
+    .titleContainer {
+        align-self: end;
+    }
+
+    .shopWrapper {
+        align-self: center;
+    }
+}
+
+/*     .textWrapper {
+        grid-area: text1;
+      
+       
+         margin-block-start: calc(var(--navbar-height) + 2em);
+       }  */
