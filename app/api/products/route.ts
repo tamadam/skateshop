@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { ROLES } from "@prisma/client";
 import { productsFormSchema } from "@/app/validationSchemas";
 import { BRAND_ID_SEARCH_PARAM, CATEGORY_ID_SEARCH_PARAM, COLOR_ID_SEARCH_PARAM, IS_FEATURED_SEARCH_PARAM, ORDER_BY, PRODUCTS_ITEMS_PER_PAGE, PRODUCTS_ORDER_BY_PARAM, PRODUCTS_PAGE_PARAM, SIZE_ID_SEARCH_PARAM } from "@/app/constants";

@@ -2,8 +2,8 @@ import { billboardFormSchema } from "@/app/validationSchemas";
 import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
 import { ROLES } from "@prisma/client";
+import { authOptions } from "@/lib/authOptions";
 
 export async function GET(
     request: NextRequest,

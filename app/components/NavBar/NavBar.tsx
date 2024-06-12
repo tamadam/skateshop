@@ -1,7 +1,7 @@
 import { Libre_Franklin } from "next/font/google";
 import styles from "./NavBar.module.css";
 import Link from "next/link";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import { ROLES } from "@prisma/client";
 import { CATEGORY_PRODUCTS_SEARCH_PARAM } from "@/app/constants";
