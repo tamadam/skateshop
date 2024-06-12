@@ -46,18 +46,8 @@
 }
 
 .desk {
-    width: 100%;
-    height: 100%;
-    position: relative;
     user-select: none;
 }
-
-.desk img {
-    position: absolute;
-    height: 120%;
-    rotate: 45deg;
-    left: 14%;
-} 
 
 .desk:last-child {
     display: none;
@@ -133,7 +123,22 @@
     background: var(--primary-btn-bg-hover);
 }
 
-@media (min-width: 860px) {
+@media (max-width: 860px) {
+    .desk {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    
+    .desk img {
+        position: absolute;
+        height: 120%;
+        rotate: 45deg;
+        left: 14%;
+    }     
+}
+
+@media (min-width: 861px) {
     .heroInnerWrapper {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: repeat(3, 1fr);
@@ -146,11 +151,13 @@
     }
 
     .desk {
-        height: 80cqh;
+        max-height: 80cqh;
+        max-width: 30cqw;
+        rotate: 15deg;
     }
 
     .desk img {
-        rotate: 20deg;
+        width: 100%;
         height: 100%;
     }
 
@@ -162,7 +169,6 @@
     .desk:last-child {
         display: block;
         align-self: center;
-        margin-left: -16cqw;
     }
 
     .titleContainer {
