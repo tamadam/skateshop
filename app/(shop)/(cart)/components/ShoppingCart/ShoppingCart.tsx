@@ -24,7 +24,7 @@ const ShoppingCart = () => {
     }
 
     if (searchParams.get("canceled")) {
-      toast.error("Something went wrong");
+      toast.error("Payment canceled");
     }
   }, [searchParams, removeAll]);
 
