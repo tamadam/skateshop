@@ -6,9 +6,10 @@ You can try out the app by visiting the following link: https://skateshop-silk.v
 
 # Features & Technologies Used
 
-- **Next.js & React**: Frontend built with Next.js for server-side rendering and React for a dynamic user interface.
+- **Next.js & React**: The application is built using Next.js, which provides server-side rendering, along with React for a dynamic user interface.
 - **CSS Styling**: Custom styles created using CSS.
-- **Image Upload**: Functionality to upload and manage product images.
+- **Image Upload**: Includes functionality to upload and manage various types of images. Cloudinary is utilized for image storage.
+- **Prisma & Supabase**: Utilizes a PostgreSQL database with Prisma ORM for efficient data management.
 - **Admin Layout**: Dedicated admin interface for managing the webshop.
 - **Stripe Integration**: Secure payment processing using Stripe.
 - **Zod Validation**: Data validation using Zod for robust error handling.
