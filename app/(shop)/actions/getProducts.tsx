@@ -51,7 +51,11 @@ const getProducts = async (
     },
   });
 
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    next: {
+      revalidate: 3600,
+    },
+  });
 
   return res.json();
 };

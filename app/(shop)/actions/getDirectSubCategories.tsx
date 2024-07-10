@@ -16,7 +16,11 @@ const getDirectSubCategories = async (
     },
   });
 
-  const category = await fetch(url);
+  const category = await fetch(url, {
+    next: {
+      revalidate: 3600,
+    },
+  });
 
   return category.json();
 };
