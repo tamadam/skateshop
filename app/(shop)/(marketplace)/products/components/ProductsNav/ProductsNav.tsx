@@ -2,7 +2,7 @@
 
 import Overlay from "@/app/components/Overlay/Overlay";
 import { useSidebar } from "@/app/providers/Sidebar/SidebarContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import styles from "./ProductsNav.module.css";
 import { ProductNavInfo } from "@/app/(shop)/types";
@@ -14,6 +14,7 @@ import {
   COLOR_SEARCH_PARAM,
   SIZE_SEARCH_PARAM,
 } from "@/app/constants";
+import Button from "@/app/components/Button/Button";
 
 const libre = Libre_Franklin({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ interface ProductsNavProps {
 const ProductsNav = ({ data }: ProductsNavProps) => {
   const pathname = usePathname();
   const { isOpen, setOpen } = useSidebar();
+  const router = useRouter();
 
   useEffect(() => {
     setOpen(false);
@@ -113,6 +115,12 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
     },
   ];
 
+  // check if there is available menu item
+  const isMenuItemAvailable =
+    menuItems.filter((menuItem) => menuItem.items.length !== 0).length !== 0;
+
+  console.log(isMenuItemAvailable);
+
   return (
     <div>
       <Overlay open={isOpen} onClick={() => setOpen(false)} hideOnDesktop />
@@ -125,20 +133,26 @@ const ProductsNav = ({ data }: ProductsNavProps) => {
           .filter(Boolean)
           .join(" ")}
       >
-        {menuItems.map((menuItem, index) => {
-          return (
-            menuItem.items.length !== 0 && (
-              <NavItem
-                key={menuItem.label}
-                searchParam={menuItem.searchParam}
-                open={index === 0 ? true : false}
-                label={menuItem.label}
-                data={menuItem.items}
-                filter={menuItem.filter}
-              />
-            )
-          );
-        })}
+        {isMenuItemAvailable ? (
+          menuItems.map((menuItem, index) => {
+            return (
+              menuItem.items.length !== 0 && (
+                <NavItem
+                  key={menuItem.label}
+                  searchParam={menuItem.searchParam}
+                  open={index === 0 ? true : false}
+                  label={menuItem.label}
+                  data={menuItem.items}
+                  filter={menuItem.filter}
+                />
+              )
+            );
+          })
+        ) : (
+          <Button variant="primary" onClick={() => router.push("/marketplace")}>
+            <span>Go back to Marketplace</span>
+          </Button>
+        )}
       </div>
     </div>
   );

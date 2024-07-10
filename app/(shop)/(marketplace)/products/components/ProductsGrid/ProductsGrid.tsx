@@ -15,17 +15,21 @@ const ProductsGrid = ({ products }: ProductsGridProps) => {
 
   return (
     <div className={styles.productsGridWrapper}>
-      {products.map((product) => {
-        return (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onClick={() => {
-              router.push(`/product/${product.id}`);
-            }}
-          />
-        );
-      })}
+      {products.length === 0 ? (
+        <span>This type of product is currently unavailable</span>
+      ) : (
+        products.map((product) => {
+          return (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onClick={() => {
+                router.push(`/product/${product.id}`);
+              }}
+            />
+          );
+        })
+      )}
     </div>
   );
 };
