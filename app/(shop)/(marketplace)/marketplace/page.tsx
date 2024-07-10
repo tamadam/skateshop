@@ -8,6 +8,8 @@ import ProductsSlider from "../components/ProductsSlider/ProductsSlider";
 import { BILLBOARD_DEFAULT_ID } from "../../constants";
 import { RawProductType } from "../../types";
 
+export const revalidate = 3600;
+
 const MarketplacePage = async () => {
   const billboard = await getBillboard(BILLBOARD_DEFAULT_ID);
   const brands = (await getBrands()).filter((brand) => Boolean(brand.imageUrl));

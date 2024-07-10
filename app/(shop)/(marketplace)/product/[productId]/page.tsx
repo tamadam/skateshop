@@ -12,6 +12,8 @@ import getBrand from "@/app/(shop)/actions/getBrand";
 import ProductBreadcrumb from "../../components/ProductBreadcrumb/ProductBreadcrumb";
 import ProductDetails from "../components/ProductDetails/ProductDetails";
 
+export const revalidate = 3600;
+
 interface ProductPageProps {
   params: { productId: string };
 }
