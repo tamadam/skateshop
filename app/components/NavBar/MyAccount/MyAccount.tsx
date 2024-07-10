@@ -40,6 +40,7 @@ const MyAccount = ({ isAuthenticated, isAdmin }: MyAccountProps) => {
   const routes = isAuthenticated
     ? [
         ...(isAdmin ? [{ href: "/admin", label: "Admin" }] : []),
+        { href: "/orders", label: "Orders" },
         { href: "#", label: "Logout", signOut: true },
       ]
     : [

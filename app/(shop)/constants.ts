@@ -1,6 +1,9 @@
 export const BILLBOARD_DEFAULT_BACKGROUND = "/static/images/white_grafiti_optimized.png";
 export const BILLBOARD_DEFAULT_ID = "4bb83a9b-a597-4864-a896-f605cd22d7ff";
 
+// ORDERS
+export const ORDERS_BILLBOARD_ID = "b2542007-827b-4efa-82cf-8c5fe9d173cb";
+
 // SKATEBOARDS
 export const CATEGORY_SKATEBOARDS_ID = "c563ddaa-22e3-47d6-ac65-a67625749133";
 export const CATEGORY_LONGBOARDS_ID = "49eabc91-e262-4711-8493-dcc39cdbd74c";
