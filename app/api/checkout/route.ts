@@ -17,9 +17,15 @@ export async function OPTIONS() {
 
 const getUserId = async () => {
     const session = await getServerSession(authOptions);
+    const userEmail = session?.user.email;
+
+    if (!userEmail) {
+      return undefined;
+    }
+
     const user = await prisma.user.findUnique({
         where: {
-            email: session?.user.email ?? undefined,
+            email: userEmail,
         },
     });
 
