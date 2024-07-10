@@ -89,3 +89,19 @@ export type ProductBreadcrumbData = {
     id: string;
     name: string;
 }
+
+export type OrderType = {
+    id: string;
+    userId: string;
+    phone: string;
+    address: string;
+    isPaid: boolean;
+    orderItems: OrderItemType[];
+}
+
+export type OrderItemType = {
+    id: string;
+    orderId: string;
+    productId: string;
+    quantity: number;
+}
