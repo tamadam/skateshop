@@ -4,21 +4,45 @@ import { ORDERS_BILLBOARD_ID } from "../../constants";
 import getBillboard from "../../actions/getBillboard";
 import Container from "../../(marketplace)/components/Container/Container";
 import getOrders from "../../actions/getOrders";
-import { OrderType } from "../../types";
+import { FinalOrderType, OrderType } from "../../types";
+import OrderItem from "./components/OrderItem/OrderItem";
+import getProduct from "../../actions/getProduct";
+import OrdersWrapper from "./components/OrdersWrapper/OrdersWrapper";
 
 const OrdersPage = async () => {
   const billboard = await getBillboard(ORDERS_BILLBOARD_ID);
-
   const orders: OrderType[] = await getOrders();
-  console.log(orders);
+
+  const finalOrders: FinalOrderType[] = await Promise.all(
+    orders.map(async (order) => {
+      const orderItemsWithProductInfo = await Promise.all(
+        order.orderItems.map(async (orderItem) => {
+          const productId = orderItem.productId;
+          const product = await getProduct(productId);
+
+          return { product: product, quantity: orderItem.quantity };
+        })
+      );
+
+      return { ...order, orderItems: orderItemsWithProductInfo };
+    })
+  );
+
+  console.log(finalOrders);
 
   return (
     <div>
       <Billboard billboard={billboard} />
       <Container>
-        {orders.map((order) => (
-          <div key={order.id}>{order.id}</div>
-        ))}
+        <OrdersWrapper>
+          {finalOrders.length !== 0 ? (
+            finalOrders.map((order, index) => (
+              <OrderItem key={order.id} order={order} index={index + 1} />
+            ))
+          ) : (
+            <div>No orders</div>
+          )}
+        </OrdersWrapper>
       </Container>
     </div>
   );

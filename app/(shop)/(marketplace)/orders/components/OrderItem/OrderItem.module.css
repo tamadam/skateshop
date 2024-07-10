@@ -1,0 +1,31 @@
+.orderItemCard {
+    padding: 1em;
+    border-radius: 0.4em;
+    background: #f1f1f1;
+}
+    
+.orderDetails {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.4em;
+}
+
+.orderTitle {
+    font-size: var(--fs-m);
+    font-weight: var(--fw-l);
+    text-transform: uppercase;
+    margin-block-end: 0.4em;
+}
+
+.orderItem {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.4em;
+}
+
+.orderInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

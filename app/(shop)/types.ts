@@ -105,3 +105,15 @@ export type OrderItemType = {
     productId: string;
     quantity: number;
 }
+
+export type FinalOrderType = {
+    orderItems: {
+        product: SingleProductType;
+        quantity: number;
+    }[];
+    id: string;
+    userId: string;
+    phone: string;
+    address: string;
+    isPaid: boolean;
+}
